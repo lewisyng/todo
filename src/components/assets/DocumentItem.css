@@ -1,0 +1,9 @@
+.documentItem {
+    display: flex;
+    width: 300px;
+    margin: 0.5rem;
+}
+
+.documentItem__listItem {
+    width: 100%;
+}
