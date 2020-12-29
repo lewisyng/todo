@@ -38,7 +38,6 @@ function Sidebar(props) {
     } else {
         alert('Der Name existiert bereits')
     }
-
   };
 
   const checkIfTableNameAlreadyExists = async (name) => {
@@ -85,7 +84,8 @@ function Sidebar(props) {
   const handleDelete = async (id, collection) => {
     await deleteCollection(collection);
     await deleteItem("collections", id);
-    setCollections(await getCollections())
+    setCollections(await getCollections());
+    props.handleCollectionChange(null)
   };
 
   return (
@@ -97,7 +97,7 @@ function Sidebar(props) {
       />
       <NewItemButton
         value="Neue Liste"
-        className="sidebar__newList"
+        className="sidebar__newListBtn"
         toggleNewItemField={() => setShowNewItemField(true)}
       />
 

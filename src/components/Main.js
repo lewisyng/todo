@@ -12,11 +12,11 @@ function Main() {
 
   return (
     <div className="main">
-      <Sidebar
-        handleCollectionChange={handleCollectionChange}
-      />
-      {selectedTable && <SelectedTable selectedTable={selectedTable} />}
-      {!selectedTable && <div>Wählen Sie eine Liste aus</div>}
+      <Sidebar handleCollectionChange={handleCollectionChange} />
+      {selectedTable 
+        ? <SelectedTable selectedTable={selectedTable} />
+        : <div>Wählen Sie eine Liste aus</div>
+      }
     </div>
   );
 }
