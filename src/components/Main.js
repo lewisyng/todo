@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import "./Main.css";
-import Sidebar from "./Sidebar";
-import SelectedTable from "./SelectedTable";
+import Sidebar from "../sidebar/Sidebar";
+import SelectedTable from "../selectedTable/SelectedTable";
 
 function Main() {
-  const [selectedTable, setSelectedTable] = useState();
+  const [selectedTable, setSelectedTable] = useState(null);
 
   const handleCollectionChange = (id) => {
     setSelectedTable(id);
@@ -13,10 +13,7 @@ function Main() {
   return (
     <div className="main">
       <Sidebar handleCollectionChange={handleCollectionChange} />
-      {selectedTable 
-        ? <SelectedTable selectedTable={selectedTable} />
-        : <div>Wählen Sie eine Liste aus</div>
-      }
+      <SelectedTable selectedTable={selectedTable} />
     </div>
   );
 }

@@ -1,6 +1,11 @@
 .app {
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  background-color: rgb(232, 238, 238);
+}
+
+header,
+footer {
+  background-color: #3A5FEB;
+  color: white;
 }

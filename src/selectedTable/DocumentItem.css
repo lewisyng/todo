@@ -1,7 +1,7 @@
 .documentItem {
     display: flex;
     width: 300px;
-    margin: 0.5rem;
+    margin-top: 0.5rem;
 }
 
 .documentItem__listItem {
