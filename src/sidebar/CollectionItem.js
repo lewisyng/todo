@@ -1,33 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CollectionItem.css";
-import {
-  Button,
-  ListItem,
-  ListItemSecondaryAction,
-  IconButton,
-} from "@material-ui/core";
+import { ListItem, IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ForwardIcon from "@material-ui/icons/Forward";
 import { Draggable } from "react-beautiful-dnd";
+import { deleteCollection } from "../localbaseFunctions";
 
 function CollectionItem(props) {
   const { item, index } = props;
-
-  const showOptions = () => {
-    document.getElementById(
-      `collectionItem__delete${item.id}`
-    ).style.visibility = "visible";
-    document.getElementById(`collectionItem__show${item.id}`).style.visibility =
-      "visible";
-  };
-
-  const hideOptions = () => {
-    document.getElementById(
-      `collectionItem__delete${item.id}`
-    ).style.visibility = "hidden";
-    document.getElementById(`collectionItem__show${item.id}`).style.visibility =
-      "hidden";
-  };
+  const [optionsVisible, setOptionsVisible] = useState(false);
 
   return (
     <Draggable draggableId={`${item.id}`} index={index}>
@@ -37,23 +18,28 @@ function CollectionItem(props) {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
           className="collectionItem"
-          onMouseOver={showOptions}
-          onMouseOut={hideOptions}
+          onMouseOver={() => setOptionsVisible(true)}
+          onMouseOut={() => setOptionsVisible(false)}
         >
           <ListItem>
             <div className="collectionName">{item.name}</div>
+
             <IconButton
               id={`collectionItem__delete${item.id}`}
               className="collectionItem__deleteButton"
-              style={{ visibility: "hidden" }}
-              onClick={() => props.handleDelete(item.id, item.name)}
+              style={{ visibility: optionsVisible ? "visible" : "hidden" }}
+              onClick={async () => {
+                await deleteCollection(index, item.name);
+                props.handleDelete();
+              }}
             >
               <DeleteIcon />
             </IconButton>
+
             <IconButton
               id={`collectionItem__show${item.id}`}
               className="collectionItem__showButton"
-              style={{ visibility: "hidden" }}
+              style={{ visibility: optionsVisible ? "visible" : "hidden" }}
               onClick={() => props.handleCollectionChange(item.name)}
             >
               <ForwardIcon />

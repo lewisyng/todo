@@ -4,7 +4,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Button } from "@material-ui/core";
 
 function NewItemField(props) {
-  const [newList, setNewList] = useState();
+  const [newField, setNewField] = useState("");
 
   useEffect(() => {
     document.getElementById("inputField").focus();
@@ -14,16 +14,16 @@ function NewItemField(props) {
     <div className="newItemField">
       <form
         onSubmit={(event) => {
-          props.createNewField(event, newList);
-          setNewList("");
+          props.createNewField(event, newField);
+          setNewField("");
         }}
         className="newItemFieldForm"
       >
         <input
           type="text"
-          value={newList}
+          value={newField}
           id="inputField"
-          onChange={(e) => setNewList(e.target.value)}
+          onChange={(e) => setNewField(e.target.value)}
         />
         <Button onClick={props.handleClick}>
           <CloseIcon />
