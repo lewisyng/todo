@@ -1,9 +1,9 @@
 .selectedTable {
     flex-grow: 1;
-    margin: 1rem;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    padding-top: 1rem;
 }
 
 .selectedTable__header {
@@ -15,4 +15,11 @@
 
 .selectATable {
     margin: auto;
+}
+
+@media (min-width: 575px){
+    .selectedTable{
+        align-items: flex-start;
+        padding: 1.5rem;
+    }
 }
