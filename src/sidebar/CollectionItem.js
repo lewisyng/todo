@@ -1,6 +1,11 @@
 import React from "react";
 import "./CollectionItem.css";
-import { Button } from "@material-ui/core";
+import {
+  Button,
+  ListItem,
+  ListItemSecondaryAction,
+  IconButton,
+} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ForwardIcon from "@material-ui/icons/Forward";
 import { Draggable } from "react-beautiful-dnd";
@@ -35,23 +40,25 @@ function CollectionItem(props) {
           onMouseOver={showOptions}
           onMouseOut={hideOptions}
         >
-          <div className="collectionName">{item.name}</div>
-          <Button
-            id={`collectionItem__delete${item.id}`}
-            className="collectionItem__deleteButton"
-            style={{ visibility: "hidden" }}
-            onClick={() => props.handleDelete(item.id, item.name)}
-          >
-            <DeleteIcon />
-          </Button>
-          <Button
-            id={`collectionItem__show${item.id}`}
-            className="collectionItem__showButton"
-            style={{ visibility: "hidden" }}
-            onClick={() => props.handleCollectionChange(item.name)}
-          >
-            <ForwardIcon />
-          </Button>
+          <ListItem>
+            <div className="collectionName">{item.name}</div>
+            <IconButton
+              id={`collectionItem__delete${item.id}`}
+              className="collectionItem__deleteButton"
+              style={{ visibility: "hidden" }}
+              onClick={() => props.handleDelete(item.id, item.name)}
+            >
+              <DeleteIcon />
+            </IconButton>
+            <IconButton
+              id={`collectionItem__show${item.id}`}
+              className="collectionItem__showButton"
+              style={{ visibility: "hidden" }}
+              onClick={() => props.handleCollectionChange(item.name)}
+            >
+              <ForwardIcon />
+            </IconButton>
+          </ListItem>
         </div>
       )}
     </Draggable>

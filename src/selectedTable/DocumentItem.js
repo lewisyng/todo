@@ -1,9 +1,7 @@
-import { Button, Checkbox, ListItemSecondaryAction, IconButton, ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
+import { Checkbox, ListItemSecondaryAction, IconButton, ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
 import "./DocumentItem.css";
 import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
-import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
-import CheckBoxIcon from "@material-ui/icons/CheckBox";
 
 function DocumentItem(props) {
   const { item } = props;
