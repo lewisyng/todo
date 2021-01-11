@@ -3,20 +3,17 @@ import CollectionItem from "./CollectionItem.js";
 import "./Collections.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { List } from "@material-ui/core";
+import {overwriteCollections} from '../localbaseFunctions'
 
 function Collections(props) {
-  const [collections, setCollections] = useState();
   const { colls } = props;
+  const [collections, setCollections] = useState();
 
   useEffect(() => {
     if (colls) {
       setCollections(colls);
     }
   }, [colls]);
-
-  const persistNewOrderOfCollections = () => {
-    
-  }
 
   const onDragEnd = (result) => {
     const { destination, source } = result;
@@ -37,6 +34,7 @@ function Collections(props) {
     results.splice(destination.index, 0, removed);
 
     setCollections(results);
+    overwriteCollections(results);
   };
 
   return (

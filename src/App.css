@@ -4,7 +4,7 @@
   flex-direction: column;
 }
 
-header,
+.header,
 footer {
   background-color: #3A5FEB;
   color: white;

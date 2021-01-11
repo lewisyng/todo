@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import db from "../localbase";
 import NewItemField from "../selectedTable/NewItemField";
-import ReverseOrderButton from '../components/assets/ReverseOrderButton';
-import { deleteCollection, deleteItem } from "../localbaseFunctions";
+import ReverseOrderButton from "../components/assets/ReverseOrderButton";
+import {
+  getCollections,
+  overwriteCollections,
+} from "../localbaseFunctions";
 import NewItemButton from "../components/assets/NewItemButton";
 import Collections from "./Collections";
 import AddIcon from "@material-ui/icons/Add";
-import ImportExportIcon from '@material-ui/icons/ImportExport';
+import ImportExportIcon from "@material-ui/icons/ImportExport";
 
 function Sidebar(props) {
   const [showNewItemField, setShowNewItemField] = useState(false);
   const [collections, setCollections] = useState();
-  const [orderOfCollections, setOrderOfCollections] = useState('desc');
 
   useEffect(() => {
     (async () => {
@@ -20,18 +22,16 @@ function Sidebar(props) {
     })();
   }, []);
 
-  const getCollections = async () => {
-    return await db.collection("collections").orderBy('id', orderOfCollections).get();
-  };
-
   const createNewCollection = async (e, value) => {
     e.preventDefault();
 
-    if (value === "") return;
+    let tableNameAlreadyExists = await checkIfTableNameAlreadyExists(value);
 
-    let exists = await checkIfTableNameAlreadyExists(value);
-
-    if (!exists) {
+    if (tableNameAlreadyExists) {
+      alert("Der Name existiert bereits");
+    } else if (value === "") {
+      alert("Bitten geben Sie einen Namen für die Liste an!");
+    } else {
       let latestID = await getLatestID();
       await addNewCollection(latestID, value);
       iniateNewCollection(value);
@@ -39,13 +39,13 @@ function Sidebar(props) {
 
       setShowNewItemField(false);
       setCollections(await getCollections());
-    } else {
-      alert("Der Name existiert bereits");
     }
   };
 
   const checkIfTableNameAlreadyExists = async (name) => {
-    let collections = await db.collection("collections").get();
+    let collections = await getCollections();
+
+    if (collections.length === 0) return false;
 
     for (let i = 0; i < collections.length; i++) {
       if (collections[i].name === name) {
@@ -61,56 +61,53 @@ function Sidebar(props) {
   };
 
   const getLatestID = async () => {
-    let latestID;
-    await db
-      .collection("collections")
-      .get()
-      .then((data) => {
-        data.length ? (latestID = data[data.length - 1].id) : (latestID = -1);
-      });
+    let latestID = 0;
+    let collections = await getCollections();
+    if (collections.length === 0) return latestID;
+    for (let i = 0; i < collections.length; i++) {
+      if (collections[i].id > latestID) latestID = collections[i].id;
+    }
     return latestID;
   };
 
   const addNewCollection = async (latestID, value) => {
-    await db.collection("collections").add({
+    let collections = await getCollections();
+
+    collections.unshift({
       id: latestID + 1,
       name: value,
     });
+
+    overwriteCollections(collections);
   };
 
   const changeTable = async () => {
     const collectionList = await db.collection("collections").get();
-    props.handleCollectionChange(
-      collectionList[collectionList.length - 1].name
-    );
+    props.handleCollectionChange(collectionList.data[0].name);
   };
 
-  const handleDelete = async (id, collection) => {
-    await deleteCollection(collection);
-    await deleteItem("collections", id);
-    setCollections(await getCollections());
-    props.handleCollectionChange(null);
+  const reverseOrderOfCollections = async () => {
+    let collections = await getCollections();
+    let reverseCollections = collections.reverse();
+
+    setCollections(reverseCollections);
+    overwriteCollections(reverseCollections);
   };
 
-  const reverseOrderOfCollections = () => {
-    if(orderOfCollections === 'asc'){
-      setOrderOfCollections('desc')
-    } else {
-      setOrderOfCollections('asc')
-    }
-  }
-
-  useEffect(() => {
-    (async () => {
-      setCollections(await getCollections())
-    })();
-  }, [orderOfCollections])
+  // useEffect(() => {
+  //   (async () => {
+  //     setCollections(await getCollections())
+  //   })();
+  // }, [orderOfCollections])
 
   return (
     <div className="sidebar">
       <div className="sidebarActions">
         <div className="sidebar__newListBtn">
-          <NewItemButton color="default" toggleNewItemField={() => setShowNewItemField(true)}>
+          <NewItemButton
+            color="default"
+            toggleNewItemField={() => setShowNewItemField(true)}
+          >
             <AddIcon />
           </NewItemButton>
         </div>
@@ -129,7 +126,10 @@ function Sidebar(props) {
         />
       )}
       <Collections
-        handleDelete={handleDelete}
+        handleDelete={async () => {
+          setCollections(await getCollections());
+          props.handleCollectionChange(null);
+        }}
         handleCollectionChange={props.handleCollectionChange}
         colls={collections}
       />
