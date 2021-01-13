@@ -1,65 +1,53 @@
-import { Button, Menu, MenuItem, Typography } from "@material-ui/core";
-import React from "react";
+import { Button } from "@material-ui/core";
+import React, { useState, useEffect } from "react";
 import "./ListMenu.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 function ListMenu(props) {
   const { collections } = props;
-  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleMenuOpen = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  useEffect(() => {
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".listsButton")) {
+        setMenuOpen(true);
+        return;
+      }
+      setMenuOpen(false);
+    });
+  }, []);
 
   return (
     <div className="listMenu">
-      <Button variant="contained" color="primary" onClick={handleMenuOpen}>
+      <Button className="listsButton" variant="contained" color="primary">
         Deine Listen
       </Button>
-      <Menu
+      <ul
         className="listMenu__menu"
-        elevation={2}
-        style={{ width: "200px" }}
-        getContentAnchorEl={null}
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "center",
-        }}
-        transformOrigin={{
-          vertical: "top",
-          horizontal: "center",
-        }}
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
+        style={{ display: menuOpen ? "block" : "none" }}
       >
         {collections !== undefined && collections.length !== 0 ? (
           collections.map((item) => {
             return (
-              <MenuItem
+              <li
+                className="listMenu__item"
                 onClick={() => {
-                  handleClose();
                   props.handleSelectedList(item.name);
                 }}
-                className="listMenu__item"
               >
                 <div className="listMenu__item__name">{item.name}</div>
                 <div className="listMenu__item__delete">
                   <DeleteIcon />
                 </div>
-              </MenuItem>
+              </li>
             );
           })
         ) : (
-          <MenuItem>
-            <Typography>Keine Listen</Typography>
-          </MenuItem>
+          <li className="listMenu__item">
+            <div>Keine Listen</div>
+          </li>
         )}
-      </Menu>
+      </ul>
     </div>
   );
 }

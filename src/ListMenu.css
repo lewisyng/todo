@@ -1,6 +1,23 @@
+.listMenu {
+    margin-right: 1rem;
+}
+
 .listMenu__menu {
     width: 300px;
     overflow: hidden;
+    position: absolute;
+    z-index: 1000;
+}
+
+.listMenu__item {
+    display: flex;
+    padding: 0.5rem 1rem;
+    background-color: var(--mainBlue);
+    align-items: center;
+}
+
+.listMenu__item:hover {
+    background-color: var(--mainBlueHover);
 }
 
 .listMenu__item__delete {

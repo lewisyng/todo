@@ -4,6 +4,14 @@
     box-sizing: border-box;
 
     font-family: 'Roboto', sans-serif;
+
+    --textLight: #f6f6f8;
+    --mainBlue: #3A5FEB;
+    --mainBlueHover: #274edf;
+    --lightBlue: #4a6ef0;
+    --btnBlue: #3F51B5;
+    --doneGreen: #008000;
+    --notDoneRed: #FF0000;
 }
 
 :root {
