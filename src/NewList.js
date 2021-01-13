@@ -69,19 +69,18 @@ function NewList(props) {
   };
 
   return (
-    <>
+    <div className="newList">
       <Button
         onClick={() => setDialogIsOpen(true)}
-        className="newlist"
+        className="newlist__btn"
         variant="contained"
         color="primary"
       >
         <AddIcon />
       </Button>
-      <Dialog
-        open={dialogIsOpen}
-        onClose={() => setDialogIsOpen(false)}
-      >
+
+      
+      <Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
         <DialogContent>
           <form
             autoComplete="off"
@@ -99,7 +98,7 @@ function NewList(props) {
           </form>
         </DialogContent>
       </Dialog>
-    </>
+    </div>
   );
 }
 

@@ -1,6 +1,7 @@
 import { Button, Menu, MenuItem, Typography } from "@material-ui/core";
 import React from "react";
 import "./ListMenu.css";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 function ListMenu(props) {
   const { collections } = props;
@@ -36,11 +37,6 @@ function ListMenu(props) {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-
-{
-  console.log("colls", collections)
-}
-
         {collections !== undefined && collections.length !== 0 ? (
           collections.map((item) => {
             return (
@@ -49,8 +45,12 @@ function ListMenu(props) {
                   handleClose();
                   props.handleSelectedList(item.name);
                 }}
+                className="listMenu__item"
               >
-                <Typography noWrap>{item.name}</Typography>
+                <div className="listMenu__item__name">{item.name}</div>
+                <div className="listMenu__item__delete">
+                  <DeleteIcon />
+                </div>
               </MenuItem>
             );
           })

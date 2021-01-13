@@ -40,8 +40,9 @@ function DocumentItem(props) {
           <ListItemSecondaryAction>
             <IconButton
               edge="end"
+              className="documentItem__delete"
               id={`documentItem__delete${item.id}`}
-              style={{ visibility: "hidden" }}
+              // style={{ visibility: "hidden" }}
               onClick={() => props.handleDelete(item.id)}
             >
               <DeleteIcon />

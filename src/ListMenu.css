@@ -1,0 +1,8 @@
+.listMenu__menu {
+    width: 300px;
+    overflow: hidden;
+}
+
+.listMenu__item__delete {
+    margin-left: auto;
+}

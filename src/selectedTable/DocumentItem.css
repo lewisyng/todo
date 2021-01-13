@@ -4,6 +4,36 @@
     margin-top: 0.5rem;
 }
 
+.documentItem__delete {
+    visibility: hidden;
+}
+
+.documentItem__delete:hover {
+    visibility: visible;
+}
+
 .documentItem__listItem {
     width: 100%;
+}
+
+@media (hover: none) and (pointer: coarse) {
+    /* touchscreens */
+    .documentItem__delete {
+        visibility: visible;
+    }
+}
+@media (hover: none) and (pointer: fine) {
+    /* stylus */
+    .documentItem__delete {
+        visibility: visible;
+    }
+}
+@media (hover: hover) and (pointer: coarse) {
+    /* controllers */
+    .documentItem__delete {
+        visibility: visible;
+    }
+}
+@media (hover: hover) and (pointer: fine) {
+    /* mouse or touchpad */
 }
