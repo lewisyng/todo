@@ -1,5 +1,4 @@
 import {
-  Button,
   Dialog,
   DialogContent,
   DialogContentText,
@@ -9,6 +8,7 @@ import React, { useState } from "react";
 import "./NewList.css";
 import AddIcon from "@material-ui/icons/Add";
 import { getCollections, overwriteCollections } from "./localbaseFunctions";
+import Button from "./components/Button";
 
 function NewList(props) {
   const [userInput, setUserInput] = useState("");
@@ -70,16 +70,10 @@ function NewList(props) {
 
   return (
     <div className="newList">
-      <Button
-        onClick={() => setDialogIsOpen(true)}
-        className="newlist__btn"
-        variant="contained"
-        color="primary"
-      >
-        <AddIcon />
-      </Button>
+      <span onClick={() => setDialogIsOpen(true)}>
+        <Button value="+" />
+      </span>
 
-      
       <Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
         <DialogContent>
           <form

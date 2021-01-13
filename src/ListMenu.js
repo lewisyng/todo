@@ -1,7 +1,7 @@
-import { Button } from "@material-ui/core";
 import React, { useState, useEffect } from "react";
 import "./ListMenu.css";
 import DeleteIcon from "@material-ui/icons/Delete";
+import Button from "./components/Button";
 
 function ListMenu(props) {
   const { collections } = props;
@@ -19,9 +19,9 @@ function ListMenu(props) {
 
   return (
     <div className="listMenu">
-      <Button className="listsButton" variant="contained" color="primary">
-        Deine Listen
-      </Button>
+      <span className="listsButton">
+        <Button value="Deine Listen" />
+      </span>
       <ul
         className="listMenu__menu"
         style={{ display: menuOpen ? "block" : "none" }}

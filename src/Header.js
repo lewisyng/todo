@@ -8,10 +8,10 @@ function Header(props) {
   const [collections, setCollections] = useState();
 
   useEffect(() => {
-    if(collections){
-      props.handleSelectedList(collections[0].name)
+    if (collections) {
+      props.handleSelectedList(collections[0].name);
     }
-  }, [collections])
+  }, [collections]);
 
   useEffect(() => {
     (async () => {

@@ -1,3 +1,11 @@
 .newlist__btn {
-    font-weight: bold;
+    border: 0;
+    background-color: var(--btnBlue);
+    padding: 6px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.newlist__btn:hover {
+    background-color: var(--btnBlueHover);
 }

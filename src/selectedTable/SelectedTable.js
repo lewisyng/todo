@@ -105,7 +105,7 @@ function SelectedTable(props) {
             toggleNewItemField={() => toggleNewItemField(true)}
             color="primary"
           >
-            <AddIcon />
+            <AddIcon style={{color: "white"}} />
           </NewItemButton>
         </>
       )}

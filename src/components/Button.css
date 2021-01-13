@@ -1,0 +1,23 @@
+.customButton {
+    color: white;
+    background-color: var(--btnBlue);
+    border: 0;
+    height: 40px;
+    border-radius: 5px;
+    margin: auto;
+    padding: 6px 16px;
+
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+
+    filter: drop-shadow(0 0 3px rgba(0,0,0,0.1))
+}
+
+.customButton:hover {
+    background-color: var(--btnBlueHover);
+}
+
+.customButton:focus {
+    outline: 0;
+}
