@@ -80,7 +80,7 @@ function SelectedTable(props) {
           <div className="selectedTable__header">{selectedTable}</div>
           <div className="selectedTableList">
             {items && (
-              <List>
+              <ul>
                 {items.map((item) => {
                   return (
                     <DocumentItem
@@ -90,7 +90,7 @@ function SelectedTable(props) {
                     />
                   );
                 })}
-              </List>
+              </ul>
             )}
           </div>
 
@@ -102,7 +102,6 @@ function SelectedTable(props) {
           )}
 
           <NewItemButton
-            value="Neues Todo"
             toggleNewItemField={() => toggleNewItemField(true)}
             color="primary"
           >

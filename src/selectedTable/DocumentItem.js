@@ -1,7 +1,9 @@
-import { Checkbox, ListItemSecondaryAction, IconButton, ListItemIcon, ListItem, ListItemText } from "@material-ui/core";
+import { Checkbox, IconButton } from "@material-ui/core";
 import "./DocumentItem.css";
 import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
+import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 
 function DocumentItem(props) {
   const { item } = props;
@@ -17,40 +19,35 @@ function DocumentItem(props) {
   };
 
   return (
-    <div className="documentItem">
+    <li>
       <div
-        className="documentItem__listItem"
+        className="documentItem"
         onMouseOver={showOptions}
         onMouseOut={hideOptions}
+        style={{ backgroundColor: item.done ? "green" : "red" }}
       >
-        <ListItem
-          button
-          style={{ backgroundColor: item.done ? "green" : "red" }}
+        <div
+          className="documentItem__content"
           onClick={() => props.toggleCheckbox(item.id, item.done)}
         >
-          <ListItemIcon>
-            <Checkbox
-              edge="start"
-              checked={item.done}
-              style={{color: 'white'}}
-              tabIndex={-1}
-            />
-          </ListItemIcon>
-          <ListItemText primary={item.name} />
-          <ListItemSecondaryAction>
-            <IconButton
-              edge="end"
-              className="documentItem__delete"
-              id={`documentItem__delete${item.id}`}
-              // style={{ visibility: "hidden" }}
-              onClick={() => props.handleDelete(item.id)}
-            >
-              <DeleteIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
+          <div className="documentItem__done">
+            {item.done ? (
+              <CheckBoxIcon style={{ color: "white" }} />
+            ) : (
+              <CheckBoxOutlineBlankIcon style={{ color: "white" }} />
+            )}
+          </div>
+          <div className="documentItem__name">{item.name}</div>
+        </div>
+        <IconButton
+          className="documentItem__delete"
+          id={`documentItem__delete${item.id}`}
+          onClick={() => props.handleDelete(item.id)}
+        >
+          <DeleteIcon />
+        </IconButton>
       </div>
-    </div>
+    </li>
   );
 }
 

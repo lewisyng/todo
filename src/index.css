@@ -6,6 +6,7 @@
     font-family: 'Roboto', sans-serif;
 
     --textLight: #f6f6f8;
+    --textDark:  #4d4d50;
     --mainBlue: #3A5FEB;
     --mainBlueHover: #274edf;
     --lightBlue: #4a6ef0;
@@ -16,4 +17,8 @@
 
 :root {
     background-color: #F0F1F6;
+}
+
+li {
+    list-style-type: none;
 }

@@ -1,10 +1,26 @@
 .documentItem {
     display: flex;
     width: 300px;
-    margin-top: 0.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    margin: 0 0 0.75rem 0;
+}
+
+.documentItem__content {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.documentItem__name {
+    user-select: none;
+    color: var(--textLight);
+    font-weight: bold;
+    text-transform: uppercase;
+    margin: 0 0 0 1rem;
 }
 
 .documentItem__delete {
+    margin-left: auto !important;
     visibility: hidden;
 }
 
@@ -12,8 +28,11 @@
     visibility: visible;
 }
 
-.documentItem__listItem {
-    width: 100%;
+@media (max-width: 350px) {
+    .documentItem {
+        margin: 0 auto 0.75rem auto;
+        width: 95%;
+    }
 }
 
 @media (hover: none) and (pointer: coarse) {

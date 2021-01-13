@@ -8,6 +8,12 @@ function Header(props) {
   const [collections, setCollections] = useState();
 
   useEffect(() => {
+    if(collections){
+      props.handleSelectedList(collections[0].name)
+    }
+  }, [collections])
+
+  useEffect(() => {
     (async () => {
       setCollections(await getCollections());
     })();

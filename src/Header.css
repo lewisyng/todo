@@ -17,10 +17,7 @@
 }
 
 @media (min-width: 575px) {
-  .header {
-  }
   .header__actions {
-    margin: 0 3rem;
     justify-content: flex-start;
   }
   .logo {

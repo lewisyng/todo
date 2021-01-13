@@ -9,6 +9,7 @@ function NewItemButton(props) {
       color={color}
       variant="contained"
       onClick={props.toggleNewItemField}
+      style={{position: "static"}}
     >
       {children}
     </Button>
