@@ -6,7 +6,6 @@ import {
 } from "@material-ui/core";
 import React, { useState } from "react";
 import "./NewList.css";
-import AddIcon from "@material-ui/icons/Add";
 import { getCollections, overwriteCollections } from "./localbaseFunctions";
 import Button from "./components/Button";
 

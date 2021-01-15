@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "./ListMenu.css";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "./components/Button";
+import { IconButton } from "@material-ui/core";
+import {deleteCollection} from './localbaseFunctions';
 
 function ListMenu(props) {
   const { collections } = props;
@@ -16,6 +18,11 @@ function ListMenu(props) {
       setMenuOpen(false);
     });
   }, []);
+
+  const handleCollectionDelete = async (name) => {
+    await deleteCollection(name);
+    props.handleCollectionDelete();
+  }
 
   return (
     <div className="listMenu">
@@ -36,9 +43,9 @@ function ListMenu(props) {
                 }}
               >
                 <div className="listMenu__item__name">{item.name}</div>
-                <div className="listMenu__item__delete">
+                <IconButton onClick={() => handleCollectionDelete(item.name)} className="listMenu__item__delete">
                   <DeleteIcon />
-                </div>
+                </IconButton>
               </li>
             );
           })

@@ -11,6 +11,7 @@
 
 .listMenu__item {
     display: flex;
+    cursor: pointer;
     padding: 0.5rem 1rem;
     background-color: var(--mainBlue);
     align-items: center;
@@ -21,5 +22,5 @@
 }
 
 .listMenu__item__delete {
-    margin-left: auto;
+    margin-left: auto !important;
 }

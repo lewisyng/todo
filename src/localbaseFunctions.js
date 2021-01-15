@@ -1,8 +1,8 @@
 import db from "./localbase";
 
-
-// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-// Functions regarding the Todo Items in the "selectedTable" Component
+/*============================================================
+Functions regarding the Todo Items in the "selectedTable" Component
+============================================================*/
 
 export const updateDone = async (collection, ident) => {
   await db.collection(collection).doc({ id: ident }).update({ done: true });
@@ -15,27 +15,35 @@ export const update = async (collection, ident, key, newVal) => {
     .update({ [key]: newVal });
 };
 
-
-// vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-// Functions regarding the collections (TodoLists) on the sidebar
+/*============================================================
+Functions regarding the collections (TodoLists) on the sidebar
+============================================================*/
 
 export const getCollections = async () => {
   const collections = await db
     .collection("collections")
     .doc("collectionList")
     .get();
+    console.log("colls", collections)
 
   if (collections === null) {
     await db.collection("collections").add({ data: [] }, "collectionList");
     return [];
-  } else {
-    return collections.data;
   }
+  return collections.data;
 };
 
-export const deleteItemFromCollectionsList = async (index) => {
+export const deleteItemFromCollectionsList = async (collectionName) => {
   let collections = await getCollections();
-  collections.splice(index, 1);
+
+  let counter = 0;
+  for (let collection of collections) {
+    if (collection.name === collectionName) {
+      collections.splice(counter, 1);
+    } else {
+      counter++;
+    }
+  }
 
   await db
     .collection("collections")
@@ -52,9 +60,9 @@ export const overwriteCollections = async (collections) => {
     .set({ data: collections });
 };
 
-export const deleteCollection = async (index, collection) => {
+export const deleteCollection = async (collection) => {
+  await deleteItemFromCollectionsList(collection);
   await db.collection(collection).delete();
-  await deleteItemFromCollectionsList(index);
 };
 
 export default updateDone;

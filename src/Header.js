@@ -8,16 +8,18 @@ function Header(props) {
   const [collections, setCollections] = useState();
 
   useEffect(() => {
-    if (collections) {
-      props.handleSelectedList(collections[0].name);
-    }
-  }, [collections]);
-
-  useEffect(() => {
     (async () => {
       setCollections(await getCollections());
     })();
   }, []);
+
+  useEffect(() => {
+    if (collections && collections.length) {
+      props.handleSelectedList(collections[0].name);
+    } else {
+      props.handleSelectedList(null)
+    }
+  }, [collections]);
 
   return (
     <div className="header">
@@ -25,6 +27,9 @@ function Header(props) {
         <ListMenu
           handleSelectedList={props.handleSelectedList}
           collections={collections}
+          handleCollectionDelete={async () =>
+            setCollections(await getCollections())
+          }
         />
         <NewList setCollections={(data) => setCollections(data)} />
       </div>

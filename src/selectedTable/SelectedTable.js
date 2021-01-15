@@ -4,7 +4,6 @@ import db from "../localbase";
 import NewItemButton from "../components/assets/NewItemButton";
 import NewItemField from "./NewItemField";
 import DocumentItem from "./DocumentItem";
-import { List } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 function SelectedTable(props) {
@@ -73,9 +72,7 @@ function SelectedTable(props) {
 
   return (
     <div className="selectedTable">
-      {selectedTable === null ? (
-        <div className="selectATable">Wählen Sie eine Liste aus</div>
-      ) : (
+      {selectedTable && (
         <>
           <div className="selectedTable__header">{selectedTable}</div>
           <div className="selectedTableList">
@@ -93,22 +90,22 @@ function SelectedTable(props) {
               </ul>
             )}
           </div>
-
-          {showNewItemField && (
-            <NewItemField
-              handleClick={() => toggleNewItemField(false)}
-              createNewField={createNewField}
-            />
-          )}
-
-          <NewItemButton
-            toggleNewItemField={() => toggleNewItemField(true)}
-            color="primary"
-          >
-            <AddIcon style={{color: "white"}} />
-          </NewItemButton>
         </>
       )}
+
+      {showNewItemField && (
+        <NewItemField
+          handleClick={() => toggleNewItemField(false)}
+          createNewField={createNewField}
+        />
+      )}
+
+      <NewItemButton
+        toggleNewItemField={() => toggleNewItemField(true)}
+        color="primary"
+      >
+        <AddIcon style={{ color: "white" }} />
+      </NewItemButton>
     </div>
   );
 }
