@@ -1,0 +1,51 @@
+.documentItem
+    display: flex
+    width: 300px
+    padding: 0.5rem 1rem 0.5rem 1rem
+    margin: 0 0 0.75rem 0
+
+
+    &__content
+        display: flex
+        align-items: center
+        cursor: pointer
+
+
+    &__name
+        user-select: none
+        color: var(--textLight)
+        font-weight: bold
+        text-transform: uppercase
+        margin: 0 0 0 1rem
+
+
+    &__delete
+        margin-left: auto !important
+        visibility: hidden
+
+
+    &__delete:hover
+        visibility: visible
+
+@media (max-width: 350px)
+    .documentItem
+        margin: 0 auto 0.75rem auto
+        width: 95%
+
+@media (hover: none) and (pointer: coarse)
+    /* touchscreens */
+    .documentItem__delete
+        visibility: visible
+
+@media (hover: none) and (pointer: fine)
+    /* stylus */
+    .documentItem__delete
+        visibility: visible
+
+@media (hover: hover) and (pointer: coarse)
+    /* controllers */
+    .documentItem__delete
+        visibility: visible
+
+@media (hover: hover) and (pointer: fine)
+    /* mouse or touchpad */
