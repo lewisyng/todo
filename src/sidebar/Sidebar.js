@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import db from "../localbase";
 import NewItemField from "../selectedTable/NewItemField";
-import ReverseOrderButton from "../components/assets/ReverseOrderButton";
+// import ReverseOrderButton from "../components/assets/ReverseOrderButton";
 import {
   getCollections,
   overwriteCollections,
@@ -113,9 +113,9 @@ function Sidebar(props) {
         </div>
 
         <div className="sidebar__reverseOrder">
-          <ReverseOrderButton reverseOrder={reverseOrderOfCollections}>
+          {/* <ReverseOrderButton reverseOrder={reverseOrderOfCollections}>
             <ImportExportIcon />
-          </ReverseOrderButton>
+          </ReverseOrderButton> */}
         </div>
       </div>
 

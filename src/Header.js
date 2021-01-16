@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Header.css";
+import "./Header.sass";
 import { getCollections } from "./localbaseFunctions";
 import NewList from "./NewList";
 import ListMenu from "./ListMenu";

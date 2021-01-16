@@ -1,5 +1,5 @@
 import React from 'react';
-import './Button.css';
+import './Button.sass';
 
 function Button(props) {
     const {children, value} = props;

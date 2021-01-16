@@ -5,7 +5,7 @@ import {
   TextField,
 } from "@material-ui/core";
 import React, { useState } from "react";
-import "./NewList.css";
+import "./NewList.sass";
 import { getCollections, overwriteCollections } from "./localbaseFunctions";
 import Button from "./components/Button";
 

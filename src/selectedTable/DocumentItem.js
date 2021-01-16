@@ -1,5 +1,5 @@
-import { Checkbox, IconButton } from "@material-ui/core";
-import "./DocumentItem.css";
+import { IconButton } from "@material-ui/core";
+import "./DocumentItem.sass";
 import React from "react";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";

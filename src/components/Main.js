@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Main.css";
+import "./Main.sass";
 import Sidebar from "../sidebar/Sidebar";
 import SelectedTable from "../selectedTable/SelectedTable";
 

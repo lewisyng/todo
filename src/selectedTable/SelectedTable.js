@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./SelectedTable.css";
+import "./SelectedTable.sass";
 import db from "../localbase";
 import NewItemButton from "../components/assets/NewItemButton";
 import NewItemField from "./NewItemField";

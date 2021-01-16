@@ -1,4 +1,4 @@
-import './NewItemButton.css';
+import './NewItemButton.sass';
 import React from "react";
 
 function NewItemButton(props) {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./NewItemField.css";
+import "./NewItemField.sass";
 import CloseIcon from "@material-ui/icons/Close";
 import { Button, TextField } from "@material-ui/core";
 
