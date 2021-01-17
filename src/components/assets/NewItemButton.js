@@ -1,17 +1,15 @@
-import './NewItemButton.css';
-import { Button } from "@material-ui/core";
+import './NewItemButton.sass';
 import React from "react";
 
 function NewItemButton(props) {
-  const { children, color } = props;
+  const { children } = props;
   return (
-    <Button
-      color={color}
-      variant="contained"
+    <button
       onClick={props.toggleNewItemField}
+      className="newItemButton"
     >
       {children}
-    </Button>
+    </button>
   );
 }
 

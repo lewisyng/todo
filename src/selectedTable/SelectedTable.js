@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./SelectedTable.css";
+import "./SelectedTable.sass";
 import db from "../localbase";
 import NewItemButton from "../components/assets/NewItemButton";
 import NewItemField from "./NewItemField";
 import DocumentItem from "./DocumentItem";
-import { List } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import Button from "../components/Button";
 
 function SelectedTable(props) {
   const [showNewItemField, setShowNewItemField] = useState(false);
@@ -73,14 +73,12 @@ function SelectedTable(props) {
 
   return (
     <div className="selectedTable">
-      {selectedTable === null ? (
-        <div className="selectATable">Wählen Sie eine Liste aus</div>
-      ) : (
+      {selectedTable && (
         <>
           <div className="selectedTable__header">{selectedTable}</div>
           <div className="selectedTableList">
             {items && (
-              <List>
+              <ul>
                 {items.map((item) => {
                   return (
                     <DocumentItem
@@ -90,25 +88,25 @@ function SelectedTable(props) {
                     />
                   );
                 })}
-              </List>
+              </ul>
             )}
           </div>
-
-          {showNewItemField && (
-            <NewItemField
-              handleClick={() => toggleNewItemField(false)}
-              createNewField={createNewField}
-            />
-          )}
-
-          <NewItemButton
-            value="Neues Todo"
-            toggleNewItemField={() => toggleNewItemField(true)}
-            color="primary"
-          >
-            <AddIcon />
-          </NewItemButton>
         </>
+      )}
+
+      {showNewItemField && (
+        <NewItemField
+          handleClick={() => toggleNewItemField(false)}
+          createNewField={createNewField}
+        />
+      )}
+
+      {selectedTable && (
+        <span onClick={() => toggleNewItemField(true)}>
+          <Button
+            value={<AddIcon />}
+          />
+        </span>
       )}
     </div>
   );

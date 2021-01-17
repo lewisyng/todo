@@ -1,18 +1,19 @@
-import React, { useState } from "react";
-import "./Main.css";
+import React, { useEffect, useState } from "react";
+import "./Main.sass";
 import Sidebar from "../sidebar/Sidebar";
 import SelectedTable from "../selectedTable/SelectedTable";
 
-function Main() {
+function Main(props) {
+  const {selectedList} = props;
   const [selectedTable, setSelectedTable] = useState(null);
 
-  const handleCollectionChange = (id) => {
-    setSelectedTable(id);
-  };
+  useEffect(() => {
+    setSelectedTable(selectedList)
+  })
 
   return (
     <div className="main">
-      <Sidebar handleCollectionChange={handleCollectionChange} />
+      {/* <Sidebar handleCollectionChange={handleCollectionChange} /> */}
       <SelectedTable selectedTable={selectedTable} />
     </div>
   );
