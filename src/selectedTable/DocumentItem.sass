@@ -1,31 +1,35 @@
+@import ../components/assets/styles/colors
+    
 .documentItem
+    background-color: $notDone
     display: flex
+    align-items: center
     width: 300px
-    padding: 0.5rem 1rem 0.5rem 1rem
+    padding: 1rem
     margin: 0 0 0.75rem 0
 
+    &.done
+        background-color: $done
 
     &__content
         display: flex
         align-items: center
         cursor: pointer
-
+        width: 60%
 
     &__name
         user-select: none
-        color: var(--textLight)
         font-weight: bold
         text-transform: uppercase
         margin: 0 0 0 1rem
-
+        width: 100%
+        word-wrap: break-word
 
     &__delete
-        margin-left: auto !important
+        margin-left: auto
         visibility: hidden
-
-
-    &__delete:hover
-        visibility: visible
+        &.hover
+            visibility: visible
 
 @media (max-width: 350px)
     .documentItem

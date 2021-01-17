@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./ListMenu.sass";
 import DeleteIcon from "@material-ui/icons/Delete";
-import Button from "./components/Button";
+import Button from "./components/assets/AddButton";
 import { IconButton } from "@material-ui/core";
 import {deleteCollection} from './localbaseFunctions';
 

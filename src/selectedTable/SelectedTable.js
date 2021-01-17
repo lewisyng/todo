@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./SelectedTable.sass";
 import db from "../localbase";
-import NewItemButton from "../components/assets/NewItemButton";
 import NewItemField from "./NewItemField";
 import DocumentItem from "./DocumentItem";
 import AddIcon from "@material-ui/icons/Add";
-import Button from "../components/Button";
+import Button from "../components/assets/AddButton";
 
 function SelectedTable(props) {
   const [showNewItemField, setShowNewItemField] = useState(false);
@@ -76,20 +75,17 @@ function SelectedTable(props) {
       {selectedTable && (
         <>
           <div className="selectedTable__header">{selectedTable}</div>
-          <div className="selectedTableList">
-            {items && (
-              <ul>
-                {items.map((item) => {
-                  return (
-                    <DocumentItem
-                      toggleCheckbox={toggleCheckbox}
-                      handleDelete={handleDelete}
-                      item={item}
-                    />
-                  );
-                })}
-              </ul>
-            )}
+          <div className="selectedTable__list">
+            {items &&
+              items.map((item) => {
+                return (
+                  <DocumentItem
+                    toggleCheckbox={toggleCheckbox}
+                    handleDelete={handleDelete}
+                    item={item}
+                  />
+                );
+              })}
           </div>
         </>
       )}
@@ -103,9 +99,7 @@ function SelectedTable(props) {
 
       {selectedTable && (
         <span onClick={() => toggleNewItemField(true)}>
-          <Button
-            value={<AddIcon />}
-          />
+          <Button value={<AddIcon />} />
         </span>
       )}
     </div>

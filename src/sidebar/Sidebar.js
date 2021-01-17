@@ -2,15 +2,11 @@ import React, { useEffect, useState } from "react";
 import "./Sidebar.css";
 import db from "../localbase";
 import NewItemField from "../selectedTable/NewItemField";
-// import ReverseOrderButton from "../components/assets/ReverseOrderButton";
 import {
   getCollections,
   overwriteCollections,
 } from "../localbaseFunctions";
-import NewItemButton from "../components/assets/NewItemButton";
 import Collections from "./Collections";
-import AddIcon from "@material-ui/icons/Add";
-import ImportExportIcon from "@material-ui/icons/ImportExport";
 
 function Sidebar(props) {
   const [showNewItemField, setShowNewItemField] = useState(false);
@@ -104,12 +100,12 @@ function Sidebar(props) {
     <div className="sidebar">
       <div className="sidebarActions">
         <div className="sidebar__newListBtn">
-          <NewItemButton
+          {/* <NewItemButton
             color="default"
             toggleNewItemField={() => setShowNewItemField(true)}
           >
             <AddIcon />
-          </NewItemButton>
+          </NewItemButton> */}
         </div>
 
         <div className="sidebar__reverseOrder">

@@ -7,7 +7,7 @@ import {
 import React, { useState } from "react";
 import "./NewList.sass";
 import { getCollections, overwriteCollections } from "./localbaseFunctions";
-import Button from "./components/Button";
+import Button from "./components/assets/AddButton";
 import AddIcon from "@material-ui/icons/Add";
 
 function NewList(props) {
