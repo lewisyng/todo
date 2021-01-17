@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./SelectedTable.css";
+import "./SelectedTable.sass";
 import db from "../localbase";
-import NewItemButton from "./assets/NewItemButton";
-import NewItemField from "./assets/NewItemField";
-import DocumentItem from "./assets/DocumentItem";
-import { List } from "@material-ui/core";
+import NewItemField from "./NewItemField";
+import DocumentItem from "./DocumentItem";
+import AddIcon from "@material-ui/icons/Add";
+import Button from "../components/assets/AddButton";
 
 function SelectedTable(props) {
   const [showNewItemField, setShowNewItemField] = useState(false);
@@ -70,31 +70,25 @@ function SelectedTable(props) {
     getItems();
   };
 
-  const checkItemAsNotDone = async (id) => {
-    await db.collection(selectedTable).doc({ id: id }).update({
-      done: false,
-    });
-
-    getItems();
-  };
-
   return (
     <div className="selectedTable">
-      <div className="selectedTableList">
-        {items && (
-          <List>
-            {items.map((item) => {
-              return (
-                <DocumentItem
-                  toggleCheckbox={toggleCheckbox}
-                  handleDelete={handleDelete}
-                  item={item}
-                />
-              );
-            })}
-          </List>
-        )}
-      </div>
+      {selectedTable && (
+        <>
+          <div className="selectedTable__header">{selectedTable}</div>
+          <div className="selectedTable__list">
+            {items &&
+              items.map((item) => {
+                return (
+                  <DocumentItem
+                    toggleCheckbox={toggleCheckbox}
+                    handleDelete={handleDelete}
+                    item={item}
+                  />
+                );
+              })}
+          </div>
+        </>
+      )}
 
       {showNewItemField && (
         <NewItemField
@@ -102,11 +96,12 @@ function SelectedTable(props) {
           createNewField={createNewField}
         />
       )}
-      
-      <NewItemButton
-        value="Neues Todo"
-        toggleNewItemField={() => toggleNewItemField(true)}
-      />
+
+      {selectedTable && (
+        <span onClick={() => toggleNewItemField(true)}>
+          <Button value={<AddIcon />} />
+        </span>
+      )}
     </div>
   );
 }

@@ -1,0 +1,31 @@
+@import 'components/assets/styles/colors'
+
+.header
+    background-color: $lightBlue
+    position: sticky
+    display: flex
+    padding: 0 1rem
+
+.header__actions
+    display: flex
+    justify-content: space-between
+    align-items: center
+    width: 100%
+    padding: 0.4rem 0
+
+.logo
+    display: none
+
+@media (min-width: 575px)
+    .header__actions
+        display: flex
+        justify-content: flex-start
+
+    .logo
+        display: block
+        left: 50%
+        top: 50%
+        transform: translate(-50%, -50%)
+        position: absolute
+        color: white
+        font-size: 1.5rem

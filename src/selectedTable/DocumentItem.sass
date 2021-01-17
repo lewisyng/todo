@@ -1,0 +1,55 @@
+@import ../components/assets/styles/colors
+    
+.documentItem
+    background-color: $notDone
+    display: flex
+    align-items: center
+    width: 300px
+    padding: 1rem
+    margin: 0 0 0.75rem 0
+
+    &.done
+        background-color: $done
+
+    &__content
+        display: flex
+        align-items: center
+        cursor: pointer
+        width: 60%
+
+    &__name
+        user-select: none
+        font-weight: bold
+        text-transform: uppercase
+        margin: 0 0 0 1rem
+        width: 100%
+        word-wrap: break-word
+
+    &__delete
+        margin-left: auto
+        visibility: hidden
+        &.hover
+            visibility: visible
+
+@media (max-width: 350px)
+    .documentItem
+        margin: 0 auto 0.75rem auto
+        width: 95%
+
+@media (hover: none) and (pointer: coarse)
+    /* touchscreens */
+    .documentItem__delete
+        visibility: visible
+
+@media (hover: none) and (pointer: fine)
+    /* stylus */
+    .documentItem__delete
+        visibility: visible
+
+@media (hover: hover) and (pointer: coarse)
+    /* controllers */
+    .documentItem__delete
+        visibility: visible
+
+@media (hover: hover) and (pointer: fine)
+    /* mouse or touchpad */
