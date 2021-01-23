@@ -1,14 +1,8 @@
-import React from 'react';
-import './DeleteButton.sass';
+import React from "react";
+import "./DeleteButton.sass";
 
-function DeleteButton(props) {
-    const {value} = props;
-
-    return (
-        <button className="deleteButton">
-            {value}
-        </button>
-    )
+function DeleteButton() {
+  return ;
 }
 
-export default DeleteButton
+export default DeleteButton;

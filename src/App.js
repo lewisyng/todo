@@ -7,13 +7,13 @@ import Footer from "./Footer";
 function App() {
   const [selectedList, setSelectedList] = useState(null);
 
-  const handleListSelect = (id) => {
-    setSelectedList(id);
-  };
-
   return (
     <div className="app">
-      <Header handleSelectedList={handleListSelect} />
+      <Header
+        handleSelectedList={(nameOfSelectedList) => {
+          setSelectedList(nameOfSelectedList);
+        }}
+      />
       <Main selectedList={selectedList} />
       <Footer />
     </div>

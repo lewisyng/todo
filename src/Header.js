@@ -5,7 +5,7 @@ import NewList from "./NewList";
 import ListMenu from "./ListMenu";
 
 function Header(props) {
-  const [collections, setCollections] = useState();
+  const [collections, setCollections] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -14,11 +14,7 @@ function Header(props) {
   }, []);
 
   useEffect(() => {
-    if (collections && collections.length) {
-      props.handleSelectedList(collections[0].name);
-    } else {
-      props.handleSelectedList(null)
-    }
+    collections && props.handleSelectedList(collections[0].name);
   }, [collections]);
 
   return (

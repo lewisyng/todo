@@ -7,7 +7,6 @@ import {
 import React, { useState } from "react";
 import "./NewList.sass";
 import { getCollections, overwriteCollections } from "./localbaseFunctions";
-import Button from "./components/assets/AddButton";
 import AddIcon from "@material-ui/icons/Add";
 
 function NewList(props) {
@@ -70,9 +69,9 @@ function NewList(props) {
 
   return (
     <div className="newList">
-      <span onClick={() => setDialogIsOpen(true)}>
-        <Button value={<AddIcon />} />
-      </span>
+      <button className="btn btn__add" onClick={() => setDialogIsOpen(true)}>
+        <AddIcon />
+      </button>
 
       <Dialog open={dialogIsOpen} onClose={() => setDialogIsOpen(false)}>
         <DialogContent>
