@@ -33,7 +33,7 @@ function ListMenu(props) {
         className="listMenu__menu"
         style={{ display: menuOpen ? "block" : "none" }}
       >
-        {collections !== undefined && collections.length !== 0 ? (
+        {collections !== null && collections.length !== 0 ? (
           collections.map((item) => {
             return (
               <li

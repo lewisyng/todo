@@ -12,7 +12,7 @@
         background-color: $done
 
     &__content
-        display: flex
+        // display: flex
         align-items: center
         cursor: pointer
         width: 60%
@@ -24,8 +24,10 @@
         margin: 0 0 0 1rem
         width: 100%
         word-wrap: break-word
+        color: $textLight
 
-    &__delete
+    &__delete, &__settings
+        cursor: pointer
         margin-left: auto
         visibility: hidden
         &.hover

@@ -4,15 +4,38 @@ import db from "./localbase";
 Functions regarding the Todo Items in the "selectedTable" Component
 ============================================================*/
 
-export const updateDone = async (collection, ident) => {
-  await db.collection(collection).doc({ id: ident }).update({ done: true });
+export const createNewItem = async (selectedList, value) => {
+  let arr = await getItems(selectedList);
+
+  await db.collection(selectedList).add({
+    id: arr.length ? arr[arr.length - 1].id + 1 : 0,
+    name: value,
+    done: false,
+    priority: "",
+    description: "",
+    subtasks: [],
+  });
 };
 
-export const update = async (collection, ident, key, newVal) => {
-  await db
-    .collection(collection)
-    .doc({ id: ident })
-    .update({ [key]: newVal });
+export const getItems = async (selectedList) => {
+  return await db.collection(selectedList).get();
+}
+
+export const updateDone = async (collection, ident, done) => {
+  await db.collection(collection).doc({ id: ident }).update({ done: done });
+};
+
+export const getItemData = async (collection, id) => {
+  return await db.collection(collection).doc({ id: id }).get();
+};
+
+export const updateItem = async (collection, data) => {
+  console.log("dataaa", data);
+  await db.collection(collection).doc({ id: data.id }).update({
+    name: data.name,
+    description: data.description,
+    priority: data.priority,
+  });
 };
 
 /*============================================================
@@ -24,7 +47,6 @@ export const getCollections = async () => {
     .collection("collections")
     .doc("collectionList")
     .get();
-    console.log("colls", collections)
 
   if (collections === null) {
     await db.collection("collections").add({ data: [] }, "collectionList");
