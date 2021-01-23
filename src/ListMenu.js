@@ -11,7 +11,6 @@ function ListMenu(props) {
 
   const collections = state.lists;
 
-  // const { collections } = props;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {

@@ -26,15 +26,7 @@ function SelectedList() {
     if(items.length){
       dispatch({type: "updateCurrentItems", currentItems: items})
     }
-  }, [items])
-
-  // useEffect(() => {
-  //   selectedList &&
-  //     (async () =>
-  //       await getItems(selectedList).then((data) => {
-  //         setItems(data);
-  //       }))();
-  // }, [selectedList]);
+  }, [items]) 
 
   const createNewField = async (e, value) => {
     e.preventDefault();
