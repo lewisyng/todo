@@ -3,13 +3,13 @@ import "./ItemSettings.sass";
 import { updateItem } from "./localbaseFunctions";
 
 function ItemSettings(props) {
-  const { item, selectedList, open } = props;
+  const { item, selectedList } = props;
 
   const [itemData, setItemData] = useState({
     id: item.id,
-    name: "",
-    description: "",
-    priority: "",
+    name: item.name,
+    description: item.description,
+    priority: item.priority,
   });
 
   const handleSubmit = async (e) => {
@@ -27,13 +27,11 @@ function ItemSettings(props) {
   };
 
   return (
-    <div className={`itemSettings${open ? "__open" : ""}`}>
-      <form
-        className="itemSettings__form"
-        onSubmit={(event) => handleSubmit(event)}
-      >
+    <div className="itemSettings">
+      <form className="itemSettings__form" onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
+          autoComplete="off"
           type="text"
           name="name"
           value={itemData.name}
@@ -44,6 +42,7 @@ function ItemSettings(props) {
 
         <label htmlFor="description">Beschreibung</label>
         <input
+          autoComplete="off"
           type="text"
           name="description"
           value={itemData.description}
@@ -69,8 +68,8 @@ function ItemSettings(props) {
           <option value="red">High</option>
         </select>
         <div className="itemSettings__form__actions">
-          <button onClick={props.closeSettings}>CLOSE</button>
           <button type="submit">SUBMIT</button>
+          <button onClick={props.closeSettings}>CLOSE</button>
         </div>
       </form>
     </div>

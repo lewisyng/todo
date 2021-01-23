@@ -7,15 +7,15 @@ import ListMenu from "./ListMenu";
 function Header(props) {
   const [collections, setCollections] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      setCollections(await getCollections());
-    })();
-  }, []);
+  // useEffect(() => {
+  //   (async () => {
+  //     setCollections(await getCollections());
+  //   })();
+  // }, []);
 
-  useEffect(() => {
-    collections && props.handleSelectedList(collections[0].name);
-  }, [collections]);
+  // useEffect(() => {
+  //   collections && props.handleSelectedList(collections[0].name);
+  // }, [collections]);
 
   return (
     <div className="header">

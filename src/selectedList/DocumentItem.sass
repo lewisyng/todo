@@ -3,40 +3,43 @@
 .documentItem
     background-color: $notDone
     display: flex
-    align-items: center
+    justify-content: space-between
     width: 300px
     padding: 1rem
     margin: 0 0 0.75rem 0
+
+    @media (max-width: 350px)
+        margin: 0 auto 0.75rem auto
+        width: 95%
 
     &.done
         background-color: $done
 
     &__content
-        // display: flex
+        width: 80%
         align-items: center
         cursor: pointer
-        width: 60%
-
-    &__name
-        user-select: none
-        font-weight: bold
-        text-transform: uppercase
-        margin: 0 0 0 1rem
-        width: 100%
-        word-wrap: break-word
         color: $textLight
+        word-wrap: break-word
 
-    &__delete, &__settings
-        cursor: pointer
-        margin-left: auto
-        visibility: hidden
-        &.hover
-            visibility: visible
+        &__name
+            width: 80%
+            user-select: none
+            font-weight: bold
+            text-transform: uppercase
 
-@media (max-width: 350px)
-    .documentItem
-        margin: 0 auto 0.75rem auto
-        width: 95%
+        &__description
+            // width: 50%
+            margin: 0.5rem 0 0 0
+
+    &__actions
+
+        &__delete, &__settings
+            cursor: pointer
+            margin-left: auto
+            visibility: hidden
+            &.hover
+                visibility: visible
 
 @media (hover: none) and (pointer: coarse)
     /* touchscreens */

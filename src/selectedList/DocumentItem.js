@@ -11,9 +11,9 @@ function DocumentItem(props) {
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const toggleDone = async () => {
-    await updateDone(selectedList, item.id, !item.done)
+    await updateDone(selectedList, item.id, !item.done);
     props.handleUpdateDone();
-  }
+  };
 
   return (
     <>
@@ -22,33 +22,37 @@ function DocumentItem(props) {
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <div
-          className="documentItem__content"
-          onClick={toggleDone}
-        >
-          <div className="documentItem__name">{item.name}</div>
+        <div className="documentItem__content" onClick={toggleDone}>
+          <div className="documentItem__content__name">{item.name}</div>
+          <div className="documentItem__content__description">
+            {item.description}
+          </div>
         </div>
-        
-        <span
-          className={`documentItem__settings ${hover ? "hover" : ""}`}
-          onClick={() => setSettingsOpen(true)}
-        >
-          <SettingsIcon color="primary" />
-        </span>
-        <span
-          className={`documentItem__delete ${hover ? "hover" : ""}`}
-          onClick={() => props.handleDelete(item.id)}
-        >
-          <DeleteIcon color="primary" />
-        </span>
+        <div className="documentItem__actions">
+          <span
+            className={`documentItem__actions__settings ${
+              hover ? "hover" : ""
+            }`}
+            onClick={() => setSettingsOpen(true)}
+          >
+            <SettingsIcon color="primary" />
+          </span>
+          <span
+            className={`documentItem__actions__delete ${hover ? "hover" : ""}`}
+            onClick={() => props.handleDelete(item.id)}
+          >
+            <DeleteIcon color="primary" />
+          </span>
+        </div>
       </div>
-      <ItemSettings
-        open={settingsOpen}
-        item={item}
-        selectedList={selectedList}
-        updateItem={props.updateItem}
-        closeSettings={() => setSettingsOpen(false)}
-      />
+      {settingsOpen && (
+        <ItemSettings
+          item={item}
+          selectedList={selectedList}
+          updateItem={props.updateItem}
+          closeSettings={() => setSettingsOpen(false)}
+        />
+      )}
     </>
   );
 }

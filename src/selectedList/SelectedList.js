@@ -5,19 +5,36 @@ import NewItemField from "./NewItemField";
 import DocumentItem from "./DocumentItem";
 import AddIcon from "@material-ui/icons/Add";
 import { createNewItem, getItems } from "../localbaseFunctions";
+import {useStore} from '../store'
 
-function SelectedList(props) {
-  const { selectedList } = props;
+function SelectedList() {
+  const {state, dispatch} = useStore()
   const [showNewItemField, setShowNewItemField] = useState(false);
   const [items, setItems] = useState([]);
 
+  const selectedList = state.currentList;
+
   useEffect(() => {
-    selectedList &&
-      (async () =>
-        await getItems(selectedList).then((data) => {
-          setItems(data);
-        }))();
-  }, [selectedList]);
+    (async () => {
+      if(selectedList){
+        setItems(await getItems(selectedList))
+      }
+    })();
+  }, [selectedList])
+
+  useEffect(() => {
+    if(items.length){
+      dispatch({type: "updateCurrentItems", currentItems: items})
+    }
+  }, [items])
+
+  // useEffect(() => {
+  //   selectedList &&
+  //     (async () =>
+  //       await getItems(selectedList).then((data) => {
+  //         setItems(data);
+  //       }))();
+  // }, [selectedList]);
 
   const createNewField = async (e, value) => {
     e.preventDefault();
@@ -34,6 +51,7 @@ function SelectedList(props) {
   };
 
   return (
+    selectedList && 
     <div className="selectedList">
       <div className="selectedList__header">{selectedList}</div>
       <button

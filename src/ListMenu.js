@@ -3,10 +3,15 @@ import "./ListMenu.sass";
 import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "./components/assets/AddButton";
 import { IconButton } from "@material-ui/core";
-import {deleteCollection} from './localbaseFunctions';
+import { deleteCollection } from "./localbaseFunctions";
+import { useStore } from "./store";
 
 function ListMenu(props) {
-  const { collections } = props;
+  const { state, dispatch } = useStore();
+
+  const collections = state.lists;
+
+  // const { collections } = props;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -22,7 +27,7 @@ function ListMenu(props) {
   const handleCollectionDelete = async (name) => {
     await deleteCollection(name);
     props.handleCollectionDelete();
-  }
+  };
 
   return (
     <div className="listMenu">
@@ -39,11 +44,15 @@ function ListMenu(props) {
               <li
                 className="listMenu__item"
                 onClick={() => {
-                  props.handleSelectedList(item.name);
+                  dispatch({ type: "changeList", currentList: item.name });
+                  console.log("colls", collections)
                 }}
               >
                 <div className="listMenu__item__name">{item.name}</div>
-                <IconButton onClick={() => handleCollectionDelete(item.name)} className="listMenu__item__delete">
+                <IconButton
+                  onClick={() => handleCollectionDelete(item.name)}
+                  className="listMenu__item__delete"
+                >
                   <DeleteIcon />
                 </IconButton>
               </li>
