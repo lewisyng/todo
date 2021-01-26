@@ -1,49 +1,62 @@
-import React, { createContext, useContext, useReducer } from "react";
-import { getCollections } from "./localbaseFunctions";
+import React, { createContext, useEffect, useState } from "react";
+import { getCollections, getItems } from "./localbaseFunctions";
 
-const StoreContext = createContext();
-const initialState = {
-  lists: [],
-  currentList: null,
-  currentItems: "",
-};
+const StoreContext = createContext({});
+const UIContext = createContext({});
 
-(async () => {
-  await getCollections().then((data) => {
-    initialState.lists = data;
-  });
-})();
+export function UIProvider({ children }) {
+  const [netItemFieldIsOpen, setNewItemFieldIsOpen] = useState();
+  
+  const uiValue = {
+    newItemFieldIsOpen: false
+  };
 
-const reducer = (state, action) => {
-  switch (action.type) {
-    case "changeList":
-      return {
-        ...state,
-        currentList: action.currentList,
-      };
-    case "changeItem":
-      return {
-        currentItem: action.currentItem,
-      };
-    case "updateCurrentItems":
-      return {
-        ...state,
-        currentItems: action.currentItems,
-      };
-    case "updateList":
-      return {};
-    default:
-  }
-};
+  return <UIContext.Provider value={uiValue}>{children}</UIContext.Provider>;
+}
 
-export const StoreProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export function StoreProvider({ children }) {
+  const [lists, setLists] = useState(null);
+  const [currentList, setCurrentList] = useState(null);
+  const [items, setItems] = useState([]);
+
+  const data = {
+    lists: lists,
+    currentList: currentList,
+    items: items,
+
+    setLists: (data) => setLists(data),
+    setCurrentList: (data) => setCurrentList(data),
+    setItems: (data) => setItems(data),
+
+    setNewCollectionData: async () => {
+      await getCollections().then((data) => {
+        setLists(data);
+        if (data.length) {
+          setCurrentList(data[0]["name"]);
+        } else {
+          setCurrentList(null);
+        }
+      });
+    },
+
+    setNewItemData: async () => {
+      await getItems(currentList).then((data) => {
+        setItems(data);
+      });
+    },
+  };
+
+  useEffect(() => {
+    if (currentList) {
+      data.setNewItemData();
+    }
+  }, [currentList]);
 
   return (
-    <StoreContext.Provider value={{ state, dispatch }}>
-      {children}
-    </StoreContext.Provider>
+    <UIProvider>
+      <StoreContext.Provider value={data}>{children}</StoreContext.Provider>
+    </UIProvider>
   );
-};
+}
 
-export const useStore = () => useContext(StoreContext);
+export default StoreContext;

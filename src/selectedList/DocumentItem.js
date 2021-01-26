@@ -1,18 +1,28 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./DocumentItem.sass";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SettingsIcon from "@material-ui/icons/Settings";
 import ItemSettings from "../ItemSettings";
 import { updateDone } from "../localbaseFunctions";
+import StoreContext from '../store'
+import { deleteItem, getItems } from "../localbaseFunctions";
 
 function DocumentItem(props) {
-  const { item, selectedList } = props;
+  const store = useContext(StoreContext)
+  const selectedList = store.currentList;
+  
+  const { item } = props;
   const [hover, setHover] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
   const toggleDone = async () => {
-    await updateDone(selectedList, item.id, !item.done);
-    props.handleUpdateDone();
+    await updateDone(selectedList, item.id, !item.done)
+    store.setNewItemData();
+  };
+
+  const handleDelete = async () => {
+    await deleteItem(selectedList, item.id);
+    await getItems(selectedList).then(data => store.setItems(data))
   };
 
   return (
@@ -39,7 +49,7 @@ function DocumentItem(props) {
           </span>
           <span
             className={`documentItem__actions__delete ${hover ? "hover" : ""}`}
-            onClick={() => props.handleDelete(item.id)}
+            onClick={handleDelete}
           >
             <DeleteIcon color="primary" />
           </span>
@@ -48,7 +58,6 @@ function DocumentItem(props) {
       {settingsOpen && (
         <ItemSettings
           item={item}
-          selectedList={selectedList}
           updateItem={props.updateItem}
           closeSettings={() => setSettingsOpen(false)}
         />

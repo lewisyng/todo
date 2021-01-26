@@ -1,23 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Header.sass";
-import { getCollections } from "./localbaseFunctions";
 import NewList from "./NewList";
 import ListMenu from "./ListMenu";
 
-function Header(props) {
-  const [collections, setCollections] = useState(null);
-
+function Header() {
   return (
     <div className="header">
       <div className="header__actions">
-        <ListMenu
-          handleSelectedList={props.handleSelectedList}
-          collections={collections}
-          handleCollectionDelete={async () =>
-            setCollections(await getCollections())
-          }
-        />
-        <NewList setCollections={(data) => setCollections(data)} />
+        <ListMenu />
+        <NewList />
       </div>
       <div className="logo">TODOS</div>
     </div>

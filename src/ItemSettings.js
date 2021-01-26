@@ -1,9 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./ItemSettings.sass";
 import { updateItem } from "./localbaseFunctions";
+import StoreContext from './store'
 
 function ItemSettings(props) {
-  const { item, selectedList } = props;
+  const store = useContext(StoreContext);
+  const currentList = store.currentList;
+  const { item } = props;
 
   const [itemData, setItemData] = useState({
     id: item.id,
@@ -14,7 +17,8 @@ function ItemSettings(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateItem(selectedList, itemData);
+    await updateItem(currentList, itemData);
+    store.setNewItemData();
 
     setItemData({
       name: "",
@@ -22,7 +26,6 @@ function ItemSettings(props) {
       priority: "",
     });
 
-    props.updateItem();
     props.closeSettings();
   };
 
