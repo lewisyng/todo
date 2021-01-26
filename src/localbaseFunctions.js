@@ -30,13 +30,16 @@ export const getItemData = async (collection, id) => {
 };
 
 export const updateItem = async (collection, data) => {
-  console.log("dataaa", data);
   await db.collection(collection).doc({ id: data.id }).update({
     name: data.name,
     description: data.description,
     priority: data.priority,
   });
 };
+
+export const deleteItem = async (selectedList, id) => {
+  await db.collection(selectedList).doc({ id: id }).delete();
+}
 
 /*============================================================
 Functions regarding the collections (TodoLists) on the sidebar

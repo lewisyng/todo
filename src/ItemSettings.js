@@ -1,20 +1,24 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./ItemSettings.sass";
 import { updateItem } from "./localbaseFunctions";
+import StoreContext from './store'
 
 function ItemSettings(props) {
-  const { item, selectedList, open } = props;
+  const store = useContext(StoreContext);
+  const currentList = store.currentList;
+  const { item } = props;
 
   const [itemData, setItemData] = useState({
     id: item.id,
-    name: "",
-    description: "",
-    priority: "",
+    name: item.name,
+    description: item.description,
+    priority: item.priority,
   });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateItem(selectedList, itemData);
+    await updateItem(currentList, itemData);
+    store.setNewItemData();
 
     setItemData({
       name: "",
@@ -22,18 +26,15 @@ function ItemSettings(props) {
       priority: "",
     });
 
-    props.updateItem();
     props.closeSettings();
   };
 
   return (
-    <div className={`itemSettings${open ? "__open" : ""}`}>
-      <form
-        className="itemSettings__form"
-        onSubmit={(event) => handleSubmit(event)}
-      >
+    <div className="itemSettings">
+      <form className="itemSettings__form" onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
+          autoComplete="off"
           type="text"
           name="name"
           value={itemData.name}
@@ -44,6 +45,7 @@ function ItemSettings(props) {
 
         <label htmlFor="description">Beschreibung</label>
         <input
+          autoComplete="off"
           type="text"
           name="description"
           value={itemData.description}
@@ -69,8 +71,8 @@ function ItemSettings(props) {
           <option value="red">High</option>
         </select>
         <div className="itemSettings__form__actions">
-          <button onClick={props.closeSettings}>CLOSE</button>
           <button type="submit">SUBMIT</button>
+          <button onClick={props.closeSettings}>CLOSE</button>
         </div>
       </form>
     </div>

@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import "./ListMenu.sass";
-import DeleteIcon from "@material-ui/icons/Delete";
 import Button from "./components/assets/AddButton";
-import { IconButton } from "@material-ui/core";
-import {deleteCollection} from './localbaseFunctions';
+import StoreContext from "./store";
+import ListMenuItem from "./ListMenuItem";
 
-function ListMenu(props) {
-  const { collections } = props;
+function ListMenu() {
+  const store = useContext(StoreContext);
+  const collections = store.lists;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -17,12 +17,8 @@ function ListMenu(props) {
       }
       setMenuOpen(false);
     });
+    store.setNewCollectionData();
   }, []);
-
-  const handleCollectionDelete = async (name) => {
-    await deleteCollection(name);
-    props.handleCollectionDelete();
-  }
 
   return (
     <div className="listMenu">
@@ -33,24 +29,15 @@ function ListMenu(props) {
         className="listMenu__menu"
         style={{ display: menuOpen ? "block" : "none" }}
       >
-        {collections !== null && collections.length !== 0 ? (
+        {console.log("object", collections)}
+        {collections !== null &&
+        collections !== undefined &&
+        collections.length !== 0 ? (
           collections.map((item) => {
-            return (
-              <li
-                className="listMenu__item"
-                onClick={() => {
-                  props.handleSelectedList(item.name);
-                }}
-              >
-                <div className="listMenu__item__name">{item.name}</div>
-                <IconButton onClick={() => handleCollectionDelete(item.name)} className="listMenu__item__delete">
-                  <DeleteIcon />
-                </IconButton>
-              </li>
-            );
+            return <ListMenuItem item={item} />;
           })
         ) : (
-          <li className="listMenu__item">
+          <li className="listMenuItem">
             <div>Keine Listen</div>
           </li>
         )}

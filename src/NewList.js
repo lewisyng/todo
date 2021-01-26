@@ -4,12 +4,15 @@ import {
   DialogContentText,
   TextField,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./NewList.sass";
 import { getCollections, overwriteCollections } from "./localbaseFunctions";
 import AddIcon from "@material-ui/icons/Add";
+import StoreContext from './store' 
 
 function NewList(props) {
+  const store = useContext(StoreContext)
+
   const [userInput, setUserInput] = useState("");
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
@@ -26,7 +29,7 @@ function NewList(props) {
       let latestID = await getLatestID();
       await addNewCollection(latestID, userInput);
 
-      props.setCollections(await getCollections());
+      store.setNewCollectionData();
     }
     setDialogIsOpen(false);
     setUserInput("");
