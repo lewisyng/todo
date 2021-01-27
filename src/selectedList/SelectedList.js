@@ -31,13 +31,13 @@ function SelectedList() {
         >
           <AddIcon />
         </button>
+        <div className="selectedList__list">
         {showNewItemField && (
           <NewItemField
             toggleNewItemField={() => setShowNewItemField(false)}
             createNewField={createNewField}
           />
         )}
-        <div className="selectedList__list">
           {items.map((item, i) => {
             return (
               <DocumentItem
