@@ -1,3 +1,5 @@
+@import './components/assets/styles/_colors.sass'
+    
 .itemSettings
     display: block
     position: absolute
@@ -6,7 +8,26 @@
     background-color: white
     width: 400px
     max-width: 100%
-    height: 100%
+    padding: 1rem 2rem 1rem 1rem
+    background-color: $mainBlue
+
+    & label
+        color: $textLight
+        font-weight: bold
+        margin: 1rem 0 0.5rem 0
+
+    & input, select
+        font-weight: bold
+        padding: 0.5rem
+        outline: 0
+        border: 0
+        border-radius: 3px
+        appearance: none
+
+    &__header
+        font-size: 1.5rem
+        color: $textLight
+        font-weight: bold
 
     &__form
         display: flex
@@ -14,3 +35,11 @@
 
         &__actions
             display: block
+
+    & button
+        color: white
+
+    & button
+        margin: 1rem 1rem 0 0
+        padding: 0.5rem
+        
