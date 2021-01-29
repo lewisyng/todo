@@ -11,14 +11,14 @@ function ListMenuItem(props) {
 
   const handleCollectionDelete = async (name) => {
     await deleteCollection(name);
-    store.setNewCollectionData();
+    store.initCollections();
   };
 
   return (
     <li
       className="listMenuItem"
       onClick={() => {
-        store.setCurrentList(item.name);
+        store.setCurrentCollection(item.name);
       }}
     >
       <div className="listMenuItem__name">{item.name}</div>

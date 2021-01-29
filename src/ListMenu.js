@@ -6,7 +6,7 @@ import ListMenuItem from "./ListMenuItem";
 
 function ListMenu() {
   const store = useContext(StoreContext);
-  const collections = store.lists;
+  const collections = store.collections;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function ListMenu() {
       }
       setMenuOpen(false);
     });
-    store.setNewCollectionData();
+    store.initCollections();
   }, []);
 
   return (

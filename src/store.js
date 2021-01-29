@@ -15,42 +15,44 @@ export function UIProvider({ children }) {
 }
 
 export function StoreProvider({ children }) {
+  const [collections, setCollections] = useState(null);
+  const [currentCollection, setCurrentCollection] = useState(null)
   const [lists, setLists] = useState(null);
-  const [currentList, setCurrentList] = useState(null);
   const [items, setItems] = useState([]);
 
   const data = {
+    collections: collections,
+    currentCollection: currentCollection,
     lists: lists,
-    currentList: currentList,
     items: items,
 
+    setCollections: (data) => setCollections(data),
+    setCurrentCollection: (data) => setCurrentCollection(data),
     setLists: (data) => setLists(data),
-    setCurrentList: (data) => setCurrentList(data),
     setItems: (data) => setItems(data),
 
-    setNewCollectionData: async () => {
+    initCollections: async () => {
       await getCollections().then((data) => {
-        setLists(data);
+        setCollections(data);
+        console.log("dataaaa", data)
         if (data.length) {
-          setCurrentList(data[0]["name"]);
-        } else {
-          setCurrentList(null);
+          setCurrentCollection(data[0]["name"]);
         }
       });
     },
 
     setNewItemData: async () => {
-      await getItems(currentList).then((data) => {
+      await getItems(lists).then((data) => {
         setItems(data);
       });
     },
   };
 
   useEffect(() => {
-    if (currentList) {
+    if (lists) {
       data.setNewItemData();
     }
-  }, [currentList]);
+  }, [lists]);
 
   return (
     <UIProvider>

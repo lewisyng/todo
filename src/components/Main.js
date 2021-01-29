@@ -1,11 +1,11 @@
 import React from "react";
 import "./Main.sass";
-import SelectedList from "../selectedList/SelectedList";
+import CurrentCollection from "../currentCollection/CurrentCollection";
 
 function Main() {
     return (
     <div className="main">
-      <SelectedList />
+      <CurrentCollection />
     </div>
   );
 }
