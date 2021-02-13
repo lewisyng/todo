@@ -1,64 +1,52 @@
 import React, { createContext, useEffect, useState } from "react";
-import { getCollections, getItems } from "./localbaseFunctions";
+import { getCollections, getItems, getLists } from "./localbaseFunctions";
 
 const StoreContext = createContext({});
-const UIContext = createContext({});
-
-export function UIProvider({ children }) {
-  const [netItemFieldIsOpen, setNewItemFieldIsOpen] = useState();
-  
-  const uiValue = {
-    newItemFieldIsOpen: false
-  };
-
-  return <UIContext.Provider value={uiValue}>{children}</UIContext.Provider>;
-}
 
 export function StoreProvider({ children }) {
-  const [collections, setCollections] = useState(null);
-  const [currentCollection, setCurrentCollection] = useState(null)
-  const [lists, setLists] = useState(null);
-  const [items, setItems] = useState([]);
+  const [collectionList, setCollectionList] = useState(null);
+  const [currentCollection, setCurrentCollection] = useState(null);
+  const [lists, setLists] = useState([]);
 
   const data = {
-    collections: collections,
+    collectionList: collectionList,
     currentCollection: currentCollection,
     lists: lists,
-    items: items,
 
-    setCollections: (data) => setCollections(data),
+    setCollectionsList: (data) => setCollectionList(data),
     setCurrentCollection: (data) => setCurrentCollection(data),
     setLists: (data) => setLists(data),
-    setItems: (data) => setItems(data),
 
     initCollections: async () => {
       await getCollections().then((data) => {
-        setCollections(data);
-        console.log("dataaaa", data)
+        setCollectionList(data);
         if (data.length) {
-          setCurrentCollection(data[0]["name"]);
+          setCurrentCollection(data[data.length - 1].name);
+        } else {
+          setCurrentCollection(null);
         }
       });
     },
-
-    setNewItemData: async () => {
-      await getItems(lists).then((data) => {
-        setItems(data);
-      });
-    },
+    updateLists: async () => {
+      setLists(await getLists(currentCollection));
+    }
   };
 
   useEffect(() => {
-    if (lists) {
-      data.setNewItemData();
-    }
-  }, [lists]);
+    (async () => {
+      setCollectionList(await getCollections());
+    })();
+  }, []);
 
-  return (
-    <UIProvider>
-      <StoreContext.Provider value={data}>{children}</StoreContext.Provider>
-    </UIProvider>
-  );
+  useEffect(() => {
+    if (currentCollection) {
+      (async () => {
+        setLists(await getLists(currentCollection));
+      })();
+    }
+  }, [currentCollection]);
+
+  return <StoreContext.Provider value={data}>{children}</StoreContext.Provider>;
 }
 
 export default StoreContext;

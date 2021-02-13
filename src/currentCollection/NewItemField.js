@@ -9,7 +9,7 @@ function NewItemField(props) {
       <form
         className="newItemFieldForm"
         onSubmit={(event) => {
-          props.createNewField(event, newField);
+          props.createNewTodo(event, newField);
         }}
       >
         <input

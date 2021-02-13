@@ -12,7 +12,6 @@ import StoreContext from "./store";
 
 function NewList() {
   const store = useContext(StoreContext);
-
   const [userInput, setUserInput] = useState("");
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
@@ -51,12 +50,13 @@ function NewList() {
 
   const getLatestID = async () => {
     let latestID = 0;
-    let collections = await getCollections();
-    if (collections.length === 0) return latestID;
-    for (let i = 0; i < collections.length; i++) {
-      if (collections[i].id > latestID) latestID = collections[i].id;
-    }
-    return latestID;
+    await getCollections().then((collections) => {
+      if (!collections.length) return;
+      for (let collection of collections) {
+        if (collection.id > latestID) latestID = collection.id;
+      }
+    });
+    return latestID + 1;
   };
 
   return (

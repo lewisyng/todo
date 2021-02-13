@@ -15,13 +15,15 @@ function ListMenuItem(props) {
   };
 
   return (
-    <li
-      className="listMenuItem"
-      onClick={() => {
-        store.setCurrentCollection(item.name);
-      }}
-    >
-      <div className="listMenuItem__name">{item.name}</div>
+    <li className="listMenuItem">
+      <div
+        className="listMenuItem__name"
+        onClick={() => {
+          store.setCurrentCollection(item.name);
+        }}
+      >
+        {item.name}
+      </div>
       <IconButton
         className="listMenuItem__delete"
         onClick={() => handleCollectionDelete(item.name)}

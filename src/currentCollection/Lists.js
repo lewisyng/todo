@@ -1,19 +1,19 @@
 import React, { useContext } from "react";
-import { getItems } from "../localbaseFunctions";
 import StoreContext from "../store";
-import DocumentItem from "./DocumentItem";
 import "./Lists.sass";
-import SingleList from './SingleList'
+import SingleList from "./SingleList";
 
 function Lists() {
-  // const store = useContext(StoreContext);
-  // const lists = store.lists;
-  // const items = store.items;
-  // const currentCollection = store.currentList;
+  const store = useContext(StoreContext);
+  const lists = store.lists;
 
   return (
     <div className="lists">
-        {/* <SingleList /> */}
+      {lists !== undefined &&
+        lists.length !== 0 &&
+        lists.map((list) => {
+          return <SingleList list={list} />;
+        })}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import StoreContext from "./store";
 
 function ItemSettings(props) {
   const store = useContext(StoreContext);
-  const currentList = store.currentList;
+  const currentCollection = store.currentCollection;
   const { item } = props;
 
   const [itemData, setItemData] = useState({
@@ -17,15 +17,8 @@ function ItemSettings(props) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await updateItem(currentList, itemData);
+    await updateItem(currentCollection, itemData);
     store.setNewItemData();
-
-    setItemData({
-      name: "",
-      description: "",
-      priority: "",
-    });
-
     props.closeSettings();
   };
 
