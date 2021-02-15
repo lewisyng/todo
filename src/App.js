@@ -6,13 +6,13 @@ import { StoreProvider } from "./store";
 
 function App() {
   return (
-    <StoreProvider>
-      <div className="app">
+    <div className="app">
+      <StoreProvider>
         <Header />
         <Main />
         <Footer />
-      </div>
-    </StoreProvider>
+      </StoreProvider>
+    </div>
   );
 }
 

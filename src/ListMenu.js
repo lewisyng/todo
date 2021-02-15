@@ -6,7 +6,7 @@ import ListMenuItem from "./ListMenuItem";
 
 function ListMenu() {
   const store = useContext(StoreContext);
-  const collections = store.lists;
+  const collectionList = store.collectionList;
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ function ListMenu() {
       }
       setMenuOpen(false);
     });
-    store.setNewCollectionData();
+    store.initCollections();
   }, []);
 
   return (
@@ -29,11 +29,8 @@ function ListMenu() {
         className="listMenu__menu"
         style={{ display: menuOpen ? "block" : "none" }}
       >
-        {console.log("object", collections)}
-        {collections !== null &&
-        collections !== undefined &&
-        collections.length !== 0 ? (
-          collections.map((item) => {
+        {collectionList !== null && collectionList.length !== 0 ? (
+          collectionList.map((item) => {
             return <ListMenuItem item={item} />;
           })
         ) : (

@@ -11,17 +11,19 @@ function ListMenuItem(props) {
 
   const handleCollectionDelete = async (name) => {
     await deleteCollection(name);
-    store.setNewCollectionData();
+    store.initCollections();
   };
 
   return (
-    <li
-      className="listMenuItem"
-      onClick={() => {
-        store.setCurrentList(item.name);
-      }}
-    >
-      <div className="listMenuItem__name">{item.name}</div>
+    <li className="listMenuItem">
+      <div
+        className="listMenuItem__name"
+        onClick={() => {
+          store.setCurrentCollection(item.name);
+        }}
+      >
+        {item.name}
+      </div>
       <IconButton
         className="listMenuItem__delete"
         onClick={() => handleCollectionDelete(item.name)}

@@ -1,12 +1,15 @@
 import React from "react";
 import "./Main.sass";
-import SelectedList from "../selectedList/SelectedList";
+import CurrentCollection from "../currentCollection/CurrentCollection";
+import ScrollContainer from "react-indiana-drag-scroll";
 
 function Main() {
-    return (
-    <div className="main">
-      <SelectedList />
-    </div>
+  return (
+    <ScrollContainer ignoreElements="input, .singleList, .currentCollection__header">
+      <div className="main">
+        <CurrentCollection />
+      </div>
+    </ScrollContainer>
   );
 }
 

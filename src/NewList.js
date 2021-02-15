@@ -6,13 +6,12 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import "./NewList.sass";
-import { getCollections, overwriteCollections } from "./localbaseFunctions";
+import { addNewCollection, getCollections } from "./localbaseFunctions";
 import AddIcon from "@material-ui/icons/Add";
-import StoreContext from './store' 
+import StoreContext from "./store";
 
-function NewList(props) {
-  const store = useContext(StoreContext)
-
+function NewList() {
+  const store = useContext(StoreContext);
   const [userInput, setUserInput] = useState("");
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
@@ -29,7 +28,7 @@ function NewList(props) {
       let latestID = await getLatestID();
       await addNewCollection(latestID, userInput);
 
-      store.setNewCollectionData();
+      store.initCollections();
     }
     setDialogIsOpen(false);
     setUserInput("");
@@ -51,23 +50,13 @@ function NewList(props) {
 
   const getLatestID = async () => {
     let latestID = 0;
-    let collections = await getCollections();
-    if (collections.length === 0) return latestID;
-    for (let i = 0; i < collections.length; i++) {
-      if (collections[i].id > latestID) latestID = collections[i].id;
-    }
-    return latestID;
-  };
-
-  const addNewCollection = async (latestID, value) => {
-    let collections = await getCollections();
-
-    collections.unshift({
-      id: latestID + 1,
-      name: value,
+    await getCollections().then((collections) => {
+      if (!collections.length) return;
+      for (let collection of collections) {
+        if (collection.id > latestID) latestID = collection.id;
+      }
     });
-
-    overwriteCollections(collections);
+    return latestID + 1;
   };
 
   return (
