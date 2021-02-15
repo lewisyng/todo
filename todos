@@ -6,9 +6,8 @@ filter
 
 listitems neueste zuerst
 
-nur eine Settings auf einmal offen haben
-Listen Überschriften
-  - all caps
-  - styling
+done animation (red to black)
 
-input fields
+allgemeine Einstellungen
+  - body backgroundcolor
+  - night mode

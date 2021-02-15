@@ -5,7 +5,6 @@ import Footer from "./Footer";
 import { StoreProvider } from "./store";
 
 function App() {
-
   return (
     <div className="app">
       <StoreProvider>

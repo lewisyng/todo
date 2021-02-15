@@ -3,7 +3,6 @@
 .app
     display: flex
     flex-direction: column
-    min-height: 100vh
 
 .header,
 footer
@@ -14,7 +13,6 @@ footer
     height: 40px
     border-radius: 5px
     padding: 6px 16px
-    position: relative
     color: $textLight
 
     font-weight: 500
@@ -22,18 +20,9 @@ footer
     cursor: pointer
 
     filter: drop-shadow(0 0 3px rgba(0,0,0,0.1))
-
-    &:focus
-        outline: 0
+    outline: 0
 
     &__add
         background-color: $btnBlue
         &:hover
             background-color: $btnBlueHover
-        > svg > path
-            color: $btnAddColor !important
-
-    &__close
-        background-color: rgba(0,0,0,0)
-        > svg > path
-            color: $btnCloseColor !important

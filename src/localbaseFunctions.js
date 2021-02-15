@@ -4,10 +4,10 @@ import db from "./localbase";
 Functions regarding the Todo Items in a "SingleList" Component
 ============================================================*/
 
-export const createNewItem = async (collection, list, value) => {
+export const createNewItem = async (collection, list, data) => {
   let todos = await db
     .collection(collection)
-    .doc({ name: list.name })
+    .doc({ id: list.id })
     .get()
     .then((data) => {
       return data.todos;
@@ -15,17 +15,14 @@ export const createNewItem = async (collection, list, value) => {
 
   todos.push({
     id: todos.length ? todos[todos.length - 1].id + 1 : 0,
-    name: value,
+    name: data.name,
     done: false,
-    priority: "",
-    description: "",
-    subtasks: [],
+    priority: data.priority,
+    description: data.description,
+    subtasks: data.subtasks,
   });
 
-  await db
-    .collection(collection)
-    .doc({ name: list.name })
-    .update({ todos: todos });
+  await db.collection(collection).doc({ id: list.id }).update({ todos: todos });
 };
 
 export const getItems = async (collection) => {
@@ -54,13 +51,25 @@ export const getItemData = async (collection, id) => {
   return await db.collection(collection).doc({ id: id }).get();
 };
 
-export const updateItem = async (collection, data) => {
-  await db.collection(collection).doc({ id: data.id }).update({
-    id: data.id,
-    name: data.name,
-    description: data.description,
-    priority: data.priority,
-  });
+export const updateItem = async (collection, listId, todoId, data) => {
+  let todos = await db
+    .collection(collection)
+    .doc(String(listId))
+    .get()
+    .then((data) => {
+      return data.todos;
+    });
+
+  for (let i = 0; i < todos.length; i++) {
+    if (todos[i].id === todoId) {
+      todos[i].name = data.name;
+      todos[i].description = data.description;
+      todos[i].priority = data.priority;
+      todos[i].subtasks = data.subtasks;
+    }
+  }
+
+  await db.collection(collection).doc(String(listId)).update({ todos: todos });
 };
 
 export const deleteItem = async (collection, listId, todoId) => {
@@ -99,6 +108,10 @@ export const addNewList = async (collection, nameOfNewList) => {
 export const getLists = async (collection) => {
   return await db.collection(collection).get();
 };
+
+export const deleteList = async (collection, listId) => {
+  await db.collection(collection).doc(String(listId)).delete();
+}
 
 /*============================================================
 Functions regarding the collections (Array of TodoLists)
