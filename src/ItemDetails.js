@@ -7,7 +7,7 @@ function ItemDetails(props) {
   const [data, setData] = useState({
     name: "",
     description: "",
-    priority: null,
+    priority: "low",
     subtasks: [],
   });
   const { list } = props;
@@ -52,9 +52,6 @@ function ItemDetails(props) {
             setData({ ...data, priority: event.target.value })
           }
         >
-          <option disabled selected hidden>
-            Priority
-          </option>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>
