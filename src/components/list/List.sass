@@ -1,14 +1,15 @@
-@import '../components/assets/styles/_colors'
-@import '../components/assets/styles/_mixins'
+@import '../../styles/colors.sass'
+@import '../../styles/mixins.sass'
     
-.singleList
+.list
     margin: 0 1rem 0 0
+    width: 300px
     min-width: 300px
-    background-color: $listBackground
 
     &__header
         display: flex
         justify-content: space-between
+        background-color: $btnBlue
 
         &__name
             padding: 1.5rem 0 0.5rem 1rem

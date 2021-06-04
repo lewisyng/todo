@@ -11,3 +11,10 @@ done animation (red to black)
 allgemeine Einstellungen
   - body backgroundcolor
   - night mode
+
+in typescript refactorn
+in redux refactorn
+
+detailitems vereinheitlichen (detailtodo anlegen, details eines todos ändern)
+
+kleiner Funktionen (listdelete) auslagern. auch als dispatch/action?

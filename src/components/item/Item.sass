@@ -1,14 +1,13 @@
-@import components/assets/styles/_colors
-@import components/assets/styles/_mixins
+@import '../../styles/colors.sass'
+@import '../../styles/mixins.sass'
     
-.documentItem
-    background-color: $done
+.item
     display: flex
     justify-content: space-between
-    width: 300px
-    padding: 1rem
+    width: 100%
     margin: 0 1rem 0.75rem 1rem
-    border-radius: 6px
+    // border-radius: 6px
+    background-color: $done
 
     @media (max-width: 350px)
         margin: 0 auto 0.75rem auto
@@ -20,8 +19,13 @@
         background-color: $mediumPriority
     &.high
         background-color: $highPriority
+    &.subtask
+        width: 80%
+        margin-left: auto !important
+        margin: 0 0 0.5rem 0rem 
 
     &__content
+        margin: 1rem
         width: 70%
         align-items: center
         cursor: pointer
@@ -37,10 +41,15 @@
             margin: 0.5rem 0 0 0
 
     &__actions
-        &__delete, &__settings
+        display: flex
+        flex-direction: column
+        width: 50px
+        background-color: #778ca3
+        &__delete, &__settings, &__subtask
+            padding: 5px 0
+            text-align: center
             cursor: pointer
             visibility: hidden
-            padding-left: 0.5rem
             @include action_icon_styling
 
             &.hover
@@ -48,20 +57,23 @@
 
 @media (hover: none) and (pointer: coarse)
     /* touchscreens */
-    .documentItem__actions__settings,
-    .documentItem__actions__delete
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
         visibility: visible
 
 @media (hover: none) and (pointer: fine)
     /* stylus */
-    .documentItem__actions__settings,
-    .documentItem__actions__delete
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
         visibility: visible
 
 @media (hover: hover) and (pointer: coarse)
     /* controllers */
-    .documentItem__actions__settings,
-    .documentItem__actions__delete
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
         visibility: visible
 
 @media (hover: hover) and (pointer: fine)

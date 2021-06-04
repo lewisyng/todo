@@ -1,20 +1,16 @@
 import { Modal } from "@material-ui/core";
 import React from "react";
-import ItemDetails from "./ItemDetails";
+import ItemDetails from "../itemDefails/ItemDetails";
 import "./NewDetailedItem.sass";
 
-function NewDetailedItem(props) {
+export function NewDetailedItem(props) {
   const { open, list } = props;
 
-  const handleClose = () => {
-    props.setShowNewDetailedItem(false);
-  };
-
   return (
-    <Modal open={open} onClose={handleClose}>
+    <Modal open={open} onClose={props.handleClose}>
       <div className="newDetailedItem">
         <h2 id="transition-modal-title">Neuer Eintrag</h2>
-        <ItemDetails list={list} closeItemSettings={handleClose} />
+        <ItemDetails list={list} handleClose={props.handleClose} />
       </div>
     </Modal>
   );

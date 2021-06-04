@@ -9,11 +9,17 @@ import "./NewList.sass";
 import { addNewCollection, getCollections } from "./localbaseFunctions";
 import AddIcon from "@material-ui/icons/Add";
 import StoreContext from "./store";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentCollection } from "./store/store";
+import { setCollections, setCurrentCollection } from "./store/actions";
 
 function NewList() {
   const store = useContext(StoreContext);
   const [userInput, setUserInput] = useState("");
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
+
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
 
   const createNewCollection = async (e) => {
     e.preventDefault();
@@ -28,7 +34,9 @@ function NewList() {
       let latestID = await getLatestID();
       await addNewCollection(latestID, userInput);
 
-      store.initCollections();
+      await getCollections().then((data) => {
+        dispatch(setCollections(data));
+      });
     }
     setDialogIsOpen(false);
     setUserInput("");

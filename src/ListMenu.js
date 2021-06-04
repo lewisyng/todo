@@ -3,10 +3,14 @@ import "./ListMenu.sass";
 import Button from "./components/assets/AddButton";
 import StoreContext from "./store";
 import ListMenuItem from "./ListMenuItem";
+import { useSelector } from "react-redux";
 
 function ListMenu() {
-  const store = useContext(StoreContext);
-  const collectionList = store.collectionList;
+  // const store = useContext(StoreContext);
+  // const collectionList = store.collectionList;
+
+  const state = useSelector(state => state)
+
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -17,7 +21,7 @@ function ListMenu() {
       }
       setMenuOpen(false);
     });
-    store.initCollections();
+    // store.initCollections();
   }, []);
 
   return (
@@ -29,8 +33,12 @@ function ListMenu() {
         className="listMenu__menu"
         style={{ display: menuOpen ? "block" : "none" }}
       >
-        {collectionList !== null && collectionList.length !== 0 ? (
+        {/* {collectionList !== null && collectionList.length !== 0 ? (
           collectionList.map((item) => {
+            return <ListMenuItem item={item} />;
+          }) */}
+        {state.collections?.length ? (
+          state.collections.map((item) => {
             return <ListMenuItem item={item} />;
           })
         ) : (

@@ -1,10 +1,10 @@
 import { Modal } from "@material-ui/core";
 import React, { useContext, useState } from "react";
 import "./ItemSettings.sass";
-import { updateItem } from "./localbaseFunctions";
-import StoreContext from "./store";
+import { updateItem } from "../../localbaseFunctions";
+import StoreContext from "../../store";
 
-function ItemSettings() {
+export function ItemSettings() {
   const store = useContext(StoreContext);
   const currentCollection = store.currentCollection;
   const { item, list } = store.currentItemInSettings;
@@ -14,6 +14,7 @@ function ItemSettings() {
     name: item.name,
     description: item.description,
     priority: item.priority,
+    subtasks: []
   });
 
   const handleSubmit = async (e) => {

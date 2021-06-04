@@ -1,28 +1,39 @@
 import React, { useContext, useState } from "react";
-import { createNewItem, getLists } from "./localbaseFunctions";
-import StoreContext from "./store";
+import './ItemDetails.sass'
+import { createNewItem } from "../../localbaseFunctions";
+import StoreContext from "../../store";
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentCollection } from ",,/../store/store";
+import { setCurrentCollection } from "../../store/actions";
 
-function ItemDetails(props) {
-  const store = useContext(StoreContext);
+export function ItemDetails(props) {
+  const { list } = props;
+
+  const state = useSelector(state => state)
+  const dispatch = useDispatch()
+
   const [data, setData] = useState({
     name: "",
     description: "",
     priority: "low",
     subtasks: [],
   });
-  const { list } = props;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    await createNewItem(store.currentCollection, list, data);
-    store.setLists(await getLists(store.currentCollection));
-    props.closeItemSettings(false);
+    await createNewItem(state.currentCollectionName, list, data);
+
+    await getCurrentCollection(state.currentCollectionName).then((data) => {
+      dispatch(setCurrentCollection(data));
+    });
+
+    props.handleClose();
   };
 
   return (
     <div className="itemDetails">
-      <form className="itemSettings__form" onSubmit={handleSubmit}>
+      <form className="itemDetails__form" onSubmit={handleSubmit}>
         <label htmlFor="name">Name</label>
         <input
           autoComplete="off"
@@ -42,6 +53,7 @@ function ItemDetails(props) {
             setData({ ...data, description: event.target.value })
           }
         />
+
         <label htmlFor="Priority">Priorität</label>
         <select
           name="Priority"
@@ -56,14 +68,14 @@ function ItemDetails(props) {
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
-        <div className="itemSettings__form__actions">
-          <button className="btn btn__add" type="submit">
+
+        <div className="itemDetails__form__actions">
+          <button className="btn" type="submit">
             Sichern
           </button>
           <button
-            className="btn btn__add"
-            type="submit"
-            onClick={props.closeItemSettings}
+            className="btn"
+            onClick={props.handleClose}
           >
             Abbrechen
           </button>

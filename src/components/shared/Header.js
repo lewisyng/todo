@@ -1,9 +1,9 @@
 import React from "react";
 import "./Header.sass";
-import NewList from "./NewList";
-import ListMenu from "./ListMenu";
+import NewList from "../../NewList";
+import ListMenu from "../../ListMenu";
 
-function Header() {
+export function Header() {
   return (
     <div className="header">
       <div className="header__actions">

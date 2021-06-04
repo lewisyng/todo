@@ -1,17 +1,28 @@
 import db from "./localbase";
 
 /*============================================================
-Functions regarding the Todo Items in a "SingleList" Component
+Functions regarding single Subtasks
+============================================================*/
+
+export const createNewSubtask = async (collection, list, item, data) => {
+  let newList = list
+
+  for(let i = 0; i < newList.todos.length; i++){
+    if(newList.todos[i].id === item.id){
+      newList.todos[i].subtasks.push(data)
+      break
+    }
+  }
+
+  await db.collection(collection).doc({ id: newList.id }).update({ todos: newList.todos });
+}
+
+/*============================================================
+Functions regarding single Todo Items
 ============================================================*/
 
 export const createNewItem = async (collection, list, data) => {
-  let todos = await db
-    .collection(collection)
-    .doc({ id: list.id })
-    .get()
-    .then((data) => {
-      return data.todos;
-    });
+  let todos = list.todos;
 
   todos.push({
     id: todos.length ? todos[todos.length - 1].id + 1 : 0,
@@ -129,17 +140,9 @@ export const getCollections = async () => {
   const collections = await db.collection("collections").get();
 
   if (collections === null) {
-    await db.collection("collectionList");
     return [];
   }
   return collections;
-};
-
-export const overwriteCollectionList = async (collections) => {
-  await db
-    .collection("collectionList")
-    .doc("collectionList")
-    .set({ data: collections });
 };
 
 export const deleteCollection = async (collection) => {

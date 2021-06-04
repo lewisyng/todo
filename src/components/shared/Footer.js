@@ -1,11 +1,11 @@
 import React from "react";
 import "./Footer.sass";
 
-function Footer() {
+export function Footer() {
   return (
-    <footer>
+    <div className="footer">
       <div className="copyright">Made by Lewis Young</div>
-    </footer>
+    </div>
   );
 }
 
