@@ -1,19 +1,12 @@
-import db from "../../localbase"
-import {createStore} from "redux"
-import {reducer} from "../reducers"
+import { createStore, applyMiddleware } from "redux";
+import thunk from "redux-thunk"
+import { reducer } from "../reducers";
 
-export const getCollections = async () => {
-    return await db.collection("collections").get();
-}
-
-export const getCurrentCollection = async (collection) => {    
-    return await db.collection(collection).get()
-}
 
 const initialState = {
-    collections: null,
-    currentCollectionName: null,
-    currentCollection: null
+  collections: null,
+  currentCollectionName: null,
+  currentCollection: null,
 }
 
-export const store = createStore(reducer, initialState)
+export const store = createStore(reducer, initialState, applyMiddleware(thunk));

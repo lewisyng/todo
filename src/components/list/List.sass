@@ -3,33 +3,21 @@
     
 .list
     margin: 0 1rem 0 0
-    width: 300px
+    max-width: 300px
     min-width: 300px
+    width: 300px
 
     &__header
         display: flex
         justify-content: space-between
+        align-items: center
         background-color: $btnBlue
+        padding: 1rem 1.2rem
 
-        &__name
-            padding: 1.5rem 0 0.5rem 1rem
-            color: $textLight
-            font-weight: bold
-            font-size: 1.2rem
-            margin: 0 0 0.5rem 0
-            text-transform: uppercase
+    &__newItem
+        display: flex
+        margin: 0 0 1rem 0
 
-        &__actions
-            padding: 0.5rem 0 0 0
-            align-self: center
-            @include action_icon_styling
-
-    &__list
+    &__listItems
         display: flex
         flex-direction: column
-        align-items: center
-
-.currentCollection__add
-    width: 50%
-    margin: 0 0 1rem 0
-    border-radius: 0
