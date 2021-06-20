@@ -1,0 +1,67 @@
+@import '../../styles/colors.sass'
+@import '../../styles/_mixins.sass'
+
+.listItem
+    display: flex
+    justify-content: space-between
+    margin: 0 0 0.5rem 0rem
+    background-color: $done
+
+    @media (max-width: 350px)
+        margin: 0 auto 0.75rem auto
+        width: 95%
+
+    &.done
+        background-color: $done !important
+    &.low
+        background-color: $lowPriority
+    &.medium
+        background-color: $mediumPriority
+    &.high
+        background-color: $highPriority
+    &.subtask
+        width: 80%
+        margin-left: auto !important
+        margin: 0 0 0.5rem 0rem
+
+    &__content
+        flex: 0.8
+        padding: 1rem
+        align-items: center
+        cursor: pointer
+        color: $textLight
+        word-wrap: break-word
+
+    &__actions
+        display: flex
+        flex-direction: column
+        align-items: center
+        justify-content: center
+        visibility: hidden
+
+        &.hover
+            visibility: visible
+
+@media (hover: none) and (pointer: coarse)
+    /* touchscreens */
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
+        visibility: visible
+
+@media (hover: none) and (pointer: fine)
+    /* stylus */
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
+        visibility: visible
+
+@media (hover: hover) and (pointer: coarse)
+    /* controllers */
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
+        visibility: visible
+
+@media (hover: hover) and (pointer: fine)
+    /* mouse or touchpad */

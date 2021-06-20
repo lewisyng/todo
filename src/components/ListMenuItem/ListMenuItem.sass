@@ -1,0 +1,24 @@
+@import '../../styles/colors'
+    
+.listMenuItem
+    display: flex
+    cursor: pointer
+    padding: 0.5rem 1rem
+    background-color: $mainBlue
+    align-items: center
+    color: white
+    text-transform: uppercase
+    font-weight: bold
+
+    &:hover
+        background-color: $mainBlueHover
+
+    &__delete
+        margin-left: auto !important
+
+    &__name
+        width: 100%
+        word-wrap: break-word
+        
+    & path
+        color: white

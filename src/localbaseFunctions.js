@@ -1,25 +1,113 @@
 import db from "./localbase";
 
 /*============================================================
-Functions regarding the Todo Items in a "SingleList" Component
+Functions regarding single Subtasks
 ============================================================*/
 
-export const createNewItem = async (collection, list, data) => {
+export const createNewSubtask = async (collectionName, list, item, data) => {
+  for (let i = 0; i < list.todos.length; i++) {
+    if (list.todos[i].id.task === item.id.task) {
+      const subtasks = list.todos[i].subtasks;
+      list.todos[i].subtasks.push({
+        id: {
+          list: list.id,
+          task: item.id.task,
+          subtask: subtasks.length
+            ? subtasks[subtasks.length - 1].id.subtask + 1
+            : 0,
+        },
+        name: data.name,
+        done: false,
+        priority: data.priority,
+        description: data.description,
+      });
+      break;
+    }
+  }
+
+  await db
+    .collection(collectionName)
+    .doc({ id: list.id })
+    .update({ todos: list.todos });
+};
+
+export const updateSubtaskData = async (
+  collectionName,
+  list,
+  listItem,
+  data
+) => {
   let todos = await db
-    .collection(collection)
+    .collection(collectionName)
     .doc({ id: list.id })
     .get()
     .then((data) => {
       return data.todos;
     });
 
+  todos
+    .find((item) => item.id.task === listItem.id.task)
+    ["subtasks"].find(
+      (item) => item.id.subtask === listItem.id.subtask
+    ).description = data.description;
+  todos
+    .find((item) => item.id.task === listItem.id.task)
+    ["subtasks"].find((item) => item.id.subtask === listItem.id.subtask).name =
+    data.name;
+  todos
+    .find((item) => item.id.task === listItem.id.task)
+    ["subtasks"].find(
+      (item) => item.id.subtask === listItem.id.subtask
+    ).priority = data.priority;
+
+  await db
+    .collection(collectionName)
+    .doc({ id: list.id })
+    .update({ todos: todos });
+};
+
+export const deleteSubtaskItem = async (collectionName, list, listItem) => {
+  let todos = await db
+    .collection(collectionName)
+    .doc({ id: list.id })
+    .get()
+    .then((data) => {
+      return data.todos;
+    });
+
+  // find index of subtask that is to be deleted
+  const index = todos
+    .find((item) => item.id.task === listItem.id.task)
+    ["subtasks"].indexOf((item) => item.id.subtask === listItem.id.subtask);
+
+  // delete item at that index
+  todos
+    .find((item) => item.id.task === listItem.id.task)
+    ["subtasks"].splice(index, 1);
+
+  await db
+    .collection(collectionName)
+    .doc({ id: list.id })
+    .update({ todos: todos });
+};
+
+/*============================================================
+Functions regarding single Todo Items
+============================================================*/
+
+export const createNewItem = async (collection, list, data) => {
+  const todos = list.todos;
+
   todos.push({
-    id: todos.length ? todos[todos.length - 1].id + 1 : 0,
+    id: {
+      list: list.id,
+      task: todos.length ? todos[todos.length - 1].id.task + 1 : 0,
+    },
     name: data.name,
     done: false,
     priority: data.priority,
     description: data.description,
-    subtasks: data.subtasks,
+    subtasks: [],
   });
 
   await db.collection(collection).doc({ id: list.id }).update({ todos: todos });
@@ -29,65 +117,82 @@ export const getItems = async (collection) => {
   return await db.collection(collection).get();
 };
 
-export const updateDone = async (collection, listId, todoId, done) => {
+export const updateTaskData = async (collectionName, list, listItem, data) => {
   let todos = await db
-    .collection(collection)
-    .doc({ id: listId })
+    .collection(collectionName)
+    .doc({ id: list.id })
     .get()
     .then((data) => {
       return data.todos;
     });
 
-  for (let i = 0; i < todos.length; i++) {
-    if (todos[i].id === todoId) {
-      todos[i].done = done;
-    }
-  }
+  todos.find((item) => item.id.task === listItem.id.task).description =
+    data.description;
+  todos.find((item) => item.id.task === listItem.id.task).name = data.name;
+  todos.find((item) => item.id.task === listItem.id.task).priority =
+    data.priority;
 
-  await db.collection(collection).doc({ id: listId }).update({ todos: todos });
+  await db
+    .collection(collectionName)
+    .doc({ id: list.id })
+    .update({ todos: todos });
+};
+
+export const updateDone = async (collection, list, todo, done) => {
+  let todos = await db
+    .collection(collection)
+    .doc({ id: list.id })
+    .get()
+    .then((data) => {
+      return data.todos;
+    });
+
+  // Find todo whose ID matches the needed ID and update its done value
+  (() => (todos.find((item) => item.id.task === todo.id.task).done = done))();
+
+  await db.collection(collection).doc({ id: list.id }).update({ todos: todos });
+};
+
+export const updateSubtaskDone = async (collection, list, todo, done) => {
+  let todos = await db
+    .collection(collection)
+    .doc({ id: list.id })
+    .get()
+    .then((data) => {
+      return data.todos;
+    });
+
+  // Find subtask whose ID matches the needed ID and update its done value
+  (() => {
+    todos
+      .find((item) => item.id.task === todo.id.task)
+      ["subtasks"].find((item) => item.id.subtask === todo.id.subtask).done =
+      done;
+  })();
+
+  await db.collection(collection).doc({ id: list.id }).update({ todos: todos });
 };
 
 export const getItemData = async (collection, id) => {
   return await db.collection(collection).doc({ id: id }).get();
 };
 
-export const updateItem = async (collection, listId, todoId, data) => {
+export const deleteItem = async (collection, list, todo) => {
   let todos = await db
     .collection(collection)
-    .doc(String(listId))
+    .doc({ id: list.id })
     .get()
     .then((data) => {
       return data.todos;
     });
 
   for (let i = 0; i < todos.length; i++) {
-    if (todos[i].id === todoId) {
-      todos[i].name = data.name;
-      todos[i].description = data.description;
-      todos[i].priority = data.priority;
-      todos[i].subtasks = data.subtasks;
-    }
-  }
-
-  await db.collection(collection).doc(String(listId)).update({ todos: todos });
-};
-
-export const deleteItem = async (collection, listId, todoId) => {
-  let todos = await db
-    .collection(collection)
-    .doc({ id: listId })
-    .get()
-    .then((data) => {
-      return data.todos;
-    });
-
-  for (let i = 0; i < todos.length; i++) {
-    if (todos[i].id === todoId) {
+    if (todos[i].id.task === todo.id.task) {
       todos.splice(i, 1);
     }
   }
 
-  await db.collection(collection).doc({ id: listId }).update({ todos: todos });
+  await db.collection(collection).doc({ id: list.id }).update({ todos: todos });
 };
 
 /*============================================================
@@ -95,7 +200,7 @@ Functions regarding single lists (TodoLists)
 ============================================================*/
 
 export const addNewList = async (collection, nameOfNewList) => {
-  let lists = await getLists(collection);
+  let lists = await getCollection(collection);
   let id = lists.length ? lists[lists.length - 1].id + 1 : 0;
 
   await db.collection(collection).doc(String(id)).set({
@@ -105,13 +210,9 @@ export const addNewList = async (collection, nameOfNewList) => {
   });
 };
 
-export const getLists = async (collection) => {
-  return await db.collection(collection).get();
-};
-
 export const deleteList = async (collection, listId) => {
   await db.collection(collection).doc(String(listId)).delete();
-}
+};
 
 /*============================================================
 Functions regarding the collections (Array of TodoLists)
@@ -129,17 +230,13 @@ export const getCollections = async () => {
   const collections = await db.collection("collections").get();
 
   if (collections === null) {
-    await db.collection("collectionList");
     return [];
   }
   return collections;
 };
 
-export const overwriteCollectionList = async (collections) => {
-  await db
-    .collection("collectionList")
-    .doc("collectionList")
-    .set({ data: collections });
+export const getCollection = async (collectionName) => {
+  return await db.collection(collectionName).get();
 };
 
 export const deleteCollection = async (collection) => {
