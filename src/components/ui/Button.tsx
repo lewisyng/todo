@@ -6,15 +6,19 @@ type Props = {
   children: React.ReactNode;
   color?: "default" | "warning" | "info";
   fullWidth?: boolean;
+  type?: "submit" | undefined;
   onClick?: () => void;
 };
 
 type buttonType = {
   color: "default" | "warning" | "info";
   fullWidth: boolean;
+  type: "submit" | undefined;
 };
 
-const StyledButton = styled.button<buttonType>`
+const StyledButton = styled.button.attrs((props) => ({
+  ...(props.type === "submit" && { type: "submit" }),
+}))<buttonType>`
   background-color: ${(props) =>
     props.color === "default"
       ? colors.btnBlue
@@ -54,10 +58,11 @@ const Button: FunctionComponent<Props> = ({
   children,
   color = "default",
   fullWidth,
+  type,
   onClick,
 }) => {
   return (
-    <StyledButton color={color} onClick={onClick} fullWidth>
+    <StyledButton type={type} color={color} onClick={onClick} fullWidth>
       {children}
     </StyledButton>
   );

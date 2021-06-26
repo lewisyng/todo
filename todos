@@ -22,3 +22,6 @@ wenn listitem als done markiert sollen auch alle zugehörigen subtask als done m
 
 neue Liste eingabefeld
 tags
+input component
+    itemsettings input hat schon stylings -> die mal angucken
+list löschen button nur anzeigen onhover

@@ -5,6 +5,7 @@ import { ListType } from "lib/types";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewDetailedTodo } from "src/store/actions";
 import Heading from "../ui/Heading";
+import Button from "../ui/Button";
 
 type Props = {
   open: boolean;
@@ -29,76 +30,69 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
   return (
     <Modal open={open} onClose={handleClose}>
       <div className="newDetailedItem">
-        <Heading color="#000">Neuer Eintrag</Heading>
-        <div className="itemDetails">
-          <div className="itemSettings__header">Einstellungen</div>
-          <form
-            className="itemSettings__form"
-            onSubmit={(e) => {
-              e.preventDefault();
-              dispatch(
-                createNewDetailedTodo(
-                  store.currentCollectionName,
-                  list,
-                  newItemData
-                )
-              );
-              handleClose();
-            }}
-          >
-            <label htmlFor="name">Name</label>
-            <input
-              autoComplete="off"
-              type="text"
-              name="name"
-              value={newItemData.name}
-              onChange={(event) =>
-                setNewItemData({
-                  ...newItemData,
-                  name: event.target.value,
-                })
-              }
-            />
+        <Heading>Neuer Eintrag</Heading>
+        <form
+          className="newDetailedItem__form"
+          onSubmit={(e) => {
+            e.preventDefault();
+            dispatch(
+              createNewDetailedTodo(
+                store.currentCollectionName,
+                list,
+                newItemData
+              )
+            );
+            handleClose();
+          }}
+        >
+          <label htmlFor="name">Name</label>
+          <input
+            autoComplete="off"
+            type="text"
+            name="name"
+            value={newItemData.name}
+            onChange={(event) =>
+              setNewItemData({
+                ...newItemData,
+                name: event.target.value,
+              })
+            }
+          />
 
-            <label htmlFor="description">Beschreibung</label>
-            <input
-              autoComplete="off"
-              type="text"
-              name="description"
-              value={newItemData.description}
-              onChange={(event) =>
-                setNewItemData({
-                  ...newItemData,
-                  description: event.target.value,
-                })
-              }
-            />
-            <label htmlFor="Priority">Priorität</label>
-            <select
-              name="Priority"
-              className="priority"
-              value={newItemData.priority}
-              onChange={(event) =>
-                setNewItemData({
-                  ...newItemData,
-                  priority: event.target.value,
-                })
-              }
-            >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </select>
-            <div className="itemSettings__form__actions">
-              <button className="btn btn__add" type="submit">
-                Sichern
-              </button>
-              <button className="btn btn__add" onClick={handleClose}>
-                Schließen
-              </button>
-            </div>
-          </form>
-        </div>
+          <label htmlFor="description">Beschreibung</label>
+          <input
+            autoComplete="off"
+            type="text"
+            name="description"
+            value={newItemData.description}
+            onChange={(event) =>
+              setNewItemData({
+                ...newItemData,
+                description: event.target.value,
+              })
+            }
+          />
+          <label htmlFor="Priority">Priorität</label>
+          <select
+            name="Priority"
+            className="priority"
+            value={newItemData.priority}
+            onChange={(event) =>
+              setNewItemData({
+                ...newItemData,
+                priority: event.target.value,
+              })
+            }
+          >
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <div className="newDetailedItem__form__actions">
+            <Button type="submit">Sichern</Button>
+            <Button onClick={handleClose}>Schließen</Button>
+          </div>
+        </form>
       </div>
     </Modal>
   );
