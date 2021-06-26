@@ -10,7 +10,6 @@ const Header: FunctionComponent = () => {
         <ListMenu />
         <NewList />
       </div>
-      <div className="logo">TODOS</div>
     </div>
   );
 }
