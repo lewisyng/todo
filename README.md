@@ -21,3 +21,12 @@ Lists contain a collection of **tasks** aka **todos**
 **Tasks/todos** come in the form of normal **tasks** or **subtasks**. A task can contain as many **subtasks** as needed. 
 
 *Subtasks themselves cannot contain any subtasks.*
+
+---
+---
+
+## State
+
+The state is managed with **Redux** in conjunction with custom functions that are build ontop the localbase package to create, read, update and delete data inside the database.
+
+These custom functions are stored inside localbase.js and are bundled into functions which work with Subtask, Task, List and Collection Data.
