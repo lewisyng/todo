@@ -9,10 +9,7 @@ export type ListType = {
 export type TodoType = {
     description: string
     done: boolean
-    id: {
-        list: number
-        task: number
-    }
+    id: TaskIdType
     name: string
     priority: "low" | "medium" | "high"
     subtasks: SubtaskType[]
@@ -20,12 +17,17 @@ export type TodoType = {
 export type SubtaskType = {
     description: string
     done: boolean
-    id: {
-        list: number
-        task: number
-        subtask: number
-    }
+    id: SubtaskIdType
     name: string
     priority: "low" | "medium" | "high"
-    subtasks: SubtaskType[]
+}
+
+export interface TaskIdType {
+    list: number,
+    task: number,
+}
+export interface SubtaskIdType {
+    list: number,
+    task: number,
+    subtask: number
 }

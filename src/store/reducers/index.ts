@@ -1,4 +1,6 @@
-export const reducer = (state, action) => {
+import { AnyAction } from "redux";
+
+export const reducer = (state: any, action: AnyAction) => {
   switch (action.type) {
     case "SET_COLLECTIONS":
       return {

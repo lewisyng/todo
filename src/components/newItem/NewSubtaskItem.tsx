@@ -1,19 +1,16 @@
+import { ListType, SubtaskType } from "lib/types";
 import React, { FunctionComponent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createNewTodo } from "../../store/actions";
-import "./NewStandardItem.sass";
-import { ListType, TodoType } from "lib/types";
+import { createNewSubtaskItem } from "src/store/actions";
 
-type Props = {
+interface Props {
   list: ListType;
-  type?: string;
-  item?: TodoType;
+  item: SubtaskType;
   handleClose: () => void;
-};
+}
 
-export const NewStandardItem: FunctionComponent<Props> = ({
+export const NewSubtaskItem: FunctionComponent<Props> = ({
   list,
-  type,
   item,
   handleClose,
 }) => {
@@ -22,23 +19,20 @@ export const NewStandardItem: FunctionComponent<Props> = ({
   const [newItem, setNewItem] = useState({
     name: "",
     description: "",
-    priority: "low",
-    ...(type === "task" && { subtasks: [] }),
   });
 
   return (
-    <div className="newStandardItem" onBlur={handleClose}>
+    <div className="newSubtaskItem" onBlur={handleClose}>
       <form
         className="newStandardItemForm"
         onSubmit={(e) => {
           e.preventDefault();
           dispatch(
-            createNewTodo(
+            createNewSubtaskItem(
               store.currentCollectionName,
               list,
               item,
-              newItem,
-              type
+              newItem
             )
           );
           handleClose();
@@ -58,4 +52,4 @@ export const NewStandardItem: FunctionComponent<Props> = ({
   );
 };
 
-export default NewStandardItem;
+export default NewSubtaskItem;

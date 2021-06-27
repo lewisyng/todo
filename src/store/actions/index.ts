@@ -1,5 +1,14 @@
+import {
+  CollectionType,
+  ListType,
+  SubtaskIdType,
+  SubtaskType,
+  TaskIdType,
+  TodoType,
+} from "lib/types";
 import updateDone, {
   addNewList,
+  createNewDetailedItem,
   createNewItem,
   createNewSubtask,
   deleteCollection,
@@ -8,12 +17,12 @@ import updateDone, {
   deleteSubtaskItem,
   getCollection,
   getCollections,
-  updateSubtaskData,
+  updateData,
   updateSubtaskDone,
-  updateTaskData,
 } from "src/localbaseFunctions";
+import { DispatchType } from "../store";
 
-export const setCollections = (collections) => {
+export const setCollections = (collections: CollectionType[]) => {
   return {
     type: "SET_COLLECTIONS",
     payload: {
@@ -22,26 +31,8 @@ export const setCollections = (collections) => {
   };
 };
 
-export const setCurrentCollectionName = (name) => {
-  return {
-    type: "SET_CURRENTCOLLECTIONNAME",
-    payload: {
-      currentCollectionName: name,
-    },
-  };
-};
-
-export const setCurrentCollection = (newData) => {
-  return {
-    type: "SET_CURRENTCOLLECTION",
-    payload: {
-      currentCollection: newData,
-    },
-  };
-};
-
 export const setUp = () => {
-  return async (dispatch) => {
+  return async (dispatch: DispatchType) => {
     const collections = await getCollections();
     const currentCollectionName = await getCollections().then((data) => {
       return data[0]?.name;
@@ -58,8 +49,8 @@ export const setUp = () => {
   };
 };
 
-export const changeCollection = (collectionName) => {
-  return async (dispatch) => {
+export const changeCollection = (collectionName: string) => {
+  return async (dispatch: DispatchType) => {
     const currentCollection = await getCollection(collectionName);
     dispatch({
       type: "CHANGECOLLECTION",
@@ -71,8 +62,8 @@ export const changeCollection = (collectionName) => {
   };
 };
 
-export const deleteEntireCollection = (collectionName) => {
-  return async (dispatch) => {
+export const deleteEntireCollection = (collectionName: string) => {
+  return async (dispatch: DispatchType) => {
     await deleteCollection(collectionName);
     const collections = await getCollections();
     dispatch({
@@ -84,8 +75,12 @@ export const deleteEntireCollection = (collectionName) => {
   };
 };
 
-export const deleteListItem = (collectionName, list, listItem) => {
-  return async (dispatch) => {
+export const deleteListItem = (
+  collectionName: string,
+  list: ListType,
+  listItem: TodoType
+) => {
+  return async (dispatch: DispatchType) => {
     await deleteItem(collectionName, list, listItem);
     const currentCollection = await getCollection(collectionName);
     dispatch({
@@ -97,21 +92,25 @@ export const deleteListItem = (collectionName, list, listItem) => {
   };
 };
 
-export const deleteEntireList = (collectionName, list) => {
-  return async dispatch => {
+export const deleteEntireList = (collectionName: string, list: ListType) => {
+  return async (dispatch: DispatchType) => {
     await deleteList(collectionName, list.id);
-    const currentCollection = await getCollection(collectionName)
+    const currentCollection = await getCollection(collectionName);
     dispatch({
       type: "PERSIST_CHANGE",
       payload: {
-        currentCollection: currentCollection
-      }
-    })
-  }
-}
+        currentCollection: currentCollection,
+      },
+    });
+  };
+};
 
-export const deleteSubtask = (collectionName, list, listItem) => {
-  return async (dispatch) => {
+export const deleteSubtask = (
+  collectionName: string,
+  list: ListType,
+  listItem: SubtaskType
+) => {
+  return async (dispatch: DispatchType) => {
     await deleteSubtaskItem(collectionName, list, listItem);
     const currentCollection = await getCollection(collectionName);
     dispatch({
@@ -123,8 +122,12 @@ export const deleteSubtask = (collectionName, list, listItem) => {
   };
 };
 
-export const toggleTaskDone = (collectionName, list, listItem) => {
-  return async (dispatch) => {
+export const toggleTaskDone = (
+  collectionName: string,
+  list: ListType,
+  listItem: TodoType
+) => {
+  return async (dispatch: DispatchType) => {
     await updateDone(collectionName, list, listItem, !listItem.done);
     const currentCollection = await getCollection(collectionName);
     dispatch({
@@ -136,8 +139,12 @@ export const toggleTaskDone = (collectionName, list, listItem) => {
   };
 };
 
-export const toggleSubtaskDone = (collectionName, list, listItem) => {
-  return async (dispatch) => {
+export const toggleSubtaskDone = (
+  collectionName: string,
+  list: ListType,
+  listItem: SubtaskType
+) => {
+  return async (dispatch: DispatchType) => {
     await updateSubtaskDone(collectionName, list, listItem, !listItem.done);
     const currentCollection = await getCollection(collectionName);
     dispatch({
@@ -149,9 +156,11 @@ export const toggleSubtaskDone = (collectionName, list, listItem) => {
   };
 };
 
-export const createList = (collectionName, name) => {
-  return async (dispatch) => {
-    await addNewList(collectionName, name);
+export const createList = (collectionName: string, name?: string) => {
+  return async (dispatch: DispatchType) => {
+    if (name) {
+      await addNewList(collectionName, name);
+    }
     const currentCollection = await getCollection(collectionName);
     dispatch({
       type: "PERSIST_CHANGE",
@@ -163,18 +172,20 @@ export const createList = (collectionName, name) => {
 };
 
 export const updateItem = (
-  collectionName,
-  list,
-  item,
-  itemSettingsData,
-  type
+  collectionName: string,
+  list: ListType,
+  item: TodoType | SubtaskType,
+  itemSettingsData: {
+    id: TaskIdType | SubtaskIdType;
+    name: string;
+    description: string;
+    priority: "low" | "medium" | "high";
+    subtasks?: SubtaskType[];
+  },
+  type: string
 ) => {
-  return async (dispatch) => {
-    if (type === "task") {
-      await updateTaskData(collectionName, list, item, itemSettingsData);
-    } else {
-      await updateSubtaskData(collectionName, list, item, itemSettingsData);
-    }
+  return async (dispatch: DispatchType) => {
+    await updateData(collectionName, list, item, itemSettingsData, type);
     const currentCollection = await getCollection(collectionName);
     dispatch({
       type: "PERSIST_CHANGE",
@@ -185,27 +196,60 @@ export const updateItem = (
   };
 };
 
-export const createNewTodo = (collectionName, list, item, data, type) => {
-  return async dispatch => {
-    if (type === "subtask") {
-      await createNewSubtask(collectionName, list, item, data);
-    } else {
-      await createNewItem(collectionName, list, data);
-    }
-    const currentCollection = await getCollection(collectionName)
+export const createNewTodoItem = (
+  collectionName: string,
+  list: ListType,
+  data: {
+    name: string;
+    description: string;
+  }
+) => {
+  return async (dispatch: DispatchType) => {
+    await createNewItem(collectionName, list, data);
+    const currentCollection = await getCollection(collectionName);
 
     dispatch({
       type: "PERSIST_CHANGE",
       payload: {
-        currentCollection: currentCollection
-      }
-    })
-  }
-}
+        currentCollection: currentCollection,
+      },
+    });
+  };
+};
 
-export const createNewDetailedTodo = (collectionName, list, data) => {
-  return async (dispatch) => {
-    await createNewItem(collectionName, list, data);
+export const createNewSubtaskItem = (
+  collectionName: string,
+  list: ListType,
+  item: SubtaskType,
+  data: {
+    name: string;
+    description: string;
+  }
+) => {
+  return async (dispatch: DispatchType) => {
+    await createNewSubtask(collectionName, list, item, data);
+    const currentCollection = await getCollection(collectionName);
+
+    dispatch({
+      type: "PERSIST_CHANGE",
+      payload: {
+        currentCollection: currentCollection,
+      },
+    });
+  };
+};
+
+export const createNewDetailedTodo = (
+  collectionName: string,
+  list: ListType,
+  data: {
+    name: string;
+    description: string;
+    priority: "low" | "medium" | "high";
+  }
+) => {
+  return async (dispatch: DispatchType) => {
+    await createNewDetailedItem(collectionName, list, data);
     const currentCollection = await getCollection(collectionName);
 
     dispatch({

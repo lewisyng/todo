@@ -21,7 +21,11 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
   const store = useSelector((state: any) => state);
   const dispatch = useDispatch();
 
-  const [newItemData, setNewItemData] = useState({
+  const [newItemData, setNewItemData] = useState<{
+    name: string;
+    description: string;
+    priority: "low" | "medium" | "high";
+  }>({
     name: "",
     description: "",
     priority: "low",
@@ -80,7 +84,7 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
             onChange={(event) =>
               setNewItemData({
                 ...newItemData,
-                priority: event.target.value,
+                priority: event.target.value as "low" | "medium" | "high",
               })
             }
           >

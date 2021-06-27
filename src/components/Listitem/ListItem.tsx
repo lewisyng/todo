@@ -3,14 +3,9 @@ import "./ListItem.sass";
 import DeleteIcon from "@material-ui/icons/Delete";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AddIcon from "@material-ui/icons/Add";
-import NewStandardItem from "../newItem/NewStandardItem";
+import NewSubtaskItem from "../newItem/NewSubtaskItem";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  deleteListItem,
-  deleteSubtask,
-  toggleTaskDone,
-  toggleSubtaskDone,
-} from "../../store/actions";
+import { deleteListItem, toggleTaskDone } from "../../store/actions";
 import { ListType, SubtaskType, TodoType } from "lib/types";
 import Heading from "../ui/Heading";
 import Content from "../ui/Content";
@@ -43,15 +38,9 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
         <div
           className="listItem__content"
           onClick={() => {
-            if (type === "task") {
-              dispatch(
-                toggleTaskDone(state.currentCollectionName, list, listItem)
-              );
-            } else {
-              dispatch(
-                toggleSubtaskDone(state.currentCollectionName, list, listItem)
-              );
-            }
+            dispatch(
+              toggleTaskDone(state.currentCollectionName, list, listItem as TodoType)
+            );
           }}
         >
           <Heading>{listItem.name}</Heading>
@@ -65,15 +54,9 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
           <IconButton>
             <DeleteIcon
               onClick={() => {
-                if (type === "task") {
-                  dispatch(
-                    deleteListItem(state.currentCollectionName, list, listItem)
-                  );
-                } else {
-                  dispatch(
-                    deleteSubtask(state.currentCollectionName, list, listItem)
-                  );
-                }
+                dispatch(
+                  deleteListItem(state.currentCollectionName, list, listItem as TodoType)
+                );
               }}
             />
           </IconButton>
@@ -90,10 +73,9 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
         </div>
       </div>
       {newSubtaskField && (
-        <NewStandardItem
-          type="subtask"
+        <NewSubtaskItem
           list={list}
-          item={listItem}
+          item={listItem as SubtaskType}
           handleClose={() => setNewSubtaskField(false)}
         />
       )}
