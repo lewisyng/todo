@@ -2,12 +2,12 @@ import { FunctionComponent, useState } from "react";
 import "./List.sass";
 import { deleteList, getCollection } from "../../localbaseFunctions";
 import ListItem from "../Listitem/ListItem";
-import NewStandardItem from "../newItem/NewStandardItem";
+import NewTodoItem from "../newItem/NewTodoItem";
 import NewDetailedItem from "../newItem/NewDetailedItem";
 import { IconButton } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteEntireList, setCurrentCollection } from "../../store/actions";
+import { deleteEntireList } from "../../store/actions";
 import { ListType } from "../../../lib/types";
 import Heading from "../ui/Heading";
 import Button from "../ui/Button";
@@ -48,7 +48,7 @@ const List: FunctionComponent<Props> = ({ list }) => {
 
       <div className="list__listItems">
         {showNewItemField && (
-          <NewStandardItem
+          <NewTodoItem
             list={list}
             handleClose={() => setShowNewItemField(false)}
           />

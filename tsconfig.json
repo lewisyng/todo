@@ -22,6 +22,9 @@
     "baseUrl": "."
   },
   "include": [
-    "**/*.ts", "**/*.tsx"
-, "src/store/store/index.js", "src/index.js"  ]
+    "**/*.ts", 
+    "**/*.tsx",
+    "src/store/store/index.tsx",
+    "src/index.tsx"  
+, "src/localbase.js"  ]
 }
