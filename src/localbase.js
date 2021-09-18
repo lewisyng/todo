@@ -1,5 +1,5 @@
-import Localbase from 'localbase';
+import Localbase from "localbase";
 
-let db = new Localbase('data');
+let db = new Localbase("data");
 
 export default db;

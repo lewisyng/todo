@@ -1,0 +1,17 @@
+export const colors = {
+  btnCloseColor: "#3F51B5",
+  background: "#F0F1F6",
+  listBackground: "#3867d6",
+  textLight: "#f6f6f8",
+  textDark: "#262627",
+  mainBlue: "#3A5FEB",
+  mainBlueHover: "#274edf",
+  lightBlue: "#4a6ef0",
+  btnBlue: "#3F51B5",
+  btnBlueHover: "#303f9f",
+  newTodoInput: "#686868",
+  done: "#a5b1c2",
+  lowPriority: "#20bf6b",
+  mediumPriority: "#fa8231",
+  highPriority: "#eb3b5a",
+};
