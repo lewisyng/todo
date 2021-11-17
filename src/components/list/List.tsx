@@ -1,5 +1,5 @@
 import { FunctionComponent, useState } from "react";
-import styles from "./List.module.sass";
+import "./List.sass";
 import { deleteList, getCollection } from "../../localbaseFunctions";
 import ListItem from "../Listitem/ListItem";
 import NewTodoItem from "../newItem/NewTodoItem";
@@ -23,31 +23,30 @@ const List: FunctionComponent<Props> = ({ list }) => {
   const [showNewDetailedItem, setShowNewDetailedItem] = useState(false);
 
   return (
-    <div className={styles.list}>
-      <div className={styles.listHeader}>
-        <div className={styles.listHeader__details}>
-          <Heading>{list.name}</Heading>
-          <IconButton
-            onClick={() =>
-              dispatch(deleteEntireList(currentCollectionName, list))
-            }
-          >
-            <DeleteIcon />
-          </IconButton>
-        </div>
-        {!showNewItemField && (
-          <div className={styles.listHeader__actions}>
-            <Button onClick={() => setShowNewItemField(true)}>
-              Schnell-Eintrag
-            </Button>
-            <Button onClick={() => setShowNewDetailedItem(true)}>
-              Detail-Eintrag
-            </Button>
-          </div>
-        )}
+    <div className="list">
+      <div className="list__header">
+        <Heading>{list.name}</Heading>
+        <IconButton
+          onClick={() =>
+            dispatch(deleteEntireList(currentCollectionName, list))
+          }
+        >
+          <DeleteIcon />
+        </IconButton>
       </div>
 
-      <div className={styles.list__listItems}>
+      {!showNewItemField && (
+        <div className="list__newItem">
+          <Button onClick={() => setShowNewItemField(true)}>
+            Schnell-Eintrag
+          </Button>
+          <Button onClick={() => setShowNewDetailedItem(true)}>
+            Detail-Eintrag
+          </Button>
+        </div>
+      )}
+
+      <div className="list__listItems">
         {showNewItemField && (
           <NewTodoItem
             list={list}

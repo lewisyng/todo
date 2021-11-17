@@ -1,25 +1,22 @@
 @import '../../styles/colors.sass'
 @import '../../styles/mixins.sass'
-
+    
 .list
     margin: 0 1rem 0 0
     max-width: 300px
     min-width: 300px
     width: 300px
 
-.listHeader
-    margin: 0 0 16px 0
-    background-color: $draftMain
-    padding: 1rem 1.2rem
-    border-radius: 10px
-    overflow: hidden
-    &__details
+    &__header
         display: flex
         justify-content: space-between
         align-items: center
+        background-color: $btnBlue
+        padding: 1rem 1.2rem
 
-    &__actions
+    &__newItem
         display: flex
+        margin: 0 0 1rem 0
 
     &__listItems
         display: flex
