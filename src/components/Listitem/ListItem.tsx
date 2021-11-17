@@ -1,16 +1,17 @@
 import { FunctionComponent, useState } from "react";
 import "./ListItem.sass";
-import DeleteIcon from "@material-ui/icons/Delete";
-import SettingsIcon from "@material-ui/icons/Settings";
-import AddIcon from "@material-ui/icons/Add";
 import NewSubtaskItem from "../newItem/NewSubtaskItem";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteListItem, toggleTaskDone } from "../../store/actions";
 import { ListType, SubtaskType, TodoType } from "lib/types";
 import Heading from "../ui/Heading";
 import Content from "../ui/Content";
-import { IconButton } from "@material-ui/core";
 import ItemSettings from "../itemSettings/ItemSettings";
+import DeleteIcon from '@mui/icons-material/Delete';
+import AddIcon from '@mui/icons-material/Add';
+import SettingsIcon from '@mui/icons-material/Settings';
+import IconButton from '@mui/material/IconButton';
+
 
 type Props = {
   type: "task" | "subtask";

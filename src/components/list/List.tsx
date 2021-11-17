@@ -1,16 +1,26 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useRef, useState } from "react";
 import styles from "./List.module.sass";
 import { deleteList, getCollection } from "../../localbaseFunctions";
 import ListItem from "../Listitem/ListItem";
 import NewTodoItem from "../newItem/NewTodoItem";
 import NewDetailedItem from "../newItem/NewDetailedItem";
-import { IconButton } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteEntireList } from "../../store/actions";
 import { ListType } from "../../../lib/types";
 import Heading from "../ui/Heading";
-import Button from "../ui/Button";
+// import Button from "../ui/Button";
+import {
+  ButtonGroup,
+  Grow,
+  MenuItem,
+  MenuList,
+  Paper,
+  Popper,
+} from "@mui/material";
+import Button from "@mui/material/Button";
+import ClickAwayListener from '@mui/core/ClickAwayListener';
 
 type Props = {
   list: ListType;
@@ -19,32 +29,61 @@ type Props = {
 const List: FunctionComponent<Props> = ({ list }) => {
   const { currentCollectionName } = useSelector((state: any) => state);
   const dispatch = useDispatch();
-  const [showNewItemField, setShowNewItemField] = useState(false);
-  const [showNewDetailedItem, setShowNewDetailedItem] = useState(false);
+  const [showNewItemField, setShowNewItemField] = useState<boolean>(false);
+  const [showNewDetailedItem, setShowNewDetailedItem] =
+    useState<boolean>(false);
+  const [showNewDropdown, setShowNewDropdown] = useState<boolean>(false);
+  const anchorRef = useRef(null);
 
   return (
     <div className={styles.list}>
       <div className={styles.listHeader}>
         <div className={styles.listHeader__details}>
           <Heading>{list.name}</Heading>
-          <IconButton
-            onClick={() =>
-              dispatch(deleteEntireList(currentCollectionName, list))
-            }
+          <ButtonGroup variant="outlined" ref={anchorRef}>
+            <Button
+              onClick={() =>
+                dispatch(deleteEntireList(currentCollectionName, list))
+              }
+            >
+              <DeleteIcon />
+            </Button>
+            <Button onClick={() => setShowNewDropdown(!showNewDropdown)}>
+              <AddIcon />
+            </Button>
+          </ButtonGroup>
+          <Popper
+            open={showNewDropdown}
+            anchorEl={anchorRef.current}
+            transition
+            disablePortal
           >
-            <DeleteIcon />
-          </IconButton>
+            {({ TransitionProps, placement }) => (
+              <Grow
+                {...TransitionProps}
+                style={{
+                  transformOrigin:
+                    placement === "bottom" ? "center top" : "center bottom",
+                }}
+              >
+                <Paper>
+                  <ClickAwayListener
+                    onClickAway={() => setShowNewDropdown(false)}
+                  >
+                    <MenuList id="split-button-menu">
+                      <MenuItem onClick={() => setShowNewItemField(true)}>
+                        Schnell-Eintrag
+                      </MenuItem>
+                      <MenuItem onClick={() => setShowNewDetailedItem(true)}>
+                        Detail-Eintrag
+                      </MenuItem>
+                    </MenuList>
+                  </ClickAwayListener>
+                </Paper>
+              </Grow>
+            )}
+          </Popper>
         </div>
-        {!showNewItemField && (
-          <div className={styles.listHeader__actions}>
-            <Button onClick={() => setShowNewItemField(true)}>
-              Schnell-Eintrag
-            </Button>
-            <Button onClick={() => setShowNewDetailedItem(true)}>
-              Detail-Eintrag
-            </Button>
-          </div>
-        )}
       </div>
 
       <div className={styles.list__listItems}>

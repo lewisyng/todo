@@ -1,11 +1,11 @@
 import React, { FunctionComponent, useState } from "react";
-import { Modal } from "@material-ui/core";
 import "./NewDetailedItem.sass";
 import { ListType } from "lib/types";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewDetailedTodo } from "src/store/actions";
 import Heading from "../ui/Heading";
 import Button from "../ui/Button";
+import { Modal } from '@mui/material';
 
 type Props = {
   open: boolean;

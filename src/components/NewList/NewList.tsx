@@ -1,17 +1,12 @@
 import { FunctionComponent } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogContentText,
-  IconButton,
-  TextField,
-} from "@material-ui/core";
 import { useState } from "react";
 import "./NewList.sass";
 import { addNewCollection, getCollections } from "../../localbaseFunctions";
-import AddIcon from "@material-ui/icons/Add";
 import { useDispatch, useSelector } from "react-redux";
 import { setCollections } from "../../store/actions";
+import IconButton from '@mui/material/IconButton';
+import AddIcon from '@mui/icons-material/Add';
+import { Dialog, DialogContent, DialogContentText, TextField } from "@mui/material";
 
 const NewList: FunctionComponent = () => {
   const store = useSelector((state) => state);
