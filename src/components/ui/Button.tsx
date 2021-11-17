@@ -41,6 +41,7 @@ const StyledButton = styled.button.attrs((props) => ({
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.1));
   outline: 0;
   background-color: $btnBlue;
+  border-radius: 4px;
 
   &:hover {
     background-color: ${(props) =>
