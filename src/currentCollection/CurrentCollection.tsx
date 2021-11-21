@@ -1,9 +1,8 @@
 import React, { FunctionComponent, useRef, useState } from "react";
-import "./CurrentCollection.sass";
+import styles from "./CurrentCollection.module.sass";
 import List from "../components/list/List";
 import { useDispatch, useSelector } from "react-redux";
 import { createList } from "../store/actions";
-import ScrollContainer from "react-indiana-drag-scroll";
 import Button from "src/components/ui/Button";
 
 const CurrentCollection: FunctionComponent = () => {
@@ -25,19 +24,19 @@ const CurrentCollection: FunctionComponent = () => {
   };
 
   return (
-    <ScrollContainer
-      className="currentCollection"
-      ignoreElements="input, .singleList, .currentCollection__header"
-    >
-      <div className="currentCollection__lists">
+    <div className={styles.currentCollection}>
+      <div className={styles.currentCollection__lists}>
         {state.currentCollection?.map((list: any) => {
           return <List list={list} />;
         })}
 
-        <div className="lists__newList">
+        <div className={styles.lists__newList}>
           {!showNewItemField ? (
-            <Button onClick={() => setShowNewItemField(true)}>
-              Neue Liste
+            <Button
+              className={styles.listsNewList__button}
+              onClick={() => setShowNewItemField(true)}
+            >
+              +
             </Button>
           ) : (
             <form
@@ -49,7 +48,7 @@ const CurrentCollection: FunctionComponent = () => {
           )}
         </div>
       </div>
-    </ScrollContainer>
+    </div>
   );
 };
 

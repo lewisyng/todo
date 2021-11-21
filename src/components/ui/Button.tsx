@@ -7,6 +7,7 @@ type Props = {
   color?: "default" | "warning" | "info";
   fullWidth?: boolean;
   type?: "submit" | undefined;
+  className?: string;
   onClick?: () => void;
 };
 
@@ -35,13 +36,13 @@ const StyledButton = styled.button.attrs((props) => ({
   color: white;
 
   font-weight: 500;
-  font-size: 1rem;
+  font-size: 2rem;
   cursor: pointer;
 
   filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.1));
   outline: 0;
   background-color: $btnBlue;
-  border-radius: 4px;
+  border-radius: 10px;
 
   &:hover {
     background-color: ${(props) =>
@@ -59,11 +60,12 @@ const Button: FunctionComponent<Props> = ({
   children,
   color = "default",
   fullWidth,
+  className,
   type,
   onClick,
 }) => {
   return (
-    <StyledButton type={type} color={color} onClick={onClick} fullWidth>
+    <StyledButton className={className} type={type} color={color} onClick={onClick} fullWidth>
       {children}
     </StyledButton>
   );

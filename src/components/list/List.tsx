@@ -20,7 +20,7 @@ import {
   Popper,
 } from "@mui/material";
 import Button from "@mui/material/Button";
-import ClickAwayListener from '@mui/core/ClickAwayListener';
+import ClickAwayListener from "@mui/core/ClickAwayListener";
 
 type Props = {
   list: ListType;
@@ -38,52 +38,50 @@ const List: FunctionComponent<Props> = ({ list }) => {
   return (
     <div className={styles.list}>
       <div className={styles.listHeader}>
-        <div className={styles.listHeader__details}>
-          <Heading>{list.name}</Heading>
-          <ButtonGroup variant="outlined" ref={anchorRef}>
-            <Button
-              onClick={() =>
-                dispatch(deleteEntireList(currentCollectionName, list))
-              }
-            >
-              <DeleteIcon />
-            </Button>
-            <Button onClick={() => setShowNewDropdown(!showNewDropdown)}>
-              <AddIcon />
-            </Button>
-          </ButtonGroup>
-          <Popper
-            open={showNewDropdown}
-            anchorEl={anchorRef.current}
-            transition
-            disablePortal
+        <Heading className={styles.listHeader__title}>{list.name}</Heading>
+        <ButtonGroup variant="text" ref={anchorRef}>
+          <Button
+            onClick={() =>
+              dispatch(deleteEntireList(currentCollectionName, list))
+            }
           >
-            {({ TransitionProps, placement }) => (
-              <Grow
-                {...TransitionProps}
-                style={{
-                  transformOrigin:
-                    placement === "bottom" ? "center top" : "center bottom",
-                }}
-              >
-                <Paper>
-                  <ClickAwayListener
-                    onClickAway={() => setShowNewDropdown(false)}
-                  >
-                    <MenuList id="split-button-menu">
-                      <MenuItem onClick={() => setShowNewItemField(true)}>
-                        Schnell-Eintrag
-                      </MenuItem>
-                      <MenuItem onClick={() => setShowNewDetailedItem(true)}>
-                        Detail-Eintrag
-                      </MenuItem>
-                    </MenuList>
-                  </ClickAwayListener>
-                </Paper>
-              </Grow>
-            )}
-          </Popper>
-        </div>
+            <DeleteIcon />
+          </Button>
+          <Button onClick={() => setShowNewDropdown(!showNewDropdown)}>
+            <AddIcon />
+          </Button>
+        </ButtonGroup>
+        <Popper
+          open={showNewDropdown}
+          anchorEl={anchorRef.current}
+          transition
+          disablePortal
+        >
+          {({ TransitionProps, placement }) => (
+            <Grow
+              {...TransitionProps}
+              style={{
+                transformOrigin:
+                  placement === "bottom" ? "center top" : "center bottom",
+              }}
+            >
+              <Paper>
+                <ClickAwayListener
+                  onClickAway={() => setShowNewDropdown(false)}
+                >
+                  <MenuList id="split-button-menu">
+                    <MenuItem onClick={() => setShowNewItemField(true)}>
+                      Schnell-Eintrag
+                    </MenuItem>
+                    <MenuItem onClick={() => setShowNewDetailedItem(true)}>
+                      Detail-Eintrag
+                    </MenuItem>
+                  </MenuList>
+                </ClickAwayListener>
+              </Paper>
+            </Grow>
+          )}
+        </Popper>
       </div>
 
       <div className={styles.list__listItems}>

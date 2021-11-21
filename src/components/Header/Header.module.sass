@@ -2,8 +2,8 @@
 
 .header
     display: flex
-    padding: 16px
-    background-color: $lightBlue
+    min-height: 56px
+    background-color: $sidebarBackground
 
 .header__actions
     display: flex
@@ -11,6 +11,11 @@
     align-items: center
     width: 100%
     padding: 0.4rem 0
+
+@media (min-width: 575px)
+    .headerActions__smallScreen
+        display: none
+
 
 .logo
     display: none

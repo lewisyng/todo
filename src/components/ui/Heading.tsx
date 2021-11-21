@@ -1,17 +1,19 @@
 import { FunctionComponent } from "react";
 import styled from "styled-components";
+import cn from "classnames";
 
 type Props = {
   children: React.ReactNode;
   color?: string;
-  bold?: boolean;
+  weight?: "normal" | "bold" | "extrabold";
   textAlign?: "left" | "center" | "right";
   allCaps?: boolean;
+  className?: string;
 };
 
 type h1Type = {
   color: string;
-  bold: boolean;
+  weight: "normal" | "bold" | "extrabold";
   textAlign: "left" | "center" | "right";
   allCaps: boolean;
 };
@@ -19,7 +21,12 @@ type h1Type = {
 const StyledHeading = styled.h1<h1Type>`
   font-size: 1.5rem;
   color: ${(props) => props.color};
-  font-weight: ${(props) => (props.bold ? "bold" : "normal")};
+  font-weight: ${(props) =>
+    props.weight === "bold"
+      ? "700"
+      : props.weight === "extrabold"
+      ? "900"
+      : "500"};
   text-align: ${(props) => props.textAlign};
   text-transform: ${(props) => props.allCaps && "uppercase"};
 `;
@@ -27,16 +34,18 @@ const StyledHeading = styled.h1<h1Type>`
 const Heading: FunctionComponent<Props> = ({
   children,
   color = "white",
-  bold = true,
+  weight = "normal",
   textAlign = "left",
   allCaps = false,
+  className,
 }) => {
   return (
     <StyledHeading
       color={color}
-      bold={bold}
+      weight={weight}
       textAlign={textAlign}
       allCaps={allCaps}
+      className={cn(className)}
     >
       {children}
     </StyledHeading>
