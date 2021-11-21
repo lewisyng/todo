@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from "react";
+import { FunctionComponent, useRef, useState } from "react";
 import "./ListItem.sass";
 import NewSubtaskItem from "../newItem/NewSubtaskItem";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,11 +7,12 @@ import { ListType, SubtaskType, TodoType } from "lib/types";
 import Heading from "../ui/Heading";
 import Content from "../ui/Content";
 import ItemSettings from "../itemSettings/ItemSettings";
-import DeleteIcon from '@mui/icons-material/Delete';
-import AddIcon from '@mui/icons-material/Add';
-import SettingsIcon from '@mui/icons-material/Settings';
-import IconButton from '@mui/material/IconButton';
-
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import SettingsIcon from "@mui/icons-material/Settings";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import IconButton from "@mui/material/IconButton";
+import { Menu, MenuItem } from "@mui/material";
 
 type Props = {
   type: "task" | "subtask";
@@ -27,6 +28,19 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
   const [newSubtaskField, setNewSubtaskField] = useState(false);
   const [itemSettingsOpened, setItemSettingsOpened] = useState(false);
 
+  const [taskMenuAnchor, setTaskMenuAnchor] = useState<null | HTMLElement>(
+    null
+  );
+  const taskMenuOpen = Boolean(taskMenuAnchor);
+
+  const handleMenuOpen = (event: React.MouseEvent<HTMLDivElement>) => {
+    setTaskMenuAnchor(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setTaskMenuAnchor(null);
+  };
+
   return (
     <>
       <div
@@ -40,37 +54,60 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
           className="listItem__content"
           onClick={() => {
             dispatch(
-              toggleTaskDone(state.currentCollectionName, list, listItem as TodoType)
+              toggleTaskDone(
+                state.currentCollectionName,
+                list,
+                listItem as TodoType
+              )
             );
           }}
         >
           <Heading>{listItem.name}</Heading>
           <Content>{listItem.description}</Content>
         </div>
+        {/* TODO refactor all stylings to modules */}
         <div className={`listItem__actions ${hover && "hover"}`}>
-          <IconButton>
-            <SettingsIcon onClick={() => setItemSettingsOpened(true)} />
-          </IconButton>
-
-          <IconButton>
-            <DeleteIcon
+          <div className={"listItem__actions__button"} onClick={handleMenuOpen}>
+            <MoreVertIcon />
+          </div>
+          <Menu
+            open={taskMenuOpen}
+            anchorEl={taskMenuAnchor}
+            onClose={handleMenuClose}
+          >
+            <MenuItem
               onClick={() => {
-                dispatch(
-                  deleteListItem(state.currentCollectionName, list, listItem as TodoType)
-                );
-              }}
-            />
-          </IconButton>
-
-          {type === "task" && (
-            <IconButton
-              onClick={() => {
-                setNewSubtaskField(true);
+                setItemSettingsOpened(true);
+                handleMenuClose();
               }}
             >
-              <AddIcon />
-            </IconButton>
-          )}
+              Edit
+            </MenuItem>
+            <MenuItem
+              onClick={() => {
+                dispatch(
+                  deleteListItem(
+                    state.currentCollectionName,
+                    list,
+                    listItem as TodoType
+                  )
+                );
+                handleMenuClose();
+              }}
+            >
+              Delete
+            </MenuItem>
+            {type === "task" && (
+              <MenuItem
+                onClick={() => {
+                  setNewSubtaskField(true);
+                  handleMenuClose();
+                }}
+              >
+                New Subtask
+              </MenuItem>
+            )}
+          </Menu>
         </div>
       </div>
       {newSubtaskField && (
