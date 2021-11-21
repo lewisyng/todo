@@ -38,7 +38,7 @@ const List: FunctionComponent<Props> = ({ list }) => {
   return (
     <div className={styles.list}>
       <div className={styles.listHeader}>
-        <Heading className={styles.listHeader__title}>{list.name}</Heading>
+        <Heading weight={"bold"} className={styles.listHeader__title}>{list.name.toUpperCase()}</Heading>
         <ButtonGroup variant="text" ref={anchorRef}>
           <Button
             onClick={() =>

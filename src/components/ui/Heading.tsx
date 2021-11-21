@@ -19,7 +19,7 @@ type h1Type = {
 };
 
 const StyledHeading = styled.h1<h1Type>`
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   color: ${(props) => props.color};
   font-weight: ${(props) =>
     props.weight === "bold"

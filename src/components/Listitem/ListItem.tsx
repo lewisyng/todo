@@ -1,5 +1,5 @@
 import { FunctionComponent, useRef, useState } from "react";
-import "./ListItem.sass";
+import styles from "./ListItem.module.sass";
 import NewSubtaskItem from "../newItem/NewSubtaskItem";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteListItem, toggleTaskDone } from "../../store/actions";
@@ -7,12 +7,9 @@ import { ListType, SubtaskType, TodoType } from "lib/types";
 import Heading from "../ui/Heading";
 import Content from "../ui/Content";
 import ItemSettings from "../itemSettings/ItemSettings";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AddIcon from "@mui/icons-material/Add";
-import SettingsIcon from "@mui/icons-material/Settings";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import IconButton from "@mui/material/IconButton";
 import { Menu, MenuItem } from "@mui/material";
+import cs from "classnames";
 
 type Props = {
   type: "task" | "subtask";
@@ -44,14 +41,17 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
   return (
     <>
       <div
-        className={`listItem ${listItem.done && "done"} ${
-          listItem.priority
-        } ${type}`}
+        className={cs(
+          styles.listItem,
+          listItem.done && styles.listItem__done,
+          type === "subtask" && styles.listItem__subtask
+        )}
+        data-priority={listItem.priority}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
         <div
-          className="listItem__content"
+          className={styles.listItem__content}
           onClick={() => {
             dispatch(
               toggleTaskDone(
@@ -62,12 +62,14 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
             );
           }}
         >
-          <Heading>{listItem.name}</Heading>
+          <Heading className={styles.listItem__heading}>
+            {listItem.name}
+          </Heading>
           <Content>{listItem.description}</Content>
         </div>
         {/* TODO refactor all stylings to modules */}
-        <div className={`listItem__actions ${hover && "hover"}`}>
-          <div className={"listItem__actions__button"} onClick={handleMenuOpen}>
+        <div className={cs(styles.listItem__actions, hover && styles.hover)}>
+          <div className={styles.listItem__actions__button} onClick={handleMenuOpen}>
             <MoreVertIcon />
           </div>
           <Menu
