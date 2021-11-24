@@ -31,21 +31,19 @@ const CurrentCollection: FunctionComponent = () => {
         })}
 
         <div className={styles.lists__newList}>
-          {!showNewItemField ? (
-            <Button
-              className={styles.listsNewList__button}
-              onClick={() => setShowNewItemField(true)}
-            >
-              +
-            </Button>
-          ) : (
-            <form
-              onSubmit={createNewList}
-              onBlur={() => setShowNewItemField(false)}
-            >
-              <input autoFocus ref={newListInput} type="text" />
-            </form>
-          )}
+          <form
+            onSubmit={createNewList}
+            onBlur={() => setShowNewItemField(false)}
+            className={styles.listsNewList__form}
+          >
+            <input autoFocus ref={newListInput} type="text" />
+          </form>
+          <Button
+            className={styles.listsNewList__button}
+            // onClick={() => setShowNewItemField(true)}
+          >
+            +
+          </Button>
         </div>
       </div>
     </div>

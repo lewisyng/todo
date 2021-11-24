@@ -59,13 +59,13 @@ const StyledButton = styled.button.attrs((props) => ({
 const Button: FunctionComponent<Props> = ({
   children,
   color = "default",
-  fullWidth,
+  fullWidth = false,
   className,
   type,
   onClick,
 }) => {
   return (
-    <StyledButton className={className} type={type} color={color} onClick={onClick} fullWidth>
+    <StyledButton className={className} type={type} color={color} onClick={onClick} fullWidth={fullWidth}>
       {children}
     </StyledButton>
   );
