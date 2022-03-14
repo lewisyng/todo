@@ -9,13 +9,33 @@
     padding: 1.5rem
     border: none
     outline: none
+    border-radius: 10px         
 
     &__form
         display: flex
         flex-direction: column
         & label
             color: white
-            margin: 1rem 0 0.3rem 0
+            margin: 16px 0 12px 0
+            font-size: 0.8rem
+
+        & input, textarea
+            border-radius: 5px
+            border: 0
+            outline: 0 
+        
+        & input
+            padding: 8px 16px
+
+        & textarea
+            height: 8rem
+            padding: 16px
+
+        & fieldset
+            // all: unset
+
         &__actions
             display: flex
+            justify-content: flex-end
+            gap: 16px
             margin: 2rem 0 0 0

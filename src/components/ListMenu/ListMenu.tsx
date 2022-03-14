@@ -2,8 +2,8 @@ import { FunctionComponent, useState } from "react";
 import "./ListMenu.sass";
 import ListMenuItem from "../ListMenuItem/ListMenuItem";
 import { useSelector } from "react-redux";
-import Button from "src/components/ui/Button";
-import { Modal } from "@material-ui/core";
+import Button from "src/components/ui/Button/Button";
+import { Modal } from "@mui/material";
 
 const ListMenu: FunctionComponent = () => {
   const state = useSelector((state: any) => state);

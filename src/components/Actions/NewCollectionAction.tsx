@@ -1,15 +1,21 @@
-import { FunctionComponent } from "react";
-import { useState } from "react";
-import "./NewList.sass";
-import { addNewCollection, getCollections } from "../../localbaseFunctions";
+import React, { useState } from "react";
+import cs from "classnames";
+import styles from "./NewCollectionAction.module.sass";
+import {
+  Button,
+  Dialog,
+  DialogContent,
+  DialogContentText,
+  IconButton,
+  TextField,
+} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { setCollections } from "../../store/actions";
-import IconButton from '@mui/material/IconButton';
-import AddIcon from '@mui/icons-material/Add';
-import { Dialog, DialogContent, DialogContentText, TextField } from "@mui/material";
+import { addNewCollection, getCollections } from "src/localbaseFunctions";
+import { setCollections } from "src/store/actions";
+import AddIcon from "@mui/icons-material/Add";
 
-const NewList: FunctionComponent = () => {
-  const store = useSelector((state) => state);
+export const NewCollectionAction = () => {
+  const store = useSelector((state: any) => state);
   const [userInput, setUserInput] = useState("");
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
@@ -60,10 +66,9 @@ const NewList: FunctionComponent = () => {
     });
     return latestID + 1;
   };
-
   return (
-    <div className="newList">
-      <IconButton onClick={() => setDialogIsOpen((prev) => !prev)}>
+    <div className={cs(styles.NewCollectionAction, styles.action)}>
+      <IconButton onClick={() => setDialogIsOpen((prev: any) => !prev)}>
         <AddIcon />
       </IconButton>
 
@@ -84,9 +89,10 @@ const NewList: FunctionComponent = () => {
             />
           </form>
         </DialogContent>
+        <Button onClick={() => setDialogIsOpen(false)}>Create</Button>
       </Dialog>
     </div>
   );
 };
 
-export default NewList;
+export default NewCollectionAction;

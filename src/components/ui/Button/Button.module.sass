@@ -1,0 +1,25 @@
+@import '../../../styles/colors.sass'
+    
+.button
+    display: flex
+    align-items: center
+    border: 0
+    padding: 8px 16px
+    color: white
+
+    font-weight: 500
+    font-size: 1rem
+    cursor: pointer
+
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.1))
+    outline: 0
+    background-color: $btnBlue
+    border-radius: 6px
+
+.button[data-variant="tertiary"]
+    background-color: transparent
+    color: black
+    text-decoration: underline
+
+.button__fullWidth
+    width: 100%

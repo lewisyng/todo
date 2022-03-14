@@ -1,0 +1,78 @@
+@import '../../styles/colors.sass'
+@import '../../styles/_mixins.sass'
+
+.columnItem
+    display: flex
+    justify-content: space-between
+    margin: 0 0 0.5rem 0rem
+    background-color: white
+    border-radius: 10px
+    padding: 16px
+    transition: 200ms box-shadow ease
+    transition: 200ms background-color ease
+
+.columnItem:hover
+    box-shadow: rgba(0, 0, 0, 0.45) 0px 1px 3px 0px
+    cursor: pointer
+
+.columnItem__done
+    background-color: $done !important
+.columnItem[data-priority="low"]
+    background-color: $lowPriority
+.columnItem[data-priority="medium"]
+    background-color: $mediumPriority
+.columnItem[data-priority="high"]
+    background-color: $highPriority
+.columnItem__subtask
+    width: 80%
+    margin-left: auto !important
+    margin: 0 0 0.5rem 0rem
+
+.columnItem__heading
+    margin: 0 0 8px 0
+    font-size: 16px
+    font-weight: bold !important
+
+.columnItem__content
+    flex: 0.8
+    align-items: center
+    cursor: pointer
+    word-wrap: break-word
+
+.columnItem__actions
+    visibility: hidden
+
+.columnItem__actions__button
+    cursor: pointer
+
+.columnItem__actions.hover
+    visibility: visible
+
+@media (hover: none) and (pointer: coarse)
+    /* touchscreens */
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
+        visibility: visible
+
+@media (hover: none) and (pointer: fine)
+    /* stylus */
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
+        visibility: visible
+
+@media (hover: hover) and (pointer: coarse)
+    /* controllers */
+    .item__actions__settings,
+    .item__actions__delete,
+    .item__actions__subtask
+        visibility: visible
+
+@media (hover: hover) and (pointer: fine)
+    /* mouse or touchpad */
+
+@media (max-width: 350px)
+    .columnItem
+        margin: 0 auto 0.75rem auto
+        width: 95%

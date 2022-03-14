@@ -1,6 +1,6 @@
 import { FunctionComponent } from "react";
 import styles from "./Main.module.sass";
-import CurrentCollection from "../../currentCollection/CurrentCollection";
+import CurrentCollection from "../../board/Board";
 import Sidebar from "../Sidebar/Sidebar";
 
 const Main: FunctionComponent = () => {
