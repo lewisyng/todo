@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { changeCollection } from "src/store/actions";
 import { Collection } from "src/types";
 import NewCollectionAction from "../Actions/NewCollectionAction";
-import Heading from "../ui/Heading";
+import Heading from "../ui/Heading/Heading";
 import styles from "./Sidebar.module.sass";
 
 export type SidebarProps = {
@@ -15,6 +15,7 @@ export const Sidebar = (props: SidebarProps) => {
   const state = useSelector((state: any) => state);
   const { className } = props;
   const dispatch = useDispatch();
+  
   return (
     <div className={cs(className, styles.sidebar)}>
       <div className={styles.sidebar__lists}>

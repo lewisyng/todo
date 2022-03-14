@@ -1,11 +1,18 @@
-import React, { FunctionComponent, useState } from "react";
-import "./NewDetailedItem.sass";
+import React, { BaseSyntheticEvent, FunctionComponent, useState } from "react";
+import styles from "./NewDetailedItem.module.sass";
 import { ListType } from "lib/types";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewDetailedTodo } from "src/store/actions";
-import Heading from "../ui/Heading";
-import Button from "../ui/Button";
-import { Modal } from '@mui/material';
+import Heading from "../ui/Heading/Heading";
+import Button from "../ui/Button/Button";
+import {
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Modal,
+  Radio,
+  RadioGroup,
+} from "@mui/material";
 
 type Props = {
   open: boolean;
@@ -33,10 +40,10 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
 
   return (
     <Modal open={open} onClose={handleClose}>
-      <div className="newDetailedItem">
+      <div className={styles.newDetailedItem}>
         <Heading>Neuer Eintrag</Heading>
         <form
-          className="newDetailedItem__form"
+          className={styles.newDetailedItem__form}
           onSubmit={(e) => {
             e.preventDefault();
             dispatch(
@@ -62,11 +69,11 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
               })
             }
           />
+          {/* todo create component for input fields */}
 
           <label htmlFor="description">Beschreibung</label>
-          <input
+          <textarea
             autoComplete="off"
-            type="text"
             name="description"
             value={newItemData.description}
             onChange={(event) =>
@@ -77,25 +84,43 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
             }
           />
           <label htmlFor="Priority">Priorität</label>
-          <select
-            name="Priority"
-            className="priority"
-            value={newItemData.priority}
-            onChange={(event) =>
+          <RadioGroup
+            onChange={(event: BaseSyntheticEvent) =>
               setNewItemData({
                 ...newItemData,
                 priority: event.target.value as "low" | "medium" | "high",
               })
             }
+            row
+            aria-label="priority"
+            name="row-radio-buttons-group"
           >
-            <option value="low">Low</option>
-            <option value="medium">Medium</option>
-            <option value="high">High</option>
-          </select>
-          <div className="newDetailedItem__form__actions">
+            <FormControlLabel
+              sx={{ pr: 3 }}
+              defaultChecked
+              value="low"
+              control={<Radio size="small" />}
+              label="Low"
+            />
+            <FormControlLabel
+              sx={{ pr: 3 }}
+              value="medium"
+              control={<Radio size="small" />}
+              label="Medium"
+            />
+            <FormControlLabel
+              value="high"
+              control={<Radio size="small" />}
+              label="High"
+            />
+          </RadioGroup>
+          <div className={styles.newDetailedItem__form__actions}>
+            <Button variant="secondary" onClick={handleClose}>
+              Schließen
+            </Button>
             <Button type="submit">Sichern</Button>
-            <Button onClick={handleClose}>Schließen</Button>
           </div>
+          {/* open modal with satisfying */}
         </form>
       </div>
     </Modal>

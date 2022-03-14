@@ -1,23 +1,22 @@
-import { FunctionComponent, useRef, useState } from "react";
-import styles from "./ListItem.module.sass";
-import NewSubtaskItem from "../newItem/NewSubtaskItem";
-import { useDispatch, useSelector } from "react-redux";
-import { deleteListItem, toggleTaskDone } from "../../store/actions";
-import { ListType, SubtaskType, TodoType } from "lib/types";
-import Heading from "../ui/Heading";
-import Content from "../ui/Content";
-import ItemSettings from "../itemSettings/ItemSettings";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import { Menu, MenuItem } from "@mui/material";
-import cs from "classnames";
+import { FunctionComponent, useRef, useState } from 'react';
+import styles from './ColumnItem.module.sass';
+import NewSubtaskItem from '../newItem/NewSubtaskItem';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteListItem, toggleTaskDone } from '../../store/actions';
+import { ListType, SubtaskType, TodoType } from 'lib/types';
+import Heading from '../ui/Heading/Heading';
+import Content from '../ui/Content';
+import ItemSettings from '../itemSettings/ItemSettings';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Menu, MenuItem } from '@mui/material';
+import cs from 'classnames';
+import { Item } from 'src/models/Column';
 
 type Props = {
-  type: "task" | "subtask";
-  listItem: TodoType | SubtaskType;
-  list: ListType;
+  columnItem: Item;
 };
 
-const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
+const ColumnItem: FunctionComponent<Props> = ({ columnItem }) => {
   const state = useSelector((state: any) => state);
   const dispatch = useDispatch();
 
@@ -41,35 +40,22 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
   return (
     <>
       <div
-        className={cs(
-          styles.listItem,
-          listItem.done && styles.listItem__done,
-          type === "subtask" && styles.listItem__subtask
-        )}
-        data-priority={listItem.priority}
+        className={styles.columnItem}
         onMouseEnter={() => setHover(true)}
         onMouseLeave={() => setHover(false)}
       >
-        <div
-          className={styles.listItem__content}
-          onClick={() => {
-            dispatch(
-              toggleTaskDone(
-                state.currentCollectionName,
-                list,
-                listItem as TodoType
-              )
-            );
-          }}
-        >
-          <Heading className={styles.listItem__heading}>
-            {listItem.name}
+        <div className={styles.columnItem__content}>
+          <Heading className={styles.columnItem__heading}>
+            {columnItem.title}
           </Heading>
-          <Content>{listItem.description}</Content>
+          {/* <Content>{listItem.description}</Content> */}
         </div>
         {/* TODO refactor all stylings to modules */}
-        <div className={cs(styles.listItem__actions, hover && styles.hover)}>
-          <div className={styles.listItem__actions__button} onClick={handleMenuOpen}>
+        {/* <div className={cs(styles.listItem__actions, hover && styles.hover)}>
+          <div
+            className={styles.listItem__actions__button}
+            onClick={handleMenuOpen}
+          >
             <MoreVertIcon />
           </div>
           <Menu
@@ -99,7 +85,7 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
             >
               Delete
             </MenuItem>
-            {type === "task" && (
+            {type === 'task' && (
               <MenuItem
                 onClick={() => {
                   setNewSubtaskField(true);
@@ -110,24 +96,18 @@ const ListItem: FunctionComponent<Props> = ({ type, listItem, list }) => {
               </MenuItem>
             )}
           </Menu>
-        </div>
+        </div> */}
       </div>
-      {newSubtaskField && (
-        <NewSubtaskItem
-          list={list}
-          item={listItem as SubtaskType}
-          handleClose={() => setNewSubtaskField(false)}
-        />
-      )}
-      <ItemSettings
+
+      {/* <ItemSettings
         handleClose={() => setItemSettingsOpened(false)}
         open={itemSettingsOpened}
         item={listItem}
         list={list}
         type={type}
-      />
+      /> */}
     </>
   );
 };
 
-export default ListItem;
+export default ColumnItem;
