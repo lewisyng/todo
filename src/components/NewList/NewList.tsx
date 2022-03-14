@@ -2,14 +2,14 @@ import { FunctionComponent } from "react";
 import { useState } from "react";
 import "./NewList.sass";
 import { addNewCollection, getCollections } from "../../localbaseFunctions";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch/*, useSelector*/ } from "react-redux";
 import { setCollections } from "../../store/actions";
 import IconButton from '@mui/material/IconButton';
 import AddIcon from '@mui/icons-material/Add';
 import { Dialog, DialogContent, DialogContentText, TextField } from "@mui/material";
 
 const NewList: FunctionComponent = () => {
-  const store = useSelector((state) => state);
+  // const store = useSelector((state) => state);
   const [userInput, setUserInput] = useState("");
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 

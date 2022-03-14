@@ -1,5 +1,5 @@
 import { ListType, SubtaskType } from "lib/types";
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewSubtaskItem } from "src/store/actions";
 

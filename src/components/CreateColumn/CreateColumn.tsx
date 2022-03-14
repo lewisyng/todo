@@ -2,7 +2,6 @@ import styles from './CreateColumn.module.sass';
 import AddIcon from '@mui/icons-material/Add';
 import Button from '../ui/Button/Button';
 import { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { database } from 'src/database';
 
 export const CreateColumn = () => {

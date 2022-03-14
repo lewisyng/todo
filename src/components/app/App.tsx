@@ -1,5 +1,4 @@
 import { FunctionComponent } from 'react';
-import styles from './App.module.sass';
 import Header from '../Header/Header';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
@@ -12,7 +11,7 @@ const App: FunctionComponent = () => {
 
   useEffect(() => {
     dispatch(setUp());
-  }, []);
+  });
 
   return (
     <>

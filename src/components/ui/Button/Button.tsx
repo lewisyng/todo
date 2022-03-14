@@ -12,13 +12,6 @@ type Props = {
   onClick?: () => void;
 };
 
-type ButtonType = {
-  color: Props['color'];
-  fullWidth: boolean;
-  type: 'submit' | undefined;
-  variant: Props['variant'];
-};
-
 const Button: FunctionComponent<Props> = ({
   children,
   fullWidth,
