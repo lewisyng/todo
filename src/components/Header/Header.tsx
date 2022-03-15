@@ -1,6 +1,4 @@
 import { FunctionComponent, useState } from 'react';
-import NewList from '../NewList/NewList';
-import ListMenu from '../ListMenu/ListMenu';
 import styles from './Header.module.sass';
 import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material';

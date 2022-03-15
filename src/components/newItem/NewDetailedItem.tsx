@@ -1,18 +1,11 @@
-import React, { BaseSyntheticEvent, FunctionComponent, useState } from "react";
-import styles from "./NewDetailedItem.module.sass";
-import { ListType } from "lib/types";
-import { useDispatch, useSelector } from "react-redux";
-import { createNewDetailedTodo } from "src/store/actions";
-import Heading from "../ui/Heading/Heading";
-import Button from "../ui/Button/Button";
-import {
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Modal,
-  Radio,
-  RadioGroup,
-} from "@mui/material";
+import React, { BaseSyntheticEvent, FunctionComponent, useState } from 'react';
+import styles from './NewDetailedItem.module.sass';
+import { ListType } from 'lib/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewDetailedTodo } from 'src/store/actions';
+import Heading from '../ui/Heading/Heading';
+import Button from '../ui/Button/Button';
+import { FormControlLabel, Modal, Radio, RadioGroup } from '@mui/material';
 
 type Props = {
   open: boolean;
@@ -31,11 +24,11 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
   const [newItemData, setNewItemData] = useState<{
     name: string;
     description: string;
-    priority: "low" | "medium" | "high";
+    priority: 'low' | 'medium' | 'high';
   }>({
-    name: "",
-    description: "",
-    priority: "low",
+    name: '',
+    description: '',
+    priority: 'low',
   });
 
   return (
@@ -88,7 +81,7 @@ export const NewDetailedItem: FunctionComponent<Props> = ({
             onChange={(event: BaseSyntheticEvent) =>
               setNewItemData({
                 ...newItemData,
-                priority: event.target.value as "low" | "medium" | "high",
+                priority: event.target.value as 'low' | 'medium' | 'high',
               })
             }
             row

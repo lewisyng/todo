@@ -1,8 +1,7 @@
 import styles from './EditColumnItemModal.module.sass';
 import CustomModal from '../CustomModal';
 import { Button } from '@mui/material';
-import { useState } from 'react';
-import { database } from 'src/database';
+// import { database } from 'src/database';
 
 export const EditColumnItemModal = ({
   columnItem,
@@ -13,10 +12,10 @@ export const EditColumnItemModal = ({
   open: boolean;
   onClose: () => void;
 }) => {
-  const { title, description } = columnItem;
+  const { title } = columnItem;
 
-  const [columnItemDescription, setColumnItemDescription] =
-    useState<string>(description);
+  // const [columnItemDescription, setColumnItemDescription] =
+    // useState<string>(description);
 
   const saveDescription = () => {
     // database.columns.where();

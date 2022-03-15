@@ -9,13 +9,12 @@ import {
   IconButton,
   TextField,
 } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addNewCollection, getCollections } from "src/localbaseFunctions";
 import { setCollections } from "src/store/actions";
 import AddIcon from "@mui/icons-material/Add";
 
 export const NewCollectionAction = () => {
-  const store = useSelector((state: any) => state);
   const [userInput, setUserInput] = useState("");
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
