@@ -37,7 +37,7 @@ export const EditColumnItemModal = ({
             rows={10}
             placeholder="Geben Sie eine Beschreibung ein..."
           >
-            {columnItemDescription}
+            {columnItem.description.length && columnItem.description}
           </textarea>
 
           <Button variant="contained" color="primary" onClick={saveDescription}>
