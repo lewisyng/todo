@@ -4,19 +4,26 @@ import { database } from 'src/database';
 import Button from '../ui/Button/Button';
 import AddIcon from '@mui/icons-material/Add';
 
-export const CreateItem = ({ id }: { id: number }) => {
+export const CreateItem = ({
+  columnId,
+  boardId,
+}: {
+  columnId: number;
+  boardId: number;
+}) => {
   const [value, setValue] = useState('');
   const [addCardInputVisible, setAddCardInputVisible] =
     useState<boolean>(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (value) {
-      database.columns
-        .where('id')
-        .equals(id)
-        .modify((x) => x.items.push({ title: value }));
+      await database.items.add({
+        title: value,
+        description: '',
+        columnId,
+      });
     }
 
     setValue('');

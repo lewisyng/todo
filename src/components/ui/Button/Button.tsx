@@ -1,4 +1,4 @@
-import { FunctionComponent } from 'react';
+import { FormEvent, FunctionComponent } from 'react';
 import styles from './Button.module.sass';
 import cn from 'classnames';
 
@@ -9,7 +9,7 @@ type Props = {
   type?: 'submit' | undefined;
   className?: string;
   variant?: 'default' | 'secondary' | 'tertiary' | 'disabled';
-  onClick?: () => void;
+  onClick?: (e?: FormEvent) => void;
 };
 
 const Button: FunctionComponent<Props> = ({

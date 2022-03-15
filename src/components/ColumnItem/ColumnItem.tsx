@@ -10,13 +10,14 @@ import Heading from '../ui/Heading/Heading';
 // import MoreVertIcon from '@mui/icons-material/MoreVert';
 // import { Menu, MenuItem } from '@mui/material';
 // import cs from 'classnames';
-import { Item } from 'src/models/Column';
+import { Item } from '../../models/Item';
 
 type Props = {
   columnItem: Item;
+  handleColumnItemSelect: (item: any) => void;
 };
 
-const ColumnItem: FunctionComponent<Props> = ({ columnItem }) => {
+const ColumnItem: FunctionComponent<Props> = ({ columnItem, handleColumnItemSelect }) => {
   // const state = useSelector((state: any) => state);
   // const dispatch = useDispatch();
 
@@ -41,6 +42,7 @@ const ColumnItem: FunctionComponent<Props> = ({ columnItem }) => {
     <>
       <div
         className={styles.columnItem}
+        onClick={() => handleColumnItemSelect(columnItem)}
         // onMouseEnter={() => setHover(true)}
         // onMouseLeave={() => setHover(false)}
       >

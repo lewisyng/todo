@@ -1,14 +1,24 @@
 import Dexie, { Table } from 'dexie';
-import { Column } from './models/Column';
+import relationships from 'dexie-relationships';
+import { Board } from './models/Board';
+import { ColumnType } from './models/Column';
+import { Item } from './models/Item';
+import { TagType } from './models/Tag';
 
 export class todoDB extends Dexie {
-  columns!: Table<Column, number>;
+  boards!: Table<Board, number>;
+  columns!: Table<ColumnType, number>;
+  items!: Table<Item, number>;
+  tags!: Table<TagType, number>;
 
   constructor() {
-    super('db')
+    super('db', { addons: [relationships] });
     this.version(1).stores({
-      columns: '++id, title, items'
-    })
+      boards: '++id, title',
+      columns: '++id, title, boardId -> boards.id',
+      items: '++id, title, description, columnId -> columns.id',
+      tags: '++id, title, color',
+    });
   }
 }
 
