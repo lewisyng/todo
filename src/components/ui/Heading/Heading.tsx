@@ -8,10 +8,11 @@ type Props = {
   textAlign?: 'left' | 'center' | 'right';
   allCaps?: boolean;
   className?: string;
+  title?: string;
 };
 
-const Heading: FunctionComponent<Props> = ({ children, className }) => {
-  return <div className={cn(className, styles.heading)}>{children}</div>;
+const Heading: FunctionComponent<Props> = ({ children, className, title }) => {
+  return <div title={title} className={cn(className, styles.heading)}>{children}</div>;
 };
 
 export default Heading;

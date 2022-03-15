@@ -1,5 +1,5 @@
-import { Modal } from '@mui/material';
-import Button from '../ui/Button/Button';
+import Button from '../../ui/Button/Button';
+import CustomModal from '../CustomModal';
 import styles from './DeleteColumnModal.module.sass';
 
 export const DeleteColumnModal = ({
@@ -12,11 +12,9 @@ export const DeleteColumnModal = ({
   deleteColumn: () => void;
 }) => {
   return (
-    <Modal
+    <CustomModal
       open={open}
       onClose={handleClose}
-      aria-labelledby="modal-modal-title"
-      aria-describedby="modal-modal-description"
       className={styles.deleteColumn__modal}
     >
       <div className={styles.deleteColumnModal__content}>
@@ -31,7 +29,7 @@ export const DeleteColumnModal = ({
           <Button onClick={handleClose} variant="tertiary">Abbrechen</Button>
         </div>
       </div>
-    </Modal>
+    </CustomModal>
   );
 };
 

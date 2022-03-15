@@ -1,22 +1,16 @@
 import { FunctionComponent } from 'react';
 import Header from '../Header/Header';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { setUp } from '../../store/actions';
 import Board from 'src/board/Board';
-// import Sidebar from '../Sidebar/Sidebar';
+import { useLiveQuery } from 'dexie-react-hooks';
+import { database } from 'src/database';
 
 const App: FunctionComponent = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(setUp());
-  });
+  const boards = useLiveQuery(() => database.boards?.toArray());
 
   return (
     <>
       <Header />
-      <Board />
+      {boards && boards.length && <Board board={boards[0]} />}
     </>
   );
 };
