@@ -3,4 +3,5 @@ export interface Item {
     title: string;
     description?: string;
     columnId: number;
+    tags: number[];
 }

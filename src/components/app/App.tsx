@@ -10,6 +10,7 @@ const App: FunctionComponent = () => {
   return (
     <>
       <Header />
+      
       {boards && boards.length && <Board board={boards[0]} />}
     </>
   );

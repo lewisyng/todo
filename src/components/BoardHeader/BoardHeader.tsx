@@ -11,6 +11,7 @@ export const BoardHeader = ({ title }: { title: string }) => {
   return (
     <div className={styles.boardHeader}>
       <div className={styles.boardHeader__title}>{title}</div>
+      
       <div className={styles.boardHeader__actions}>
         <ManageTagsModal
           open={manageTagsModalOpen}
