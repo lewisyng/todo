@@ -16,7 +16,7 @@ export class todoDB extends Dexie {
     this.version(1).stores({
       boards: '++id, title',
       columns: '++id, title, boardId -> boards.id',
-      items: '++id, title, description, columnId -> columns.id',
+      items: '++id, title, description, columnId -> columns.id, tags',
       tags: '++id, title, color',
     });
   }
