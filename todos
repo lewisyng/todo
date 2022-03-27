@@ -1,5 +1,3 @@
-priorität
-subtasks
 filter
     nur done
     nur nicht done
@@ -11,3 +9,16 @@ done animation (red to black)
 allgemeine Einstellungen
   - body backgroundcolor
   - night mode
+
+detailitems vereinheitlichen (detailtodo anlegen, details eines todos ändern)
+
+kleiner Funktionen (listdelete) auslagern. auch als dispatch/action?
+
+nachfragen, ob collection wirklich gelöscht werden soll
+wenn listitem als done markiert sollen auch alle zugehörigen subtask als done markiert werden
+
+neue Liste eingabefeld
+tags
+input component
+    itemsettings input hat schon stylings -> die mal angucken
+list löschen button nur anzeigen onhover

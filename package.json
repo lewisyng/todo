@@ -3,25 +3,49 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/icons": "^4.11.2",
+    "@date-io/dayjs": "^2.13.1",
+    "@emotion/react": "^11.6.0",
+    "@emotion/styled": "^11.6.0",
+    "@mui/core": "^5.0.0-alpha.54",
+    "@mui/icons-material": "^5.1.1",
+    "@mui/lab": "^5.0.0-alpha.73",
+    "@mui/material": "^5.1.1",
+    "@mui/styled-engine-sc": "^5.1.0",
+    "@mui/styles": "^5.1.1",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.2.2",
     "@testing-library/user-event": "^12.6.0",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^15.12.1",
+    "@types/react": "^17.0.40",
+    "@types/react-dom": "^17.0.13",
+    "classnames": "^2.3.1",
+    "date-fns": "^2.28.0",
+    "dayjs": "^1.11.0",
+    "dexie": "^3.2.1",
+    "dexie-react-hooks": "^1.1.1",
+    "dexie-relationships": "^1.2.11",
+    "formik": "^2.2.9",
     "localbase": "^0.7.4",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-beautiful-dnd": "^13.0.0",
     "react-dom": "^17.0.1",
     "react-indiana-drag-scroll": "^1.8.0",
+    "react-redux": "^7.2.2",
     "react-scripts": "4.0.1",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "styled-components": "^5.3.3",
+    "typescript": "^4.6.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint ."
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +64,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/react-redux": "^7.1.16",
+    "@types/styled-components": "^5.1.9"
   }
 }
