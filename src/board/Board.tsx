@@ -23,9 +23,10 @@ const Board = ({ board }: { board: any }) => {
             <BoardHeader title={title} />
 
             <div className={styles.board__columns}>
-                {columns?.map((column: any) => {
+                {columns?.map((column: any, idx) => {
                     return (
                         <Column
+                            key={idx}
                             handleColumnItemSelect={(item) => {
                                 setSelectedColumnItem(item);
                                 setEditColumnItemModalVisible(true);

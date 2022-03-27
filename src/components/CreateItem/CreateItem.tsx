@@ -24,6 +24,8 @@ export const CreateItem = ({
                 description: '',
                 columnId,
                 tags: [],
+                startDate: null,
+                endDate: null,
             });
         }
 

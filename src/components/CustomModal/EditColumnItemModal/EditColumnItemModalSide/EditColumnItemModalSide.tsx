@@ -1,5 +1,6 @@
 import { Button } from '@mui/material';
 import { useState } from 'react';
+import DatePopup from 'src/Popups/DatePopup/DatePopup';
 import TagsPopup from '../../../../Popups/TagsPopup/TagsPopup';
 import styles from './EditColumnItemModalSide.module.sass';
 
@@ -23,7 +24,28 @@ export const EditColumnItemModalSide = ({
                 </Button>
 
                 {currentPopup === 'tags' && (
-                    <TagsPopup handleClose={() => setCurrentPopup(null)} columnItemId={columnItemId} />
+                    <TagsPopup
+                        handleClose={() => setCurrentPopup(null)}
+                        columnItemId={columnItemId}
+                    />
+                )}
+            </div>
+
+            <div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    onClick={() => setCurrentPopup('date')}
+                >
+                    Date
+                </Button>
+
+                {currentPopup === 'date' && (
+                    <DatePopup
+                        handleClose={() => setCurrentPopup(null)}
+                        columnItemId={columnItemId}
+                    />
                 )}
             </div>
         </div>

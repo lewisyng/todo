@@ -6,6 +6,7 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { Label } from 'src/components/ui/Label/Label';
 import { useLiveQuery } from 'dexie-react-hooks';
+import { format, parseISO } from 'date-fns';
 
 export const EditColumnItemModalMain = ({
     columnItem,
@@ -66,23 +67,50 @@ export const EditColumnItemModalMain = ({
             />
 
             {/* TAGS */}
-            <Label title="Tags" />
-            <div className={styles.editColumnItemModalContent__tags}>
-                {currentItem &&
-                    currentItem.tags.map((tag) => {
-                        const tagRef = tags?.find((t) => t.id === tag);
+            {currentItem && currentItem.tags.length > 0 && (
+                <>
+                    <Label title="Tags" />
+                    <div className={styles.editColumnItemModalContent__tags}>
+                        {currentItem.tags.map((tag, idx) => {
+                            const tagRef = tags?.find((t) => t.id === tag);
 
-                        return (
-                            <div
-                                className={
-                                    styles.editColumnItemModalContent__tag
-                                }
-                                style={{ background: tagRef?.color }}
-                            >
-                                {tagRef?.title}
-                            </div>
-                        );
-                    })}
+                            return (
+                                <div
+                                    key={idx}
+                                    className={
+                                        styles.editColumnItemModalContent__tag
+                                    }
+                                    style={{ background: tagRef?.color }}
+                                >
+                                    {tagRef?.title}
+                                </div>
+                            );
+                        })}
+                    </div>
+                </>
+            )}
+
+            {/* DATE */}
+            <Label title="Datum" />
+
+            <div className={styles.editColumnItemModalContent__dates}>
+                <div className={styles.editColumnItemModalContent__date}>
+                    <Label title="Start" small />
+                    {currentItem?.startDate?.$d
+                        .toString()
+                        .split(' ')
+                        .slice(1, 4)
+                        .join(' ')}
+                </div>
+
+                <div className={styles.editColumnItemModalContent__date}>
+                    <Label title="End" small />
+                    {currentItem?.endDate?.$d
+                        .toString()
+                        .split(' ')
+                        .slice(1, 4)
+                        .join(' ')}
+                </div>
             </div>
 
             {/* DESCRIPTION */}
