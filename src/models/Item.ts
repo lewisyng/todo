@@ -4,4 +4,8 @@ export interface Item {
     description?: string;
     columnId: number;
     tags: number[];
+    // startDate: Date | null;
+    startDate: any;
+    // endDate: Date | null;
+    endDate: any;
 }
