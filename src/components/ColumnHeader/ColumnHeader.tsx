@@ -8,9 +8,11 @@ import { IconButton } from '@mui/material';
 import DeleteColumnModal from '../CustomModal/DeleteColumnModal/DeleteColumnModal';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useAppSelector } from 'src/hooks/redux';
 
 export const ColumnHeader = ({ column }: { column: ColumnType }) => {
     const { id: columnId, title: columnTitle } = column;
+    const colorScheme = useAppSelector((state) => state.persistedReducer.config.colorScheme);
 
     const [editTitle, setEditTitle] = useState<boolean>(false);
     const [title, setTitle] = useState<string>(columnTitle);
@@ -38,12 +40,13 @@ export const ColumnHeader = ({ column }: { column: ColumnType }) => {
     };
 
     return (
-        <div className={styles.columnHeader}>
+        <div className={styles.columnHeader} data-color-scheme={colorScheme}>
             <div className={styles.columnHeader__title}>
                 {editTitle ? (
                     <form onSubmit={changeTitle}>
                         <Input
                             type="text"
+                            label="Neuer Titel"
                             value={title.toUpperCase()}
                             onChange={(e: React.FormEvent) =>
                                 setTitle((e.target as HTMLInputElement).value)

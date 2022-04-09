@@ -3,45 +3,73 @@ import AddIcon from '@mui/icons-material/Add';
 import Button from '../ui/Button/Button';
 import { useState } from 'react';
 import { createColumn } from 'src/helpers/createColumn';
+import cn from 'classnames';
+import { useAppSelector } from 'src/hooks/redux';
 
 export const CreateColumn = ({ boardId }: { boardId: number }) => {
-  const [inputFieldVisible, setInputFieldVisible] = useState(false);
-  const [value, setValue] = useState<string>('');
+    const [inputFieldVisible, setInputFieldVisible] = useState(false);
+    const [value, setValue] = useState<string>('');
 
-  const createNewList: React.FormEventHandler<HTMLFormElement> = async (
-    e: React.FormEvent
-  ) => {
-    if (value.length) {
-      e.preventDefault();
+    const colorScheme = useAppSelector(
+        (state) => state.persistedReducer.config.colorScheme
+    );
 
-      await createColumn(boardId, value);
+    const createNewList: React.FormEventHandler<HTMLFormElement> = async (
+        e: React.FormEvent
+    ) => {
+        e.preventDefault();
 
-      setValue('');
-    }
-  };
+        if (value.length) {
+            await createColumn(boardId, value);
 
-  return (
-    <div className={styles.newColumn}>
-      {inputFieldVisible ? (
-        <form
-          onSubmit={createNewList}
-          onBlur={() => setInputFieldVisible(false)}
+            setValue('');
+        }
+    };
+
+    return (
+        <div
+            className={cn(
+                styles.newColumn,
+                inputFieldVisible && styles.newColumn__open
+            )}
+            data-color-scheme={colorScheme}
         >
-          <input
-            autoFocus
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            type="text"
-          />
-        </form>
-      ) : (
-        <Button fullWidth onClick={() => setInputFieldVisible(true)}>
-          <AddIcon />
-          Create a new Column
-        </Button>
-      )}
-    </div>
-  );
+            <div className={styles.newColumn__form}>
+                <form onSubmit={createNewList}>
+                    {inputFieldVisible ? (
+                        <>
+                            <input
+                                className={styles.newColumn__formInput}
+                                type="text"
+                                value={value}
+                                autoFocus
+                                onChange={(e) => setValue(e.target.value)}
+                                onBlur={() => setInputFieldVisible(false)}
+                            />
+
+                            <button
+                                className={styles.newColumn__formSubmit}
+                                type="submit"
+                            >
+                                Liste hinzufügen
+                            </button>
+                        </>
+                    ) : (
+                        <Button
+                            fullWidth
+                            onClick={() => setInputFieldVisible(true)}
+                        >
+                            <AddIcon />
+
+                            <span className={styles.button__text}>
+                                Create a new Column
+                            </span>
+                        </Button>
+                    )}
+                </form>
+            </div>
+        </div>
+    );
 };
 
 export default CreateColumn;

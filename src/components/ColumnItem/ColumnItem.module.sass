@@ -1,4 +1,4 @@
-@import '../../styles/colors.sass'
+@import '../../styles/colors.scss'
 @import '../../styles/_mixins.sass'
 
 .columnItem
@@ -10,6 +10,9 @@
     padding: 1rem
     transition: 200ms box-shadow ease
     transition: 200ms background-color ease
+
+    &[data-color-scheme="dark"]
+        background-color: var(--blue-50)
 
 .columnItem:hover
     box-shadow: rgba(0, 0, 0, 0.45) 0px 1px 3px 0px

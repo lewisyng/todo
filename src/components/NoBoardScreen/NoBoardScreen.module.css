@@ -1,0 +1,10 @@
+.noBoardScreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.noBoardScreen__content {
+    text-align: center;
+}

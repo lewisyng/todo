@@ -4,6 +4,7 @@ import Heading from '../ui/Heading/Heading';
 import { Item } from '../../models/Item';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { database } from 'src/database';
+import { useAppSelector } from 'src/hooks/redux';
 
 type Props = {
     columnItem: Item;
@@ -14,6 +15,10 @@ const ColumnItem: FunctionComponent<Props> = ({
     columnItem,
     handleColumnItemSelect,
 }) => {
+    const colorScheme = useAppSelector(
+        (state) => state.persistedReducer.config.colorScheme
+    )
+
     const item = useLiveQuery(() => {
         return database.items.where('id').equals(columnItem.id!).first();
     });
@@ -26,6 +31,7 @@ const ColumnItem: FunctionComponent<Props> = ({
         <div
             className={styles.columnItem}
             onClick={() => handleColumnItemSelect(columnItem)}
+            data-color-scheme={colorScheme}
             // onMouseEnter={() => setHover(true)}
             // onMouseLeave={() => setHover(false)}
         >

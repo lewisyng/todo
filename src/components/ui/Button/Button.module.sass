@@ -1,4 +1,4 @@
-@import '../../../styles/colors.sass'
+@import '../../../styles/colors.scss'
     
 .button
     display: flex
@@ -13,8 +13,12 @@
 
     filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.1))
     outline: 0
-    background-color: $btnBlue
+    background-color: rgba(white, 0.3)
     border-radius: 6px
+    transition: background-color 0.15s ease
+
+    &:hover
+        background-color: rgba(white, 0.5)
 
 .button[data-variant="tertiary"]
     background-color: transparent

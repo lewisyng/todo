@@ -1,28 +1,35 @@
+import { TextField } from '@mui/material';
 import styles from './Input.module.sass';
 
 export const Input = ({
-  type,
-  value,
-  onChange,
-  onBlur,
-  autoFocus,
+    type,
+    label,
+    value,
+    onChange,
+    onBlur,
+    autoFocus,
 }: {
-  type: string;
-  value: string;
-  onChange: (e: React.FormEvent) => void;
-  onBlur: () => void;
-  autoFocus: boolean;
+    type: string;
+    label: string;
+    value: string;
+    onChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
+    onBlur?: () => void;
+    autoFocus?: boolean;
 }) => {
-  return (
-    <input
-      type={type}
-      value={value}
-      onChange={onChange}
-      onBlur={onBlur}
-      autoFocus={autoFocus}
-      className={styles.input}
-    />
-  );
+    return type === 'text' ? (
+        <TextField
+            id="standard-basic"
+            label={label}
+            variant="standard"
+            value={value}
+            onChange={onChange}
+            autoFocus={autoFocus}
+            className={styles.input}
+            fullWidth
+        />
+    ) : (
+        null
+    );
 };
 
 export default Input;
