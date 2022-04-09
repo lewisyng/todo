@@ -1,0 +1,59 @@
+.createItem {
+    border-radius: 10px;
+}
+
+.createItem[data-color-scheme='blue'] {
+    background-color: var(--blue-200);
+}
+
+.createItem[data-color-scheme='green'] {
+    background-color: var(--green-200);
+}
+
+.createItem[data-color-scheme='orange'] {
+    background-color: var(--orange-200);
+}
+
+.createItem[data-color-scheme='red'] {
+    background-color: var(--red-200);
+}
+
+.createItem[data-color-scheme='yellow'] {
+    background-color: var(--yellow-200);
+}
+
+.createItem[data-color-scheme='purple'] {
+    background-color: var(--purple-200);
+}
+
+.createItem[data-color-scheme='pink'] {
+    background-color: var(--pink-200);
+}
+
+.createItem[data-color-scheme='sky'] {
+    background-color: var(--sky-200);
+}
+
+.createItem[data-color-scheme='lime'] {
+    background-color: var(--lime-200);
+}
+
+.createItem[data-color-scheme='gray'] {
+    background-color: var(--gray-200);
+}
+
+.createItem[data-color-scheme='darkBlue'] {
+    background-color: var(--darkBlue-200);
+}
+
+.createItem:hover {
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+        0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+
+.createItem * {
+    color: var(--blue-800);
+}
+.button__text {
+    margin-left: 0.5rem;
+}

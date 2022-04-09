@@ -1,0 +1,10 @@
+.column {
+    margin: 0 1rem 0 0;
+    border-radius: 10px;
+    padding: 1rem;
+}
+
+.columnHeader__columnItems {
+    display: flex;
+    flex-direction: column;
+}

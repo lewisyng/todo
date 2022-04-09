@@ -1,17 +1,19 @@
 import styles from './CustomModal.module.sass';
 import { Modal } from '@mui/material';
 import cn from 'classnames';
+import CustomModalHeader from './CustomModalParts/CustomModalHeader/CustomModalHeader';
 
 export const CustomModal = ({
     children,
+    title,
     className,
     open,
     onClose,
 }: {
-    children: React.ReactElement<
-        any,
-        string | React.JSXElementConstructor<any>
-    >;
+    children:
+        | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+        | React.ReactElement[];
+    title?: string;
     className?: string;
     open: boolean;
     onClose: () => void;
@@ -22,7 +24,11 @@ export const CustomModal = ({
             onClose={onClose}
             className={cn(className, styles.customModal)}
         >
-            {children}
+            <div className={styles.customModal__content}>
+                <CustomModalHeader>{title}</CustomModalHeader>
+
+                {children}
+            </div>
         </Modal>
     );
 };

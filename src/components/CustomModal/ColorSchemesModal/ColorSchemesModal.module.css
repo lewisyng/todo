@@ -1,0 +1,61 @@
+.colorSchemesModal__colorSchemes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.colorSchemesModal__colorScheme {
+    width: 150px;
+    height: 90px;
+    border-radius: 4px;
+}
+
+.colorSchemesModal__colorScheme:hover {
+    cursor: pointer;
+    box-shadow: 0px 3px 3px -2px rgb(0 0 0 / 20%),
+        0px 3px 4px 0px rgb(0 0 0 / 14%), 0px 1px 8px 0px rgb(0 0 0 / 12%);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='blue'] {
+    background-color: var(--blue-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='green'] {
+    background-color: var(--green-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='orange'] {
+    background-color: var(--orange-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='red'] {
+    background-color: var(--red-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='yellow'] {
+    background-color: var(--yellow-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='purple'] {
+    background-color: var(--purple-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='pink'] {
+    background-color: var(--pink-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='sky'] {
+    background-color: var(--sky-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='lime'] {
+    background-color: var(--lime-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='gray'] {
+    background-color: var(--gray-500);
+}
+
+.colorSchemesModal__colorScheme[data-color-scheme='darkBlue'] {
+    background-color: var(--darkBlue-500);
+}

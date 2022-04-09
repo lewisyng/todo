@@ -3,31 +3,39 @@ import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { Button } from '@mui/material';
 import ManageTagsModal from '../CustomModal/ManageTagsModal/ManageTagsModal';
 import { useState } from 'react';
+import { useAppSelector } from 'src/hooks/redux';
 
 export const BoardHeader = ({ title }: { title: string }) => {
-  const [manageTagsModalOpen, setManageTagsModalOpen] =
-    useState<boolean>(false);
+    const [manageTagsModalOpen, setManageTagsModalOpen] =
+        useState<boolean>(false);
 
-  return (
-    <div className={styles.boardHeader}>
-      <div className={styles.boardHeader__title}>{title}</div>
-      
-      <div className={styles.boardHeader__actions}>
-        <ManageTagsModal
-          open={manageTagsModalOpen}
-          handleClose={() => setManageTagsModalOpen(false)}
-        />
+    const colorScheme = useAppSelector(
+        (state) => state.persistedReducer.config.colorScheme
+    );
 
-        <Button
-          variant="contained"
-          startIcon={<LocalOfferIcon />}
-          onClick={() => setManageTagsModalOpen(true)}
+    return (
+        <div
+            className={styles.boardHeader}
+            style={{ backgroundColor: `var(--${colorScheme}-800)` }}
         >
-          TAGS
-        </Button>
-      </div>
-    </div>
-  );
+            <div className={styles.boardHeader__title}>{title}</div>
+
+            <div className={styles.boardHeader__actions}>
+                <ManageTagsModal
+                    open={manageTagsModalOpen}
+                    handleClose={() => setManageTagsModalOpen(false)}
+                />
+
+                <Button
+                    variant="contained"
+                    startIcon={<LocalOfferIcon />}
+                    onClick={() => setManageTagsModalOpen(true)}
+                >
+                    TAGS
+                </Button>
+            </div>
+        </div>
+    );
 };
 
 export default BoardHeader;

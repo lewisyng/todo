@@ -1,8 +1,30 @@
 .newColumn
     position: relative
-    height: 70px
-    display: flex
+    height: 56px
+    background: #DEE3E7
+    border-radius: 10px
+    transition: height 0.3s ease
 
-.newColumn form
-    width: 0%
-    transition: width 200ms ease
+.newColumn[data-color-scheme="dark"]
+    background: var(--blue-400)
+
+.newColumn__open
+    height: 90px
+
+.newColumn__form
+    padding: 8px
+
+.newColumn__formInput
+    display: block
+
+.newColumn__formSubmit
+    border: none
+    outline: none
+    padding: 8px 16px
+    margin: 1rem 0 0 0
+    background: rgba(white, 0.3)
+    border-radius: 6px
+    cursor: pointer
+
+.button__text
+    margin-left: 0.5rem

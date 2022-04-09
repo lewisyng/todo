@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import styles from './CreateItem.module.sass';
+import styles from './CreateItem.module.css';
 import { database } from 'src/database';
 import Button from '../ui/Button/Button';
 import AddIcon from '@mui/icons-material/Add';
+import { useAppSelector } from 'src/hooks/redux';
 
 export const CreateItem = ({
     columnId,
@@ -14,6 +15,10 @@ export const CreateItem = ({
     const [value, setValue] = useState('');
     const [addCardInputVisible, setAddCardInputVisible] =
         useState<boolean>(false);
+
+    const colorScheme = useAppSelector(
+        (state) => state.persistedReducer.config.colorScheme
+    );
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -33,7 +38,7 @@ export const CreateItem = ({
     };
 
     return (
-        <div className={styles.createItem}>
+        <div className={styles.createItem} data-color-scheme={colorScheme}>
             {addCardInputVisible ? (
                 <form onSubmit={handleSubmit}>
                     <input
@@ -47,7 +52,10 @@ export const CreateItem = ({
             ) : (
                 <Button fullWidth onClick={() => setAddCardInputVisible(true)}>
                     <AddIcon />
-                    Eine weitere Karte hinzufügen
+
+                    <span className={styles.button__text}>
+                        Create a new Card
+                    </span>
                 </Button>
             )}
         </div>
