@@ -91,7 +91,7 @@ export const EditColumnItemModalMain = ({
             )}
 
             {/* DATE */}
-            <Label title="Datum" />
+            <Label title="Date" />
 
             <div className={styles.editColumnItemModalContent__dates}>
                 <div className={styles.editColumnItemModalContent__date}>
@@ -128,13 +128,20 @@ export const EditColumnItemModalMain = ({
                 onChange={(e) => setDescription(e.target.value)}
                 onFocus={() => {
                     setDescriptionFocused(true);
+                }}
+                onBlur={() => {
+                    setDescriptionFocused(false);
                     handleDescriptionSubmit();
                 }}
-                onBlur={() => setDescriptionFocused(false)}
                 placeholder="Detaillierte Beschreibung hinzufügen ..."
             />
 
-            <Button variant="contained" color="primary" type="submit">
+            <Button
+                variant="contained"
+                onClick={() => handleDescriptionSubmit()}
+                color="primary"
+                type="submit"
+            >
                 Speichern
             </Button>
         </div>

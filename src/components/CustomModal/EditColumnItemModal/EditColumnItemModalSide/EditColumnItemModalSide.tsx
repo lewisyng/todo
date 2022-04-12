@@ -3,6 +3,8 @@ import { useState } from 'react';
 import DatePopup from 'src/Popups/DatePopup/DatePopup';
 import TagsPopup from '../../../../Popups/TagsPopup/TagsPopup';
 import styles from './EditColumnItemModalSide.module.sass';
+import LocalOfferIcon from '@mui/icons-material/LocalOffer';
+import { DateRange } from '@mui/icons-material';
 
 export const EditColumnItemModalSide = ({
     columnItemId,
@@ -17,10 +19,9 @@ export const EditColumnItemModalSide = ({
                 <Button
                     variant="contained"
                     color="primary"
-                    fullWidth
                     onClick={() => setCurrentPopup('tags')}
                 >
-                    Tags
+                    <LocalOfferIcon />
                 </Button>
 
                 {currentPopup === 'tags' && (
@@ -35,10 +36,9 @@ export const EditColumnItemModalSide = ({
                 <Button
                     variant="contained"
                     color="primary"
-                    fullWidth
                     onClick={() => setCurrentPopup('date')}
                 >
-                    Date
+                    <DateRange />
                 </Button>
 
                 {currentPopup === 'date' && (
