@@ -25,8 +25,10 @@ const Column: FunctionComponent<Props> = ({
         (state) => state.persistedReducer.config.colorScheme
     );
 
-    const items = useLiveQuery(() =>
-        database.items.where('columnId').equals(columnId!).toArray()
+    const items = useLiveQuery(
+        () => database.items.where('columnId').equals(columnId!).toArray(),
+        [columnId],
+        []
     );
 
     return (
