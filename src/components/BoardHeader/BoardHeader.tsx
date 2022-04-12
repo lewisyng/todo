@@ -27,9 +27,10 @@ export const BoardHeader = ({ title }: { title: string }) => {
                 />
 
                 <Button
-                    variant="contained"
+                    variant="outlined"
                     startIcon={<LocalOfferIcon />}
                     onClick={() => setManageTagsModalOpen(true)}
+                    sx={{color: "white", border: "1px solid white"}}
                 >
                     TAGS
                 </Button>
