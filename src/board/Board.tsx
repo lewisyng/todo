@@ -48,7 +48,6 @@ const Board = ({ boardId }: { boardId: any }) => {
 
                 <div className={styles.board__columns}>
                     {columns?.map((column: any, idx: number) => {
-                        console.log('column', column);
                         return (
                             <Column
                                 key={idx}
