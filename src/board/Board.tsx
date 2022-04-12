@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Board.module.scss';
 import Column from '../components/Column/Column';
 import CreateColumn from 'src/components/CreateColumn/CreateColumn';
@@ -7,9 +7,25 @@ import EditColumnItemModal from 'src/components/CustomModal/EditColumnItemModal/
 import { useLiveQuery } from 'dexie-react-hooks';
 import { database } from 'src/database';
 import { useAppSelector } from 'src/hooks/redux';
+import { Board as BoardModel } from 'src/models/Board';
 
-const Board = ({ board }: { board: any }) => {
-    const { id: boardId, title } = board;
+const Board = ({ boardId }: { boardId: any }) => {
+    const [board, setBoard] = useState<BoardModel | null>(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const board = (await database.boards
+                .where('id')
+                .equals(boardId)
+                .first()) as BoardModel;
+
+            if (board) {
+                setBoard(board);
+            }
+        };
+
+        fetchData();
+    }, [boardId]);
 
     const colorScheme = useAppSelector(
         (state) => state.persistedReducer.config.colorScheme
@@ -19,42 +35,49 @@ const Board = ({ board }: { board: any }) => {
     const [editColumnItemModalVisible, setEditColumnItemModalVisible] =
         useState<boolean>(false);
 
-    const columns = useLiveQuery(() =>
-        database.columns.where('boardId').equals(boardId).toArray()
+    const columns = useLiveQuery(
+        () => database.columns.where('boardId').equals(boardId).toArray(),
+        [boardId],
+        []
     );
 
-    return (
-        <div className={styles.board} style={{backgroundColor: `var(--${colorScheme}-500)`}}>
-            <BoardHeader title={title} />
+    if (board) {
+        return (
+            <div className={styles.board}>
+                <BoardHeader title={board.title} />
 
-            <div className={styles.board__columns}>
-                {columns?.map((column: any, idx: number) => {
-                    return (
-                        <Column
-                            key={idx}
-                            handleColumnItemSelect={(item) => {
-                                setSelectedColumnItem(item);
-                                setEditColumnItemModalVisible(true);
-                            }}
-                            boardId={boardId}
-                            column={column}
-                        />
-                    );
-                })}
+                <div className={styles.board__columns}>
+                    {columns?.map((column: any, idx: number) => {
+                        console.log('column', column);
+                        return (
+                            <Column
+                                key={idx}
+                                handleColumnItemSelect={(item) => {
+                                    setSelectedColumnItem(item);
+                                    setEditColumnItemModalVisible(true);
+                                }}
+                                boardId={boardId}
+                                column={column}
+                            />
+                        );
+                    })}
 
-                <CreateColumn boardId={boardId} />
+                    <CreateColumn boardId={boardId} />
+                </div>
+
+                {/* modal of the details of the clicked columnItem */}
+                {selectedColumnItem && (
+                    <EditColumnItemModal
+                        columnItem={selectedColumnItem}
+                        open={editColumnItemModalVisible}
+                        onClose={() => setEditColumnItemModalVisible(false)}
+                    />
+                )}
             </div>
-
-            {/* modal of the details of the clicked columnItem */}
-            {selectedColumnItem && (
-                <EditColumnItemModal
-                    columnItem={selectedColumnItem}
-                    open={editColumnItemModalVisible}
-                    onClose={() => setEditColumnItemModalVisible(false)}
-                />
-            )}
-        </div>
-    );
+        );
+    } else {
+        return <div>An error occured</div>;
+    }
 };
 
 export default Board;

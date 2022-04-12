@@ -1,5 +1,6 @@
 import { combineReducers, createStore } from 'redux';
 import { configReducer, ConfigType } from './Config/config.reducer';
+import { boardReducer } from './Board/board.reducer';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer, persistStore } from 'redux-persist';
 import { configureStore } from '@reduxjs/toolkit';
@@ -22,6 +23,7 @@ const persistedReducer = persistReducer(persistConfig, persistedRootReducer);
 export const store = configureStore({
     reducer: {
         persistedReducer,
+        board: boardReducer,
         // config: configSlice.reducer,
     },
 });
