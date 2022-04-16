@@ -3,26 +3,33 @@ import AddIcon from '@mui/icons-material/Add';
 import { calculateTextColor } from 'src/helpers/calculateTextColor';
 import cn from 'classnames';
 import { useEffect, useState } from 'react';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { IconButton } from '@mui/material';
 
 export const TagTile = ({
     title = '',
     color = 'white',
     type,
     handleAddTile,
-    handleClick,
+    deleteTag,
+    editTag,
 }: {
     title?: string;
     color?: string;
     type?: 'addTile';
     handleAddTile?: () => void;
-    handleClick?: () => void;
+    deleteTag?: () => void;
+    editTag?: () => void;
 }) => {
     const [textColor, setTextColor] = useState<null | string>(null);
 
     useEffect(() => {
         if (type === 'addTile') return;
 
-        setTextColor(calculateTextColor(color));
+        const textColor = calculateTextColor(color);
+
+        if (textColor) setTextColor(textColor);
     }, [color]);
 
     /**
@@ -43,9 +50,18 @@ export const TagTile = ({
         <div
             className={styles.tagTile}
             style={{ backgroundColor: color, color: textColor || 'white' }}
-            onClick={handleClick}
         >
             <div className={styles.tagTile__title}>{title.toUpperCase()}</div>
+
+            <div className={styles.tagTile__hoverOptions}>
+                <IconButton onClick={editTag}>
+                    <EditIcon />
+                </IconButton>
+
+                <IconButton onClick={deleteTag}>
+                    <DeleteIcon />
+                </IconButton>
+            </div>
         </div>
     );
 };

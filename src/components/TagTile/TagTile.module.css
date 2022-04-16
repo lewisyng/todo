@@ -7,22 +7,8 @@
     border-radius: 4px;
 }
 
-/* Make text sit ontop of pseudo element on hover */
-.tagTile > div {
-    position: relative;
-}
-
 .tagTile:hover {
     cursor: pointer;
-}
-
-.tagTile:hover::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    display: inline-block;
-    background-color: #000;
-    opacity: 0.2;
 }
 
 .tagTile__add {
@@ -49,4 +35,29 @@
 
 .tagTile__title {
     font-weight: bold;
+}
+
+.tagTile__hoverOptions {
+    display: grid;
+    position: absolute !important;
+    inset: 0;
+    z-index: 10000;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.5);
+    grid-template-columns: repeat(2, 1fr);
+    transition: 250ms all ease;
+}
+
+.tagTile__hoverOptions svg {
+    fill: black !important;
+}
+
+.tagTile__hoverOptions:hover {
+    opacity: 1;
+}
+
+.tagTile__hoverOptions div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

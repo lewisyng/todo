@@ -24,8 +24,8 @@ export const ManageTagsModal = ({
         setCreateTagModalOpen(true);
     };
 
-    const handleTagTileClick = (id: number) => {
-        setClickedTagTile(id);
+    const deleteTag = (id: number) => {
+        database.tags.delete(id);
     };
 
     return (
@@ -46,8 +46,11 @@ export const ManageTagsModal = ({
                                         key={idx}
                                         title={tag.title}
                                         color={tag.color}
-                                        handleClick={() =>
-                                            handleTagTileClick(tag.id as number)
+                                        deleteTag={() =>
+                                            deleteTag(tag.id as number)
+                                        }
+                                        editTag={() =>
+                                            setClickedTagTile(tag.id)
                                         }
                                     />
                                 );

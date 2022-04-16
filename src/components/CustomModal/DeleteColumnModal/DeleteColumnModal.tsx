@@ -1,36 +1,42 @@
-import Button from '../../ui/Button/Button';
+import { Button } from '@mui/material';
 import CustomModal from '../CustomModal';
+import CustomModalBody from '../CustomModalParts/CustomModalBody/CustomModalBody';
 import styles from './DeleteColumnModal.module.sass';
+import CustomModalActions from '../CustomModalParts/CustomModalActions/CustomModalActions';
 
 export const DeleteColumnModal = ({
-  open,
-  handleClose,
-  deleteColumn,
+    open,
+    handleClose,
+    deleteColumn,
 }: {
-  open: boolean;
-  handleClose: () => void;
-  deleteColumn: () => void;
+    open: boolean;
+    handleClose: () => void;
+    deleteColumn: () => void;
 }) => {
-  return (
-    <CustomModal
-      open={open}
-      onClose={handleClose}
-      className={styles.deleteColumn__modal}
-    >
-      <div className={styles.deleteColumnModal__content}>
-        <div className={styles.deleteColumnModalContent__header}>
-          Text in a modal
-        </div>
-        <div className={styles.deleteColumnModalContent__body}>
-          Das löschen einer Column kann nicht rückgängig gemacht werden.
-        </div>
-        <div className={styles.deleteColumnModalContent__actions}>
-          <Button onClick={deleteColumn}>Column löschen</Button>
-          <Button onClick={handleClose} variant="tertiary">Abbrechen</Button>
-        </div>
-      </div>
-    </CustomModal>
-  );
+    return (
+        <CustomModal
+            open={open}
+            onClose={handleClose}
+            className={styles.deleteColumn__modal}
+            title="Delete column"
+        >
+            <div className={styles.deleteColumnModal__content}>
+                <CustomModalBody>
+                    Deleting a column can't be reverted
+                </CustomModalBody>
+
+                <CustomModalActions>
+                    <Button variant="outlined" onClick={deleteColumn}>
+                        Column löschen
+                    </Button>
+
+                    <Button variant="text" onClick={handleClose}>
+                        Abbrechen
+                    </Button>
+                </CustomModalActions>
+            </div>
+        </CustomModal>
+    );
 };
 
 export default DeleteColumnModal;
