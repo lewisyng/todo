@@ -6,7 +6,6 @@ import { useState } from 'react';
 import cn from 'classnames';
 import { Label } from 'src/components/ui/Label/Label';
 import { useLiveQuery } from 'dexie-react-hooks';
-import { format, parseISO } from 'date-fns';
 
 export const EditColumnItemModalMain = ({
     columnItem,
@@ -47,94 +46,99 @@ export const EditColumnItemModalMain = ({
     return (
         <div className={styles.editColumnItemModalContent__main}>
             {/* TITLE */}
-            <Label htmlFor="title" title="Titel" />
-
-            <input
-                type="text"
-                name="title"
-                value={title}
-                onFocus={() => setTitleFocused(true)}
-                onBlur={() => {
-                    setTitleFocused(false);
-                    handleTitleSubmit();
-                }}
-                onChange={(e) => setTitle(e.target.value)}
-                className={cn(
-                    styles.editColumnItemModalContent__title,
-                    titleFocused &&
-                        styles.editColumnItemModalContentTitle__focused
-                )}
-            />
+            <Label htmlFor="title" title="Titel">
+                <input
+                    type="text"
+                    name="title"
+                    value={title}
+                    onFocus={() => setTitleFocused(true)}
+                    onBlur={() => {
+                        setTitleFocused(false);
+                        handleTitleSubmit();
+                    }}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className={cn(
+                        styles.editColumnItemModalContent__title,
+                        titleFocused &&
+                            styles.editColumnItemModalContentTitle__focused
+                    )}
+                />
+            </Label>
 
             {/* TAGS */}
             {currentItem && currentItem.tags.length > 0 && (
                 <>
-                    <Label title="Tags" />
-                    <div className={styles.editColumnItemModalContent__tags}>
-                        {currentItem.tags.map((tag, idx) => {
-                            const tagRef = tags?.find((t) => t.id === tag);
+                    <Label title="Tags">
+                        <div
+                            className={styles.editColumnItemModalContent__tags}
+                        >
+                            {currentItem.tags.map((tag, idx) => {
+                                const tagRef = tags?.find((t) => t.id === tag);
 
-                            return (
-                                <div
-                                    key={idx}
-                                    className={
-                                        styles.editColumnItemModalContent__tag
-                                    }
-                                    style={{ background: tagRef?.color }}
-                                >
-                                    {tagRef?.title}
-                                </div>
-                            );
-                        })}
-                    </div>
+                                return (
+                                    <div
+                                        key={idx}
+                                        className={
+                                            styles.editColumnItemModalContent__tag
+                                        }
+                                        style={{ background: tagRef?.color }}
+                                    >
+                                        {tagRef?.title}
+                                    </div>
+                                );
+                            })}
+                        </div>
+                    </Label>
                 </>
             )}
 
             {/* DATE */}
-            <Label title="Date" />
+            <Label title="Date">
+                <div className={styles.editColumnItemModalContent__dates}>
+                    <div className={styles.editColumnItemModalContent__date}>
+                        <Label title="Start" small>
+                            {currentItem?.startDate?.$d
+                                .toString()
+                                .split(' ')
+                                .slice(1, 4)
+                                .join(' ')}
+                        </Label>
+                    </div>
 
-            <div className={styles.editColumnItemModalContent__dates}>
-                <div className={styles.editColumnItemModalContent__date}>
-                    <Label title="Start" small />
-                    {currentItem?.startDate?.$d
-                        .toString()
-                        .split(' ')
-                        .slice(1, 4)
-                        .join(' ')}
+                    <div className={styles.editColumnItemModalContent__date}>
+                        <Label title="End" small>
+                            {currentItem?.endDate?.$d
+                                .toString()
+                                .split(' ')
+                                .slice(1, 4)
+                                .join(' ')}
+                        </Label>
+                    </div>
                 </div>
-
-                <div className={styles.editColumnItemModalContent__date}>
-                    <Label title="End" small />
-                    {currentItem?.endDate?.$d
-                        .toString()
-                        .split(' ')
-                        .slice(1, 4)
-                        .join(' ')}
-                </div>
-            </div>
+            </Label>
 
             {/* DESCRIPTION */}
-            <Label htmlFor="description" title="Beschreibung" />
-
-            <textarea
-                name="description"
-                rows={10}
-                className={cn(
-                    styles.editColumnItemModalContent__description,
-                    descriptionFocused &&
-                        styles.editColumnItemModalContentDescription__focused
-                )}
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-                onFocus={() => {
-                    setDescriptionFocused(true);
-                }}
-                onBlur={() => {
-                    setDescriptionFocused(false);
-                    handleDescriptionSubmit();
-                }}
-                placeholder="Detaillierte Beschreibung hinzufügen ..."
-            />
+            <Label htmlFor="description" title="Beschreibung">
+                <textarea
+                    name="description"
+                    rows={10}
+                    className={cn(
+                        styles.editColumnItemModalContent__description,
+                        descriptionFocused &&
+                            styles.editColumnItemModalContentDescription__focused
+                    )}
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    onFocus={() => {
+                        setDescriptionFocused(true);
+                    }}
+                    onBlur={() => {
+                        setDescriptionFocused(false);
+                        handleDescriptionSubmit();
+                    }}
+                    placeholder="Detaillierte Beschreibung hinzufügen ..."
+                />
+            </Label>
 
             <Button
                 variant="contained"

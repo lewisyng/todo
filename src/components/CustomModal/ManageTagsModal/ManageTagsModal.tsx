@@ -2,72 +2,75 @@ import styles from './ManageTagsModal.module.sass';
 import CustomModal from '../CustomModal';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { database } from 'src/database';
-import { FormEvent, useState } from 'react';
-import { Button } from '@mui/material';
+import { useState } from 'react';
+import CustomModalBody from '../CustomModalParts/CustomModalBody/CustomModalBody';
+import TagTile from 'src/components/TagTile/TagTile';
+import CreateTagModal from '../CreateTagModal/CreateTagModal';
+import EditTagModal from '../EditTagModal/EditTagModal';
 
 export const ManageTagsModal = ({
-  open,
-  handleClose,
+    open,
+    handleClose,
 }: {
-  open: boolean;
-  handleClose: () => void;
+    open: boolean;
+    handleClose: () => void;
 }) => {
-  const [title, setTitle] = useState('');
-  const [color, setColor] = useState('#000');
+    const tags = useLiveQuery(() => database.tags.toArray());
+    const [createTagModalOpen, setCreateTagModalOpen] = useState(false);
 
-  const tags = useLiveQuery(() => database.tags.toArray());
+    const [clickedTagTile, setClickedTagTile] = useState<number | null>(null);
 
-  const addTag = (e: FormEvent) => {
-    e.preventDefault();
+    const addTile = () => {
+        setCreateTagModalOpen(true);
+    };
 
-    database.tags.add({
-      title,
-      color,
-    });
+    const handleTagTileClick = (id: number) => {
+        setClickedTagTile(id);
+    };
 
-    setTitle('');
-    setColor('#000');
-  };
+    return (
+        <>
+            <CustomModal
+                open={open}
+                onClose={handleClose}
+                title="Manage your tags"
+            >
+                <CustomModalBody>
+                    <div className={styles.manageTagsModal__content}>
+                        <div className={styles.manageTagsModal__tagTiles}>
+                            <TagTile type="addTile" handleAddTile={addTile} />
 
-  return (
-    <CustomModal open={open} onClose={handleClose}>
-      <div className={styles.manageTagsModal__content}>
-        <div className={styles.manageTagsModalContent__tags}>
-          {tags?.map((tag, idx) => (
-            <div key={idx}>{tag.title}</div>
-          ))}
-        </div>
+                            {tags?.map((tag: any, idx: number) => {
+                                return (
+                                    <TagTile
+                                        key={idx}
+                                        title={tag.title}
+                                        color={tag.color}
+                                        handleClick={() =>
+                                            handleTagTileClick(tag.id as number)
+                                        }
+                                    />
+                                );
+                            })}
+                        </div>
+                    </div>
+                </CustomModalBody>
+            </CustomModal>
 
-        <form onSubmit={addTag}>
-          <fieldset>
-            <label htmlFor="title">Titel</label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+            <CreateTagModal
+                open={createTagModalOpen}
+                handleClose={() => setCreateTagModalOpen(false)}
             />
-          </fieldset>
-          
-          <fieldset>
-            <label htmlFor="color">Farbe auswählen</label>
-            <input
-              type="color"
-              name="color"
-              id="color"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-            />
-          </fieldset>
 
-          <Button type="submit" variant="contained">
-            Tag anlegen
-          </Button>
-        </form>
-      </div>
-    </CustomModal>
-  );
+            {clickedTagTile && (
+                <EditTagModal
+                    id={clickedTagTile as number}
+                    open={Boolean(clickedTagTile)}
+                    handleClose={() => setClickedTagTile(null)}
+                />
+            )}
+        </>
+    );
 };
 
 export default ManageTagsModal;
