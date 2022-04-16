@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { useState } from 'react';
 import DatePopup from 'src/Popups/DatePopup/DatePopup';
-import TagsPopup from '../../../../Popups/TagsPopup/TagsPopup';
+import TagsModal from '../../../../Popups/TagsModal/TagsModal';
 import styles from './EditColumnItemModalSide.module.sass';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { DateRange } from '@mui/icons-material';
@@ -12,6 +12,7 @@ export const EditColumnItemModalSide = ({
     columnItemId: number;
 }) => {
     const [currentPopup, setCurrentPopup] = useState<string | null>(null);
+    const [tagsModalOpen, setTagsModalOpen] = useState(false);
 
     return (
         <div className={styles.editColumnItemModalContent__side}>
@@ -19,14 +20,15 @@ export const EditColumnItemModalSide = ({
                 <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => setCurrentPopup('tags')}
+                    onClick={() => setTagsModalOpen(true)}
                 >
                     <LocalOfferIcon />
                 </Button>
 
-                {currentPopup === 'tags' && (
-                    <TagsPopup
-                        handleClose={() => setCurrentPopup(null)}
+                {tagsModalOpen && (
+                    <TagsModal
+                        open={tagsModalOpen}
+                        handleClose={() => setTagsModalOpen(false)}
                         columnItemId={columnItemId}
                     />
                 )}

@@ -66,8 +66,8 @@ export const EditColumnItemModalMain = ({
             </Label>
 
             {/* TAGS */}
-            {currentItem && currentItem.tags.length > 0 && (
-                <>
+            {/* {currentItem && currentItem.tags.length > 0 && (
+                <div className={styles.editColumnItemModalContentMain__tags}>
                     <Label title="Tags">
                         <div
                             className={styles.editColumnItemModalContent__tags}
@@ -89,8 +89,8 @@ export const EditColumnItemModalMain = ({
                             })}
                         </div>
                     </Label>
-                </>
-            )}
+                </div>
+            )} */}
 
             {/* DATE */}
             <Label title="Date">

@@ -1,6 +1,6 @@
 .editColumnItemModalContent__main
-    width: 100%
-    
+    flex-grow: 1
+
 .editColumnItemModalContent__title
     display: flex
     align-items: center
@@ -17,6 +17,19 @@
 .editColumnItemModalContentTitle__focused
     box-shadow: 0 0 0 2px #0079bf
     background: white
+
+.editColumnItemModalContentMain__tags
+    width: 80%
+    overflow-x: scroll
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.editColumnItemModalContentMain__tags::-webkit-scrollbar
+    display: none
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.editColumnItemModalContentMain__tags
+    -ms-overflow-style: none // IE and Edge
+    scrollbar-width: none // Firefox
 
 .editColumnItemModalContent__tags
     display: flex

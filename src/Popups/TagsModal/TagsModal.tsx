@@ -1,15 +1,19 @@
-import styles from './TagsPopup.module.sass';
+import styles from './TagsModal.module.sass';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { database } from 'src/database';
-import PopupWrapper from '../PopupWrapper/PopupWrapper';
-import { Checkbox } from '@mui/material';
+import { Button, Checkbox } from '@mui/material';
 import { TagType } from 'src/models/Tag';
+import CustomModal from 'src/components/CustomModal/CustomModal';
+import CustomModalActions from 'src/components/CustomModal/CustomModalParts/CustomModalActions/CustomModalActions';
+import CustomModalBody from 'src/components/CustomModal/CustomModalParts/CustomModalBody/CustomModalBody';
 
-export const TagsPopup = ({
+export const TagsModal = ({
     columnItemId,
+    open,
     handleClose,
 }: {
     columnItemId: number;
+    open: boolean;
     handleClose: () => void;
 }) => {
     const tags: TagType[] | undefined = useLiveQuery(() =>
@@ -38,12 +42,21 @@ export const TagsPopup = ({
         }
     };
 
+    const deselectAll = () => {
+        database.items
+            .where('id')
+            .equals(columnItem!.id as number)
+            .modify({
+                tags: [],
+            });
+    };
+
     return (
-        <PopupWrapper title="Tags" handleClose={handleClose}>
-            <div className={styles.tags}>
+        <CustomModal title="Tags" open={open} onClose={handleClose}>
+            <CustomModalBody className={styles.tags}>
                 {tags?.map((tag) => {
                     return (
-                        <div key={tag.id} className={styles.tag}>
+                        <div key={tag.id} className={styles.tag} onClick={() => toggleTag(tag.id!)}>
                             <div
                                 className={styles.tag__color}
                                 style={{ background: tag.color }}
@@ -62,9 +75,15 @@ export const TagsPopup = ({
                         </div>
                     );
                 })}
-            </div>
-        </PopupWrapper>
+            </CustomModalBody>
+
+            <CustomModalActions>
+                <Button variant="outlined" onClick={deselectAll}>
+                    Deselect all
+                </Button>
+            </CustomModalActions>
+        </CustomModal>
     );
 };
 
-export default TagsPopup;
+export default TagsModal;

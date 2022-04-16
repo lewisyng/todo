@@ -84,12 +84,6 @@ export const EditTagModal = ({
                         </IconButton>
                     )}
                 </CustomModalBody>
-
-                <CustomModalActions>
-                    <Button variant="outlined" onClick={deleteTag}>
-                        Delete
-                    </Button>
-                </CustomModalActions>
             </CustomModal>
         );
     }
