@@ -6,11 +6,13 @@ export const Label = ({
     title,
     small,
     className,
+    children,
 }: {
     htmlFor?: string;
     title: string;
     small?: boolean;
     className?: string;
+    children: React.ReactNode;
 }) => {
     return (
         <label
@@ -22,6 +24,7 @@ export const Label = ({
             )}
         >
             {title}
+            {children}
         </label>
     );
 };
