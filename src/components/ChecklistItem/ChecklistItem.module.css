@@ -1,5 +1,32 @@
 .checklistItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 0.5rem;
     border-radius: 4px;
     background-color: white;
+}
+
+.checklistItem:hover {
+    background-color: var(--gray-200);
+}
+
+.checklistItemTitle__done {
+    text-decoration: line-through;
+}
+
+.checklistItem__actions {
+    display: flex;
+    gap: 0.75rem;
+    visibility: hidden;
+}
+
+.checklistItem:hover .checklistItem__actions {
+    visibility: visible;
+    cursor: pointer;
+}
+
+.checklistItem__actions svg {
+    font-size: 20px;
+    fill: black !important;
 }

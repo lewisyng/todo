@@ -22,7 +22,6 @@ export const ChecklistModal = ({
             database.checklists.add({
                 title,
                 description: '',
-                items: [],
                 itemId: columnItemId,
             });
         } catch (e) {
