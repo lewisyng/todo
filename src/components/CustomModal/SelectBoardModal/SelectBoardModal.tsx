@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import CustomModalBody from '../CustomModalParts/CustomModalBody/CustomModalBody';
 import { useAppDispatch } from 'src/hooks/redux';
 import { setCurrentBoardId } from 'src/store/Board/board.actions';
+import { useLiveQuery } from 'dexie-react-hooks';
 
 export const SelectBoardModal = ({
     open,
@@ -17,12 +18,9 @@ export const SelectBoardModal = ({
     handleClose: () => void;
     className?: string;
 }) => {
-    const [boards, setBoards] = useState<Board[]>([]);
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        database.boards.toArray().then(setBoards);
-    }, []);
+    const boards = useLiveQuery(() => database.boards.toArray());
 
     const handleClick = (id: number) => {
         dispatch(setCurrentBoardId(id));
