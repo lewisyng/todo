@@ -8,11 +8,22 @@ import AddIcon from '@mui/icons-material/Add';
 import { database } from 'src/database';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Label } from '../ui/Label/Label';
+import { useLiveQuery } from 'dexie-react-hooks';
 
 export const Checklist = ({ checklist }: { checklist: CheckListType }) => {
     const [showNewChecklistItemInput, setShowNewChecklistItemInput] =
         useState(false);
     const [newListItem, setNewListItem] = useState('');
+
+    const checklistItems = useLiveQuery(
+        () =>
+            database.checklistItems
+                .where('checklistId')
+                .equals(checklist.id!)
+                .toArray(),
+        [],
+        []
+    );
 
     const createNewListItem = (
         e: React.FormEvent,
@@ -21,24 +32,22 @@ export const Checklist = ({ checklist }: { checklist: CheckListType }) => {
         e.preventDefault();
 
         if (newListItem !== '') {
-            database.checklists
-                .where('id')
-                .equals(checklist.id!)
-                .modify({
-                    items: [
-                        ...checklist.items,
-                        {
-                            title: newListItem,
-                            description: '',
-                            done: false,
-                        },
-                    ],
-                });
+            database.checklistItems.add({
+                title: newListItem,
+                description: '',
+                done: false,
+                checklistId: checklist.id!,
+            });
         }
 
         setNewListItem('');
         setShowNewChecklistItemInput(false);
     };
+
+    const deleteChecklist = () => {
+        database.checklistItems.where('checklistId').equals(checklist.id!).delete();
+        database.checklists.delete(checklist.id!);
+    }
 
     return (
         <div className={styles.checklist}>
@@ -49,11 +58,11 @@ export const Checklist = ({ checklist }: { checklist: CheckListType }) => {
                     bold
                 />
 
-                <DeleteIcon sx={{ marginLeft: 'auto' }} />
+                <DeleteIcon onClick={deleteChecklist} />
             </div>
 
             <div className={styles.checklist__items}>
-                {checklist.items.map((item, idx) => (
+                {checklistItems.map((item, idx) => (
                     <ChecklistItem key={idx} item={item} />
                 ))}
             </div>
