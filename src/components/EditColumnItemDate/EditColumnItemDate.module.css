@@ -1,0 +1,8 @@
+.editColumnItem__dates {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.editColumnItem__date {
+    margin-bottom: 1.25rem;
+}

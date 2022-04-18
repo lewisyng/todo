@@ -1,69 +1,27 @@
 import styles from './EditColumnItemModalMain.module.sass';
-import { Button } from '@mui/material';
 import { database } from 'src/database';
 import { Item } from 'src/models/Item';
-import { useState } from 'react';
-import cn from 'classnames';
-import { Label } from 'src/components/ui/Label/Label';
 import { useLiveQuery } from 'dexie-react-hooks';
+import EditColumnItemSection from 'src/components/EditColumnItemSection/EditColumnItemSection';
+import { EditColumnItemTitle } from 'src/components/EditColumnItemTitle/EditColumnItemTitle';
+import EditColumnItemDate from 'src/components/EditColumnItemDate/EditColumnItemDate';
+import { EditColumnItemDescription } from 'src/components/EditColumnItemDescription/EditColumnItemDescription';
+import EditColumnItemChecklists from 'src/components/EditColumnItemChecklists/EditColumnItemChecklists';
+import { Title, DateRange, ShortText, CheckBox } from '@mui/icons-material';
 
 export const EditColumnItemModalMain = ({
     columnItem,
 }: {
     columnItem: Item;
 }) => {
-    const { title: columnItemTitle, description: columnItemDescription } =
-        columnItem;
-
-    const currentItem = useLiveQuery(() => database.items.get(columnItem.id!));
     const tags = useLiveQuery(() => database.tags.toArray());
-
-    const [title, setTitle] = useState(columnItemTitle);
-    const [titleFocused, setTitleFocused] = useState<boolean>(false);
-
-    const [description, setDescription] = useState(columnItemDescription);
-    const [descriptionFocused, setDescriptionFocused] =
-        useState<boolean>(false);
-
-    const handleTitleSubmit = () => {
-        database.items
-            .where('id')
-            .equals(columnItem.id as number)
-            .modify({
-                title,
-            });
-    };
-
-    const handleDescriptionSubmit = () => {
-        database.items
-            .where('id')
-            .equals(columnItem.id as number)
-            .modify({
-                description,
-            });
-    };
 
     return (
         <div className={styles.editColumnItemModalContent__main}>
             {/* TITLE */}
-            <Label htmlFor="title" title="Titel">
-                <input
-                    type="text"
-                    name="title"
-                    value={title}
-                    onFocus={() => setTitleFocused(true)}
-                    onBlur={() => {
-                        setTitleFocused(false);
-                        handleTitleSubmit();
-                    }}
-                    onChange={(e) => setTitle(e.target.value)}
-                    className={cn(
-                        styles.editColumnItemModalContent__title,
-                        titleFocused &&
-                            styles.editColumnItemModalContentTitle__focused
-                    )}
-                />
-            </Label>
+            <EditColumnItemSection title="Title" icon={<Title />}>
+                <EditColumnItemTitle columnItem={columnItem} />
+            </EditColumnItemSection>
 
             {/* TAGS */}
             {/* {currentItem && currentItem.tags.length > 0 && (
@@ -93,61 +51,19 @@ export const EditColumnItemModalMain = ({
             )} */}
 
             {/* DATE */}
-            <Label title="Date">
-                <div className={styles.editColumnItemModalContent__dates}>
-                    <div className={styles.editColumnItemModalContent__date}>
-                        <Label title="Start" small>
-                            {currentItem?.startDate?.$d
-                                .toString()
-                                .split(' ')
-                                .slice(1, 4)
-                                .join(' ')}
-                        </Label>
-                    </div>
+            <EditColumnItemSection title="Date" icon={<DateRange />}>
+                <EditColumnItemDate columnItem={columnItem} />
+            </EditColumnItemSection>
 
-                    <div className={styles.editColumnItemModalContent__date}>
-                        <Label title="End" small>
-                            {currentItem?.endDate?.$d
-                                .toString()
-                                .split(' ')
-                                .slice(1, 4)
-                                .join(' ')}
-                        </Label>
-                    </div>
-                </div>
-            </Label>
+            {/* CHECKLISTS */}
+            <EditColumnItemSection icon={<CheckBox />}>
+                <EditColumnItemChecklists columnItem={columnItem} />
+            </EditColumnItemSection>
 
             {/* DESCRIPTION */}
-            <Label htmlFor="description" title="Beschreibung">
-                <textarea
-                    name="description"
-                    rows={10}
-                    className={cn(
-                        styles.editColumnItemModalContent__description,
-                        descriptionFocused &&
-                            styles.editColumnItemModalContentDescription__focused
-                    )}
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    onFocus={() => {
-                        setDescriptionFocused(true);
-                    }}
-                    onBlur={() => {
-                        setDescriptionFocused(false);
-                        handleDescriptionSubmit();
-                    }}
-                    placeholder="Detaillierte Beschreibung hinzufügen ..."
-                />
-            </Label>
-
-            <Button
-                variant="contained"
-                onClick={() => handleDescriptionSubmit()}
-                color="primary"
-                type="submit"
-            >
-                Speichern
-            </Button>
+            <EditColumnItemSection title="Description" icon={<ShortText />}>
+                <EditColumnItemDescription columnItem={columnItem} />
+            </EditColumnItemSection>
         </div>
     );
 };

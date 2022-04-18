@@ -1,0 +1,17 @@
+.editColumnItemSection {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 50px 1fr;
+}
+
+.editColumnItemSection__icon svg {
+    fill: var(--gray-900) !important;
+}
+
+.editColumnItemSection__content {
+    margin: 0 0 1rem 0;
+}
+
+.editColumnItemSection__content label {
+    /* color: var(--gray-900); */
+}

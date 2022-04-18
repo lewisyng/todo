@@ -1,0 +1,3 @@
+.columnItemChecklists > *:not(:last-of-type) {
+    margin-bottom: 1rem;
+}

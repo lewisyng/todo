@@ -5,6 +5,9 @@ import TagsModal from '../../../../Popups/TagsModal/TagsModal';
 import styles from './EditColumnItemModalSide.module.sass';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
 import { DateRange } from '@mui/icons-material';
+import { colors } from '../../../../styles/colors';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import ChecklistModal from '../../ChecklistModal/ChecklistModal';
 
 export const EditColumnItemModalSide = ({
     columnItemId,
@@ -13,6 +16,7 @@ export const EditColumnItemModalSide = ({
 }) => {
     const [currentPopup, setCurrentPopup] = useState<string | null>(null);
     const [tagsModalOpen, setTagsModalOpen] = useState(false);
+    const [checklistModalOpen, setChecklistModalOpen] = useState(false);
 
     return (
         <div className={styles.editColumnItemModalContent__side}>
@@ -49,6 +53,22 @@ export const EditColumnItemModalSide = ({
                         columnItemId={columnItemId}
                     />
                 )}
+            </div>
+
+            <div>
+                <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => setChecklistModalOpen(true)}
+                >
+                    <CheckBoxIcon />
+                </Button>
+
+                <ChecklistModal
+                    columnItemId={columnItemId}
+                    open={checklistModalOpen}
+                    handleClose={() => setChecklistModalOpen(false)}
+                />
             </div>
         </div>
     );
