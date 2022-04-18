@@ -6,12 +6,17 @@ import { database } from 'src/database';
 import NoBoardScreen from '../NoBoardScreen/NoBoardScreen';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setCurrentBoardId } from 'src/store/Board/board.actions';
+import { useLiveQuery } from 'dexie-react-hooks';
 
 const App: FunctionComponent = () => {
+    const boards = useLiveQuery(() => database.boards.toArray());
+
     const currentBoardId = useAppSelector(
         (state) => state.board.currentBoardId
     );
+
     const dispatch = useAppDispatch();
+
     const colorScheme = useAppSelector(
         (state) => state.persistedReducer.config.colorScheme
     );
@@ -21,12 +26,14 @@ const App: FunctionComponent = () => {
             const boards = await database.boards?.toArray();
 
             if (boards?.length) {
-                dispatch(setCurrentBoardId(boards[0].id as number));
+                dispatch(
+                    setCurrentBoardId(boards[boards.length - 1].id as number)
+                );
             }
         };
 
         fetchBoards();
-    }, []);
+    }, [boards]);
 
     return (
         <div className={styles.app}>
