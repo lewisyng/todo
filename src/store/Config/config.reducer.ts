@@ -6,7 +6,7 @@ export type ConfigType = {
 };
 
 const initialState = {
-    colorScheme: 'dark',
+    colorScheme: 'blue',
 } as ConfigType;
 
 export const configReducer = createReducer(initialState, (builder) => {
