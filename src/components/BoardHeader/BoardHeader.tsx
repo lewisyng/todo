@@ -6,21 +6,25 @@ import { useEffect, useRef, useState } from 'react';
 import { useAppSelector } from 'src/hooks/redux';
 import { calculateTextColor } from '../../helpers/calculateTextColor';
 
-export const BoardHeader = ({ title }: { title: string }) => {
+export const BoardHeader = () => {
     const boardHeaderRef = useRef<null | HTMLDivElement>(null);
     const [manageTagsModalOpen, setManageTagsModalOpen] =
         useState<boolean>(false);
 
-    const colorScheme = useAppSelector(
-        (state) => state.persistedReducer.config.colorScheme
-    );
+    const [colorScheme, boardTitle] = useAppSelector((state) => [
+        state.persistedReducer.config.colorScheme,
+        state.board.currentBoardTitle,
+    ]);
 
     const [titleColor, setTitleColor] = useState('red');
 
     useEffect(() => {
         if (boardHeaderRef && boardHeaderRef.current) {
             setTitleColor(
-                calculateTextColor(boardHeaderRef.current.style.backgroundColor, boardHeaderRef)
+                calculateTextColor(
+                    boardHeaderRef.current.style.backgroundColor,
+                    boardHeaderRef
+                )
             );
         }
     }, [boardHeaderRef, colorScheme]);
@@ -35,7 +39,7 @@ export const BoardHeader = ({ title }: { title: string }) => {
                 className={styles.boardHeader__title}
                 style={{ color: titleColor }}
             >
-                {title}
+                {boardTitle}
             </div>
 
             <div className={styles.boardHeader__actions}>

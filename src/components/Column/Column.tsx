@@ -38,7 +38,7 @@ const Column: FunctionComponent<Props> = ({
         >
             <ColumnHeader column={column} />
 
-            <div className={styles.column__columnItems}>
+            <div>
                 {items?.map((columnItem: any) => (
                     <ColumnItem
                         key={columnItem.id}

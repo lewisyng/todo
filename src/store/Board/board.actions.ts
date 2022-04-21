@@ -1,4 +1,4 @@
-import { createAction } from "@reduxjs/toolkit";
+import { createAction } from '@reduxjs/toolkit';
 
 export const setCurrentBoardId = createAction(
     'board/setCurrentBoardId',
@@ -9,4 +9,15 @@ export const setCurrentBoardId = createAction(
             },
         };
     }
-)
+);
+
+export const setCurrentBoardTitle = createAction(
+    'board/setCurrentBoardTitle',
+    (currentBoardTitle: string) => {
+        return {
+            payload: {
+                currentBoardTitle,
+            },
+        };
+    }
+);
