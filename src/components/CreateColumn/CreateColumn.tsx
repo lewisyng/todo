@@ -6,13 +6,14 @@ import { createColumn } from 'src/helpers/createColumn';
 import cn from 'classnames';
 import { useAppSelector } from 'src/hooks/redux';
 
-export const CreateColumn = ({ boardId }: { boardId: number }) => {
+export const CreateColumn = () => {
     const [inputFieldVisible, setInputFieldVisible] = useState(false);
     const [value, setValue] = useState<string>('');
 
-    const colorScheme = useAppSelector(
-        (state) => state.persistedReducer.config.colorScheme
-    );
+    const [colorScheme, currentBoardId] = useAppSelector((state) => [
+        state.persistedReducer.config.colorScheme,
+        state.board.currentBoardId,
+    ]);
 
     const createNewList: React.FormEventHandler<HTMLFormElement> = async (
         e: React.FormEvent
@@ -20,7 +21,7 @@ export const CreateColumn = ({ boardId }: { boardId: number }) => {
         e.preventDefault();
 
         if (value.length) {
-            await createColumn(boardId, value);
+            await createColumn(currentBoardId as number, value);
 
             setValue('');
         }

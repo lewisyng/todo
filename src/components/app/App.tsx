@@ -7,6 +7,8 @@ import NoBoardScreen from '../NoBoardScreen/NoBoardScreen';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
 import { setCurrentBoardId } from 'src/store/Board/board.actions';
 import { useLiveQuery } from 'dexie-react-hooks';
+import BackgroundLayer from '../BackgroundLayer/BackgroundLayer';
+import { setCurrentBoardTitle } from '../../store/Board/board.actions';
 
 const App: FunctionComponent = () => {
     const boards = useLiveQuery(() => database.boards.toArray());
@@ -17,10 +19,6 @@ const App: FunctionComponent = () => {
 
     const dispatch = useAppDispatch();
 
-    const colorScheme = useAppSelector(
-        (state) => state.persistedReducer.config.colorScheme
-    );
-
     useEffect(() => {
         const fetchBoards = async () => {
             const boards = await database.boards?.toArray();
@@ -29,6 +27,7 @@ const App: FunctionComponent = () => {
                 dispatch(
                     setCurrentBoardId(boards[boards.length - 1].id as number)
                 );
+                dispatch(setCurrentBoardTitle(boards[boards.length - 1].title));
             }
         };
 
@@ -37,18 +36,10 @@ const App: FunctionComponent = () => {
 
     return (
         <div className={styles.app}>
-            <div
-                className={styles.background}
-                style={{ background: `var(--${colorScheme}-500)` }}
-            ></div>
-
+            <BackgroundLayer />
             <Header />
 
-            {currentBoardId ? (
-                <Board boardId={currentBoardId} />
-            ) : (
-                <NoBoardScreen />
-            )}
+            {currentBoardId ? <Board /> : <NoBoardScreen />}
         </div>
     );
 };
