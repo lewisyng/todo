@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import DatePopup from 'src/Popups/DatePopup/DatePopup';
+import DatePopup from 'src/Popups/DateSelectPopup/DateSelectPopup';
 import TagsModal from '../../../../Popups/TagsModal/TagsModal';
 import styles from './EditColumnItemModalSide.module.sass';
 import LocalOfferIcon from '@mui/icons-material/LocalOffer';
@@ -38,7 +38,7 @@ export const EditColumnItemModalSide = ({
                 )}
             </div>
 
-            <div>
+            {/* <div>
                 <Button
                     variant="contained"
                     color="primary"
@@ -53,7 +53,7 @@ export const EditColumnItemModalSide = ({
                         columnItemId={columnItemId}
                     />
                 )}
-            </div>
+            </div> */}
 
             <div>
                 <Button

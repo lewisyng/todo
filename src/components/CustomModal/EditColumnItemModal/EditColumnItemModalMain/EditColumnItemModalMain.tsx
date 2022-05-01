@@ -19,7 +19,7 @@ export const EditColumnItemModalMain = ({
     return (
         <div className={styles.editColumnItemModalContent__main}>
             {/* TITLE */}
-            <EditColumnItemSection title="Title" icon={<Title />}>
+            <EditColumnItemSection icon={<Title />}>
                 <EditColumnItemTitle columnItem={columnItem} />
             </EditColumnItemSection>
 
