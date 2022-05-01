@@ -175,3 +175,10 @@ input {
     font-weight: bold;
     font-size: 20px;
 }
+
+.react-datepicker__close-icon::after {
+    content: "clear" !important;
+    padding: 4px 8px !important;
+    border-radius: 4px !important;
+    background-color: #1565C0 !important;
+}

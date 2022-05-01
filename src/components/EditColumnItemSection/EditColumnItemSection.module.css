@@ -4,6 +4,10 @@
     grid-template-columns: 50px 1fr;
 }
 
+.editColumnItemSection:not(:first-of-type) {
+    margin-top: 1rem;
+}
+
 .editColumnItemSection__icon svg {
     fill: var(--gray-900) !important;
 }
@@ -15,4 +19,7 @@
 .editColumnItemSection__content > label {
     font-size: 0.875rem;
     /* color: var(--gray-900); */
+}
+
+.editColumnItemSectionContent__label {
 }

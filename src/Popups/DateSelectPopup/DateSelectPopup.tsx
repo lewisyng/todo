@@ -6,6 +6,7 @@ import DateAdapter from '@mui/lab/AdapterDayjs';
 import { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import { database } from 'src/database';
+import ReactDatePicker from 'react-datepicker';
 
 export const DateSelectPopup = ({
     handleClose,
@@ -20,7 +21,8 @@ export const DateSelectPopup = ({
 }) => {
     return (
         <PopupWrapper title={label} handleClose={handleClose}>
-            <LocalizationProvider dateAdapter={DateAdapter}>
+            <ReactDatePicker selected={value} onChange={persistDate} />
+            {/* <LocalizationProvider dateAdapter={DateAdapter}>
                 <div className={styles.datePicker}>
                     <MobileDatePicker
                         inputFormat="DD/MM/YYYY"
@@ -29,7 +31,7 @@ export const DateSelectPopup = ({
                         renderInput={(params: any) => <TextField {...params} />}
                     />
                 </div>
-            </LocalizationProvider>
+            </LocalizationProvider> */}
         </PopupWrapper>
     );
 };
