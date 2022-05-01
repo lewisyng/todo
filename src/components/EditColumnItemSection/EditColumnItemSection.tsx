@@ -15,9 +15,15 @@ export const EditColumnItemSection = ({
 }) => {
     return (
         <div className={styles.editColumnItemSection}>
-            <div className={styles.editColumnItemSection__icon}>{icon && <IconWrapper icon={icon} />}</div>
+            <div className={styles.editColumnItemSection__icon}>
+                {icon && <IconWrapper icon={icon} />}
+            </div>
+
             <div className={styles.editColumnItemSection__content}>
-                <Label htmlFor={htmlFor} title={title} />
+                <div className={styles.editColumnItemSectionContent__label}>
+                    <Label htmlFor={htmlFor} title={title} />
+                </div>
+
                 {children}
             </div>
         </div>

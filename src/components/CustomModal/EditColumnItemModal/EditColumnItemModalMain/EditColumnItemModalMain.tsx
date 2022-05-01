@@ -8,6 +8,7 @@ import EditColumnItemDate from 'src/components/EditColumnItemDate/EditColumnItem
 import { EditColumnItemDescription } from 'src/components/EditColumnItemDescription/EditColumnItemDescription';
 import EditColumnItemChecklists from 'src/components/EditColumnItemChecklists/EditColumnItemChecklists';
 import { Title, DateRange, ShortText, CheckBox } from '@mui/icons-material';
+import { Divider } from '@mui/material';
 
 export const EditColumnItemModalMain = ({
     columnItem,
@@ -19,9 +20,11 @@ export const EditColumnItemModalMain = ({
     return (
         <div className={styles.editColumnItemModalContent__main}>
             {/* TITLE */}
-            <EditColumnItemSection title="Title" icon={<Title />}>
+            <EditColumnItemSection icon={<Title />}>
                 <EditColumnItemTitle columnItem={columnItem} />
             </EditColumnItemSection>
+
+            <Divider />
 
             {/* TAGS */}
             {/* {currentItem && currentItem.tags.length > 0 && (
@@ -55,10 +58,14 @@ export const EditColumnItemModalMain = ({
                 <EditColumnItemDate columnItem={columnItem} />
             </EditColumnItemSection>
 
+            <Divider light />
+
             {/* CHECKLISTS */}
             <EditColumnItemSection icon={<CheckBox />}>
                 <EditColumnItemChecklists columnItem={columnItem} />
             </EditColumnItemSection>
+
+            <Divider light />
 
             {/* DESCRIPTION */}
             <EditColumnItemSection title="Description" icon={<ShortText />}>

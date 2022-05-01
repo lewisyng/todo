@@ -1,8 +1,26 @@
 .editColumnItem__dates {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
 }
 
 .editColumnItem__date {
     margin-bottom: 1.25rem;
+}
+
+.editColumnItemDate__button {
+    color: var(--gray-900) !important;
+    border-color: var(--gray-900) !important;
+}
+
+.editColumnItemDate__button:hover {
+    background: none !important;
+}
+
+.editColumnItemDate__button svg {
+    fill: var(--gray-900) !important;
+}
+
+.editColumnItemDate__label {
+    margin-bottom: 0.5rem;
 }
