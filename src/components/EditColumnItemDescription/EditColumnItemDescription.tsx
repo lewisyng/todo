@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { database } from 'src/database';
 import { Button } from '@mui/material';
 import cn from 'classnames';
+import { Textarea } from '../ui/Input/Textarea/Textarea';
+import { TextareaWrapper } from '../ui/Input/Textarea/TextareaWrapper';
 
 export const EditColumnItemDescription = ({
     columnItem,
@@ -24,10 +26,9 @@ export const EditColumnItemDescription = ({
     };
 
     return (
-        <>
-            <textarea
+        <TextareaWrapper label="Description">
+            <Textarea
                 name="description"
-                rows={10}
                 className={cn(
                     styles.editColumnItem__description,
                     descriptionFocused &&
@@ -53,6 +54,6 @@ export const EditColumnItemDescription = ({
             >
                 Speichern
             </Button>
-        </>
+        </TextareaWrapper>
     );
 };
