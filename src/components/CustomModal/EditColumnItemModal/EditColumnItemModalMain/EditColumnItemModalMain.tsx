@@ -68,7 +68,7 @@ export const EditColumnItemModalMain = ({
             <Divider light />
 
             {/* DESCRIPTION */}
-            <EditColumnItemSection title="Description" icon={<ShortText />}>
+            <EditColumnItemSection icon={<ShortText />}>
                 <EditColumnItemDescription columnItem={columnItem} />
             </EditColumnItemSection>
         </div>

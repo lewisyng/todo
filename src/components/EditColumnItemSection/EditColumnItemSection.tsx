@@ -20,9 +20,11 @@ export const EditColumnItemSection = ({
             </div>
 
             <div className={styles.editColumnItemSection__content}>
-                <div className={styles.editColumnItemSectionContent__label}>
-                    <Label htmlFor={htmlFor} title={title} />
-                </div>
+                {title && (
+                    <div className={styles.editColumnItemSectionContent__label}>
+                        <Label htmlFor={htmlFor} title={title} />
+                    </div>
+                )}
 
                 {children}
             </div>
