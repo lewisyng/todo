@@ -1,0 +1,17 @@
+.typography--text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.typography--text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.typography--normal {
+    font-weight: 400;
+}
+
+.typography--medium {
+    font-weight: 500;
+}

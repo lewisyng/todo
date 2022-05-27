@@ -1,34 +1,25 @@
-import { FormEvent, FunctionComponent } from 'react';
-import styles from './Button.module.sass';
+import styles from './Button.module.css';
 import cn from 'classnames';
+import { ButtonProps } from './Button.types';
 
-type Props = {
-  children: React.ReactNode;
-  color?: 'default' | 'warning' | 'info';
-  fullWidth?: boolean;
-  type?: 'submit' | undefined;
-  className?: string;
-  variant?: 'default' | 'secondary' | 'tertiary' | 'disabled';
-  onClick?: (e?: FormEvent) => void;
-};
-
-const Button: FunctionComponent<Props> = ({
-  children,
-  fullWidth,
-  variant = 'default',
-  type,
-  onClick,
-}) => {
-  return (
-    <button
-      className={cn(styles.button, fullWidth && styles.button__fullWidth)}
-      data-type={type}
-      data-variant={variant}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  );
+const Button = ({
+    children,
+    variant = 'default',
+    type,
+    onClick,
+}: ButtonProps) => {
+    return (
+        <button
+            className={cn(
+                styles.button,
+                styles[`button--${type}`],
+                styles[`button--${variant}`]
+            )}
+            onClick={onClick}
+        >
+            {children}
+        </button>
+    );
 };
 
 export default Button;

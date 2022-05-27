@@ -3,6 +3,7 @@ import CustomModal from '../CustomModal';
 import CustomModalBody from '../CustomModalParts/CustomModalBody/CustomModalBody';
 import styles from './DeleteColumnModal.module.sass';
 import CustomModalActions from '../CustomModalParts/CustomModalActions/CustomModalActions';
+import { BasicModal } from '../BasicModal/BasicModal';
 
 export const DeleteColumnModal = ({
     open,
@@ -14,7 +15,23 @@ export const DeleteColumnModal = ({
     deleteColumn: () => void;
 }) => {
     return (
-        <CustomModal
+        <BasicModal
+            open={open}
+            onClose={handleClose}
+            header="Delete Column"
+            body="Are you sure you want to delete this column? This action cannot be undone."
+            mainActionTitle="Column löschen"
+            secondaryActionTitle="Abbrechen"
+            mainAction={deleteColumn}
+            secondaryAction={handleClose}
+        />
+    );
+};
+
+export default DeleteColumnModal;
+
+{
+    /* <CustomModal
             open={open}
             onClose={handleClose}
             className={styles.deleteColumn__modal}
@@ -35,8 +52,5 @@ export const DeleteColumnModal = ({
                     </Button>
                 </CustomModalActions>
             </div>
-        </CustomModal>
-    );
-};
-
-export default DeleteColumnModal;
+        </CustomModal> */
+}

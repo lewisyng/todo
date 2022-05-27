@@ -1,0 +1,46 @@
+.button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    padding: 8px 16px;
+    color: white;
+
+    font-weight: 500;
+    font-size: 1rem;
+    cursor: pointer;
+
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.1));
+    outline: 0;
+    background-color: rgba(white, 0.3);
+    border-radius: 6px;
+    transition: background-color 0.15s ease;
+}
+/* 
+.button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+} */
+
+.button--secondary {
+    background-color: transparent;
+    border: 1px solid #D0D5DD;
+    color: var(--grey-900);
+}
+
+.button--secondary:hover {
+    background-color: var(--gray-50);
+}
+
+.button--warning {
+    background-color: var(--red-500);
+}
+
+.button--warning:hover {
+    background-color: var(--red-400);
+}
+
+.button[data-variant='tertiary'] {
+    background-color: transparent;
+    color: black;
+    text-decoration: underline;
+}

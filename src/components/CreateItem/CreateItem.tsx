@@ -50,7 +50,7 @@ export const CreateItem = ({
                     />
                 </form>
             ) : (
-                <Button fullWidth onClick={() => setAddCardInputVisible(true)}>
+                <Button onClick={() => setAddCardInputVisible(true)}>
                     <AddIcon />
 
                     <span className={styles.button__text}>
