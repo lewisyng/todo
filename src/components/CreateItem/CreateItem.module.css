@@ -53,7 +53,14 @@
 
 .createItem * {
     color: var(--blue-800);
+    fill: var(--blue-800);
+    stroke: var(--blue-800);
 }
+
+.createItem button {
+    width: 100%;
+}
+
 .button__text {
     margin-left: 0.5rem;
 }

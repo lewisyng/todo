@@ -1,0 +1,37 @@
+.basicModal__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.basicModal {
+    padding: 1.5rem;
+    border-radius: 12px;
+    background-color: white;
+
+    text-align: center;
+    width: 400px;
+
+}
+
+.basicModal__icon {
+    padding-bottom: 1.25rem;
+}
+
+.basicModal__header {
+    padding-bottom: 0.5rem;
+}
+
+.basicModal__body {
+    padding-bottom: 2rem;
+    color: #667085;
+}
+
+.basicModal__actions {
+    display: flex;
+    gap: 0.75rem
+}
+
+.basicModal__actions > * {
+    flex: 1 0 0;
+}

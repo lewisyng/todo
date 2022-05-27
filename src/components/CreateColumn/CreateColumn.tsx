@@ -56,10 +56,7 @@ export const CreateColumn = () => {
                             </button>
                         </>
                     ) : (
-                        <Button
-                            fullWidth
-                            onClick={() => setInputFieldVisible(true)}
-                        >
+                        <Button onClick={() => setInputFieldVisible(true)}>
                             <AddIcon />
 
                             <span className={styles.button__text}>
