@@ -6,11 +6,11 @@ import CustomModalActions from '../CustomModalParts/CustomModalActions/CustomMod
 import { database } from 'src/database';
 import Input from '../../ui/Input/Input';
 import { Button } from '@mui/material';
+import { BasicModal } from '../BasicModal/BasicModal';
 
 export const CreateNewBoardModal = ({
     open,
     handleClose,
-    className,
 }: {
     open: boolean;
     handleClose: () => void;
@@ -18,9 +18,18 @@ export const CreateNewBoardModal = ({
 }) => {
     const [name, setName] = useState<string>('');
 
-    const createBoard = (e: FormEvent) => {
-        e.preventDefault();
+    const NewBoardForm = (
+        <form className={styles.newBoard__form}>
+            <Input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.currentTarget.value)}
+                autoFocus
+            />
+        </form>
+    );
 
+    const createBoard = () => {
         database.boards.add({
             title: name,
         });
@@ -30,35 +39,17 @@ export const CreateNewBoardModal = ({
     };
 
     return (
-        <CustomModal
+        <BasicModal
             open={open}
             onClose={handleClose}
-            title="Name your new board"
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-        >
-            <CustomModalBody>
-                <form onSubmit={createBoard}>
-                    <Input
-                        type="text"
-                        label="Neues Board"
-                        value={name}
-                        onChange={(e) => setName(e.currentTarget.value)}
-                        autoFocus
-                    />
-                </form>
-            </CustomModalBody>
-
-            <CustomModalActions>
-                <Button onClick={handleClose} variant="outlined">
-                    Anlegen
-                </Button>
-
-                <Button onClick={handleClose} variant="text">
-                    Abbrechen
-                </Button>
-            </CustomModalActions>
-        </CustomModal>
+            header="Create Column"
+            subheader="Type in a name for your new board."
+            body={NewBoardForm}
+            mainActionTitle="Create board"
+            secondaryActionTitle="Exit"
+            mainAction={createBoard}
+            secondaryAction={handleClose}
+        />
     );
 };
 

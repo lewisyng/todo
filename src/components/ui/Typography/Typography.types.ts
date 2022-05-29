@@ -29,4 +29,5 @@ export type TypographyProps = {
     weight?: TypographyWeights;
     className?: string;
     children: React.ReactNode;
+    uppercase?: boolean;
 };

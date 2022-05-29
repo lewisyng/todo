@@ -9,6 +9,7 @@ export const BasicModal = ({
     open,
     icon,
     header,
+    subheader,
     body,
     mainActionTitle = '',
     secondaryActionTitle = '',
@@ -20,7 +21,8 @@ export const BasicModal = ({
     open: boolean;
     icon?: React.ReactElement;
     header: React.ReactNode;
-    body: React.ReactNode;
+    subheader?: React.ReactNode;
+    body?: React.ReactNode;
     mainActionTitle?: string;
     secondaryActionTitle?: string;
     mainAction?: () => void;
@@ -46,21 +48,23 @@ export const BasicModal = ({
                     </Typography>
                 )}
 
-                {body && (
+                {subheader && (
                     <div className={styles.basicModal__body}>
                         <Typography
                             className={styles.basicModal__header}
                             size="text-sm"
                             weight="normal"
                         >
-                            {body}
+                            {subheader}
                         </Typography>
                     </div>
                 )}
 
+                {body && body}
+
                 <div className={styles.basicModal__actions}>
                     {secondaryAction && (
-                        <Button variant='secondary' onClick={secondaryAction}>
+                        <Button variant="secondary" onClick={secondaryAction}>
                             {secondaryActionTitle}
                         </Button>
                     )}

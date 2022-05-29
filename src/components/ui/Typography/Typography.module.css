@@ -15,3 +15,15 @@
 .typography--medium {
     font-weight: 500;
 }
+
+.typography--semibold {
+    font-weight: 600;
+}
+
+.typography--bold {
+    font-weight: 700;
+}
+
+.typography__uppercase {
+    text-transform: uppercase;
+}

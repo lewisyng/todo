@@ -23,11 +23,11 @@
 }
 
 .basicModal__body {
-    padding-bottom: 2rem;
     color: #667085;
 }
 
 .basicModal__actions {
+    margin-top: 2rem;
     display: flex;
     gap: 0.75rem
 }

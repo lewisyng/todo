@@ -10,7 +10,7 @@ export const Input = ({
     autoFocus,
 }: {
     type: string;
-    label: string;
+    label?: string;
     value: string;
     onChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
     onBlur?: () => void;
