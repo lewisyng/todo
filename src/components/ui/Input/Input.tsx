@@ -1,5 +1,6 @@
 import { TextField } from '@mui/material';
 import styles from './Input.module.sass';
+import cs from 'classnames';
 
 export const Input = ({
     type,
@@ -8,6 +9,7 @@ export const Input = ({
     onChange,
     onBlur,
     autoFocus,
+    className,
 }: {
     type: string;
     label?: string;
@@ -15,6 +17,7 @@ export const Input = ({
     onChange: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement>;
     onBlur?: () => void;
     autoFocus?: boolean;
+    className?: string;
 }) => {
     return type === 'text' ? (
         <TextField
@@ -23,13 +26,12 @@ export const Input = ({
             variant="standard"
             value={value}
             onChange={onChange}
+            onBlur={onBlur}
             autoFocus={autoFocus}
-            className={styles.input}
+            className={cs(className, styles.input)}
             fullWidth
         />
-    ) : (
-        null
-    );
+    ) : null;
 };
 
 export default Input;

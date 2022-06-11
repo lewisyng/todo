@@ -5,11 +5,12 @@ import { ButtonProps } from './Button.types';
 const Button = ({
     children,
     variant = 'default',
-    type,
+    type = 'button',
     onClick,
 }: ButtonProps) => {
     return (
         <button
+            type={type}
             className={cn(
                 styles.button,
                 styles[`button--${type}`],

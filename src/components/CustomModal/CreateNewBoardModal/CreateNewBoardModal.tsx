@@ -1,11 +1,7 @@
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import styles from './CreateNewBoardModal.module.sass';
-import CustomModal from '../CustomModal';
-import CustomModalBody from '../CustomModalParts/CustomModalBody/CustomModalBody';
-import CustomModalActions from '../CustomModalParts/CustomModalActions/CustomModalActions';
 import { database } from 'src/database';
 import Input from '../../ui/Input/Input';
-import { Button } from '@mui/material';
 import { BasicModal } from '../BasicModal/BasicModal';
 
 export const CreateNewBoardModal = ({

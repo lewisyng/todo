@@ -13,9 +13,7 @@ import { setCurrentBoardTitle } from '../../store/Board/board.actions';
 const App: FunctionComponent = () => {
     const boards = useLiveQuery(() => database.boards.toArray());
 
-    const currentBoardId = useAppSelector(
-        (state) => state.board.currentBoardId
-    );
+    const currentBoardId = useAppSelector((state) => state.board.currentBoardId);
 
     const dispatch = useAppDispatch();
 
@@ -24,9 +22,7 @@ const App: FunctionComponent = () => {
             const boards = await database.boards?.toArray();
 
             if (boards?.length) {
-                dispatch(
-                    setCurrentBoardId(boards[boards.length - 1].id as number)
-                );
+                dispatch(setCurrentBoardId(boards[boards.length - 1].id as number));
                 dispatch(setCurrentBoardTitle(boards[boards.length - 1].title));
             }
         };

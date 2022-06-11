@@ -1,0 +1,47 @@
+.newColumn {
+    position: relative;
+    height: 56px;
+    background: #dee3e7;
+    border-radius: 10px;
+    transition: height 0.3s ease;
+}
+
+.newColumn[data-color-scheme='dark'] {
+    background: var(--blue-400);
+}
+
+.newColumn__open {
+    height: 90px;
+}
+
+.newColumn__form {
+    padding: 8px;
+}
+
+.newColumn__formInput {
+    display: block;
+}
+
+.newColumn__formSubmit {
+    border: none;
+    outline: none;
+    padding: 8px 16px;
+    margin: 1rem 0 0 0;
+    background: rgba(white, 0.3);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.button__text {
+    margin-left: 0.5rem;
+}
+
+.newColumn button {
+    width: 100%;
+}
+
+.newColumn * {
+    color: var(--blue-800);
+    fill: var(--blue-800);
+    stroke: var(--blue-800);
+}
