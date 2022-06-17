@@ -1,24 +1,24 @@
+import { useState } from 'react';
 import styles from './ManageTagsModal.module.sass';
 import CustomModal from '../CustomModal';
 import { useLiveQuery } from 'dexie-react-hooks';
 import { database } from 'src/database';
-import { useState } from 'react';
 import CustomModalBody from '../CustomModalParts/CustomModalBody/CustomModalBody';
 import TagTile from 'src/components/TagTile/TagTile';
 import CreateTagModal from '../CreateTagModal/CreateTagModal';
 import EditTagModal from '../EditTagModal/EditTagModal';
+import { useModal } from 'src/hooks/useModal';
 
-export const ManageTagsModal = ({
-    open,
-    handleClose,
-}: {
-    open: boolean;
-    handleClose: () => void;
-}) => {
+export const ManageTagsModal = () => {
+    const { isModalOpen, closeModal } = useModal();
+    const { isModalOpen: isCreateModalOpen, closeModal: closeCreateModal } =
+        useModal();
+    const { isModalOpen: isEditModalOpen, closeModal: closeEditModal } =
+    useModal();
+    const [clickedTagTile, setClickedTagTile] = useState<number | null>(null);
+    
     const tags = useLiveQuery(() => database.tags.toArray());
     const [createTagModalOpen, setCreateTagModalOpen] = useState(false);
-
-    const [clickedTagTile, setClickedTagTile] = useState<number | null>(null);
 
     const addTile = () => {
         setCreateTagModalOpen(true);
@@ -31,8 +31,8 @@ export const ManageTagsModal = ({
     return (
         <>
             <CustomModal
-                open={open}
-                onClose={handleClose}
+                open={isModalOpen}
+                onClose={closeModal}
                 title="Manage your tags"
             >
                 <CustomModalBody>
@@ -68,7 +68,7 @@ export const ManageTagsModal = ({
             {clickedTagTile && (
                 <EditTagModal
                     id={clickedTagTile as number}
-                    open={Boolean(clickedTagTile)}
+                    open={!!clickedTagTile}
                     handleClose={() => setClickedTagTile(null)}
                 />
             )}

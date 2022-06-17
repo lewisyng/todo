@@ -8,7 +8,8 @@ export const Typography = ({
     weight = 'normal',
     className,
     children,
-    uppercase
+    uppercase,
+    style,
 }: TypographyProps) => {
     const ComponentType = as;
 
@@ -21,6 +22,7 @@ export const Typography = ({
                 uppercase && styles.typography__uppercase,
                 className
             )}
+            style={style}
         >
             {children}
         </ComponentType>

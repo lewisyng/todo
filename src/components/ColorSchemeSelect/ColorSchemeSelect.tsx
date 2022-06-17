@@ -1,33 +1,30 @@
 import { Button } from '@mui/material';
-import { useState, useEffect } from 'react';
 import { setColorScheme } from 'src/store/Config/config.actions';
 import ColorSchemesModal from '../CustomModal/ColorSchemesModal/ColorSchemesModal';
 import styles from './ColorSchemeSelect.module.css';
 import { useAppDispatch } from '../../hooks/redux';
+import { useModal } from 'src/hooks/useModal';
 
 export const ColorSchemeSelect = () => {
-    const [colorSchemesModalOpen, setColorSchemesModalOpen] = useState(false);
-
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        
-    })
+    const { isModalOpen, openModal, closeModal } = useModal();
+    const dispatch = useAppDispatch();
 
     return (
         <div className={styles.colorSchemeSelect}>
             <Button
-                onClick={() => setColorSchemesModalOpen(true)}
+                onClick={openModal}
                 variant="outlined"
-                sx={{color: "white", border: "1px solid white"}}
+                sx={{ color: 'white', border: '1px solid white' }}
             >
                 Colorschemes
             </Button>
 
             <ColorSchemesModal
-                open={colorSchemesModalOpen}
-                onSelect={colorScheme => dispatch(setColorScheme(colorScheme))}
-                handleClose={() => setColorSchemesModalOpen(false)}
+                open={isModalOpen}
+                onSelect={(colorScheme) =>
+                    dispatch(setColorScheme(colorScheme))
+                }
+                handleClose={closeModal}
             />
         </div>
     );
